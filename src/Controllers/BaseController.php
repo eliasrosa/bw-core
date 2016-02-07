@@ -8,6 +8,10 @@ use Illuminate\Routing\Controller;
 
 class BaseController extends Controller
 {
+    //
+    private $namespace_view_ = null;
+
+    //
     public function makeViewContent($view, $layout = null){
 
         //
@@ -15,7 +19,7 @@ class BaseController extends Controller
 
         //
         if(!preg_match('/\:\:/',$view)){
-            $view = $this->component_namespace . '::' . $view;
+            $view = $this->namespace_view_ . '::' . $view;
         }
 
         //
@@ -23,10 +27,17 @@ class BaseController extends Controller
         return $this->layout->content;
     }
 
+    //
+    public function setViewNamespace($namespace){
+        $this->namespace_view_ = $namespace;
+    }
+
+    //
     public function getLayout(){
         return $this->layout;
     }
 
+    //
     public function makeLayout($view = null){
 
         if(is_null($view)){

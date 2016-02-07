@@ -7,7 +7,9 @@ use BW\Controllers\BaseController;
 class AdminController extends BaseController
 {
     //
-    protected $component_namespace = 'BW\Admin';
+    public function __construct(){
+        $this->setViewNamespace('BW\Admin');
+    }
 
     //
     public function dashboard(){
