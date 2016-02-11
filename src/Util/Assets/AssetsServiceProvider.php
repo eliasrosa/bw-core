@@ -14,7 +14,8 @@ class AssetsServiceProvider extends ServiceProvider
         CoreConfig::register('bw.util.assets',  __DIR__ . '/config.php');
 
         // registra as rotas
-        CoreRouter::register(__DIR__ . '/routes.php');
+        CoreRouter::register(__DIR__ . '/routes-auth.php', 'auth');
+        CoreRouter::register(__DIR__ . '/routes-guest.php', 'guest');
     }
 
     public function map(){}

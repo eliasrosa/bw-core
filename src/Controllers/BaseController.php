@@ -47,7 +47,6 @@ class BaseController extends Controller
         $this->layout = View::make($view)
             ->with([
                 'menu' => Layout\MenuController::makeLayout(),
-                'busca' =>  Layout\BuscaController::makeLayout(),
                 'info' =>  Layout\InfoController::makeLayout(),
             ]
         );

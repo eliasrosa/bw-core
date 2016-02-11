@@ -1,6 +1,6 @@
 <?php
 
-foreach (BW\Core\Assets::getAll() as $i) {
+foreach (BW\Core\Assets::getAll($middleware) as $i) {
 
     Route::get('assets/' . $i['prefix'] . '/{url}.{ext}', function() use ($i) {
 

@@ -1,6 +1,12 @@
 <?php
 
 return [
+
+    /*
+    * Titulo do painel
+    */
+    'titulo' => 'Administracão',
+
     /*
     * URL do painel, é muito recomendável a troca dessa variável
     * para algo mais especifico ao projeto
@@ -11,6 +17,11 @@ return [
     * Views
     */
     'views' => [
+
+        /*
+        * View login
+        */
+        'login' => 'BW\Admin::login',
 
         /*
         * View layout

@@ -4,7 +4,7 @@ namespace BW\Core;
 
 abstract class Assets
 {
-	static public function register($prefix, $path)
+	static public function register($prefix, $path, $middleware = 'auth')
 	{
 		if(SELF::get($prefix) !== false){
 			return false;
@@ -16,14 +16,29 @@ abstract class Assets
 		$config[] = [
 			'prefix' => $prefix,
 			'path' => $path,
+			'middleware' => $middleware,
 		];
 
 		\Config::set($key, $config);
 	}
 
-	static public function getAll()
+	static public function getAll($middleware = 'all')
 	{
-		return \Config::get('bw.util.assets.repositories', []);
+
+		$all = \Config::get('bw.util.assets.repositories', []);
+
+		if($middleware == 'all'){
+			return $all;
+		}
+
+		$list = [];
+		foreach ($all as $i) {
+			if($i['middleware'] == $middleware){
+				$list[] = $i;
+			}
+		}
+
+		return $list;
 	}
 
 	static public function get($prefix)
