@@ -37,6 +37,9 @@ class BwCoreServiceProvider extends ServiceProvider
         //
         $router->group([
             'prefix' => Config::get('bw.admin.url'),
+            'middleware' => [
+                'bw.csrf'
+            ],
         ], function ($router) {
 
             // carega rotas middleware 'guest'
@@ -53,7 +56,10 @@ class BwCoreServiceProvider extends ServiceProvider
         //
         $router->group([
             'prefix' => Config::get('bw.admin.url'),
-            'middleware' => 'auth',
+            'middleware' => [
+                'bw.auth',
+                'bw.csrf'
+            ],
         ], function ($router) {
 
             // carega rotas middleware 'auth'
