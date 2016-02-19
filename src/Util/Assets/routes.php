@@ -22,9 +22,9 @@ foreach (BW\Core\Assets::getAll($middleware) as $i) {
         $controller = app()->make($controller_name, $params);
 
         //
-        return \Cache::remember(Request::url(), Config::get('bw.assets.cache', 0), function() use ($controller){
+        //return \Cache::remember(Request::url(), Config::get('bw.assets.cache', 0), function() use ($controller){
             return $controller->callAction('init', []);
-        });
+        //});
 
     })->where([
         'url' => '[a-zA-Z0-9\/\.\_\-]+',
