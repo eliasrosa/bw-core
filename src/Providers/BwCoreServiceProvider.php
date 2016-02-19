@@ -18,7 +18,18 @@ class BwCoreServiceProvider extends ServiceProvider
         parent::boot($router);
 
         //
-        $router->middleware('auth', 'BW\Middleware\Authenticate');
+        $this->publishes([
+            __DIR__ . '/../Config/auth.php' => config_path('auth.php'),
+        ], 'config');
+
+        $this->publishes([
+            __DIR__ . '/../Database/Migrations/' => database_path('migrations'),
+            __DIR__ . '/../Database/Seeds/' => database_path('seeds')
+        ], 'migrations');
+
+        //
+        $router->middleware('bw.auth', \BW\Middleware\Authenticate::class);
+        $router->middleware('bw.csrf', \BW\Middleware\VerifyCsrfToken::class);
     }
 
     public function register()
@@ -104,6 +115,9 @@ class BwCoreServiceProvider extends ServiceProvider
 
         CoreAssets::register('sb-admin/bower_components/jquery/dist',
             __DIR__ . '/../Assets/vendor/sb-admin-2-1.0.8/bower_components/jquery/dist', 'guest');
+
+        CoreAssets::register('login',
+            __DIR__ . '/../Assets/login', 'guest');
     }
 
     private function registerServiceProviders(){

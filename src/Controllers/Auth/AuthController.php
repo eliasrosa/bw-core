@@ -2,56 +2,61 @@
 
 namespace BW\Controllers\Auth;
 
-use App\User;
-use Config;
+use Auth;
 use View;
+use Config;
+use Cookie;
 use Validator;
+use BW\Mondels\Usuario;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
 
 class AuthController extends Controller
 {
-
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    public function login()
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
+        if (Auth::check()) {
+            return redirect(config('bw.admin.url'));
+        }
+
+        return View::make(Config::get('bw.admin.views.login'));
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
+    public function logout()
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        Auth::logout();
+
+        //
+        return redirect(config('bw.admin.url') . '/login');
     }
 
+    public function authenticate(Request $request)
+    {
+        $email    = $request->input('email');
+        $password = $request->input('password');
+        $remember = $request->input('remember');
 
-    public function getLogin(){
+        //
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            $response = redirect(config('bw.admin.url'));
 
-        $view = Config::get('bw.admin.views.login');
+            if($remember ===  '1'){
+                $cookie = cookie()->forever('bw_login_remember', $email);
+            }else{
+                $cookie = cookie()->forget('bw_login_remember');
+            }
 
-        return View::make($view);
+            // set/remove cookie
+            $response->withCookie($cookie);
+
+        }else{
+            $response = redirect(config('bw.admin.url') . '/login')
+                ->with('mensagem', 'Usuário e/ou senha inválidos!')
+                ->withInput($request->except('password'));
+        }
+
+        //
+        return $response;
     }
 
 }

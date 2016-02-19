@@ -1,0 +1,21 @@
+body {
+    background-color: #35679A;
+}
+
+.logo {
+    margin: 10% auto 0 auto;
+}
+
+.login-panel {
+    margin: 10% auto 0 auto;
+    width: 368px;
+}
+
+
+@media (max-width: 398px){
+
+    .login-panel {
+        width: 100%;
+    }
+
+}

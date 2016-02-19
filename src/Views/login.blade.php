@@ -16,6 +16,7 @@
 
     <!-- Custom CSS -->
     <link href="{{ url(config('bw.admin.url')) }}/assets/sb-admin/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="{{ url(config('bw.admin.url')) }}/assets/login/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="{{ url(config('bw.admin.url')) }}/assets/sb-admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -33,27 +34,40 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-xs-12 col-sm-6 col-sm-offset-3 ">
+
+                <img class="img-responsive logo" src="{{ url(config('bw.admin.url')) }}/assets/login/logo.jpg">
+
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title">Login</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+
+                        <form role="form" method="POST" action="{{ url(config('bw.admin.url')) }}/login">
+                            {!! csrf_field() !!}
+
+                            @if (session('mensagem'))
+                                <div class="alert alert-{{ session('mensagem_tipo', 'danger') }} alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    {{ session('mensagem') }}
+                                </div>
+                            @endif
+
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="E-mail" name="email" type="email" value="{{ old('email', Cookie::get('bw_login_remember')) }}" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                        <input name="remember" type="checkbox" value="1"{{ Cookie::has('bw_login_remember') ? ' checked' : '' }}>Lembrar e-mail
                                     </label>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="Entrar">
                             </fieldset>
                         </form>
                     </div>
