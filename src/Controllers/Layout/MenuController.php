@@ -11,6 +11,6 @@ class MenuController
     static public function makeLayout(){
 
         //
-        return View::make(Config::get('bw.admin.views.menu'));
+        return View::make(Config::get('bw.admin.views.layout.menu'));
     }
 }

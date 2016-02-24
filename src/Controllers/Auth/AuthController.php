@@ -5,32 +5,21 @@ namespace BW\Controllers\Auth;
 use Auth;
 use View;
 use Config;
-use Cookie;
-use Validator;
-use BW\Mondels\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class AuthController extends Controller
 {
-    public function login()
+    public function getLogin()
     {
         if (Auth::check()) {
             return redirect(config('bw.admin.url'));
         }
 
-        return View::make(Config::get('bw.admin.views.login'));
+        return View::make(Config::get('auth.views.login'));
     }
 
-    public function logout()
-    {
-        Auth::logout();
-
-        //
-        return redirect(config('bw.admin.url') . '/login');
-    }
-
-    public function authenticate(Request $request)
+    public function postLogin(Request $request)
     {
         $email    = $request->input('email');
         $password = $request->input('password');
@@ -58,5 +47,14 @@ class AuthController extends Controller
         //
         return $response;
     }
+
+    public function getLogout()
+    {
+        Auth::logout();
+
+        //
+        return redirect(config('bw.admin.url') . '/login');
+    }
+
 
 }

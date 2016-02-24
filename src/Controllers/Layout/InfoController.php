@@ -12,7 +12,7 @@ class InfoController
     static public function makeLayout(){
 
         //
-        return View::make(Config::get('bw.admin.views.info'))
+        return View::make(Config::get('bw.admin.views.layout.info'))
             ->with('email', Auth::user()->nome);
     }
 }

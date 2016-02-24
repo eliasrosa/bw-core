@@ -41,7 +41,7 @@ class BaseController extends Controller
     public function makeLayout($view = null){
 
         if(is_null($view)){
-            $view = Config::get('bw.admin.views.layout');
+            $view = Config::get('bw.admin.views.layout.template');
         }
 
         $this->layout = View::make($view)
