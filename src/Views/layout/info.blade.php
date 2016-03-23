@@ -1,6 +1,6 @@
 <ul class="nav navbar-top-links navbar-right">
     <li>
-        {{ $email }}
+        <a href="#"><i class="fa fa-user fa-fw"></i> {{ $email }}</a>
     </li>
     <li>
         <a href="{{ url(config('bw.admin.url')) }}/configuracoes"><i class="fa fa-gear fa-fw"></i> Configurações</a>
