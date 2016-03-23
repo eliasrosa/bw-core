@@ -1,0 +1,25 @@
+
+{
+    "name": "eliasrosa/bw-core",
+    "description": "BW é um back-end desenvolvido para Lavavel 5.1",
+    "keywords": ["bw", "laravel", "baseweb",  "back-end", "eliasrosa"],
+    "homepage": "https://github.com/eliasrosa/safevalue",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Elias da Rosa",
+            "email": "elias@eliasdarosa.com.br",
+            "homepage": "http://www.eliasdarosa.com.br/"
+        }
+    ],
+    "require": {
+        "eliasrosa/safevalue": "1.0.*",
+        "zofe/rapyd": "2.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "BW\\": "src/"
+        }
+    },
+}
+
