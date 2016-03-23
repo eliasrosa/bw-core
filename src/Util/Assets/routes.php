@@ -2,7 +2,8 @@
 
 foreach (BW\Core\Assets::getAll($middleware) as $i) {
 
-    Route::get('assets/' . $i['prefix'] . '/{url}.{ext}', function() use ($i) {
+    $prefix = ($middleware == 'guest') ? $i['prefix'] : 'assets/' . $i['prefix'];
+    Route::get($prefix . '/{url}.{ext}', function() use ($i) {
 
         $url = Request::route('url');
         $ext = Request::route('ext');

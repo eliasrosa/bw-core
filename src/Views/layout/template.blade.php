@@ -31,6 +31,8 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    {!! Rapyd::styles() !!}
+
 </head>
 
 <body>
@@ -49,8 +51,6 @@
                 <a class="navbar-brand" href="{{ url(config('bw.admin.url')) }}">{{ config('bw.admin.titulo') }}</a>
             </div>
             <!-- /.navbar-header -->
-
-
 
             {!! $info !!}
 
@@ -86,6 +86,8 @@
     <!-- Custom Theme JavaScript -->
     <script src="{{ url(config('bw.admin.url')) }}/assets/sb-admin/dist/js/sb-admin-2.js"></script>
 
+    <!-- Rapyd JavaScript -->
+    {!! Rapyd::scripts() !!}
 </body>
 
 </html>

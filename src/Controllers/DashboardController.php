@@ -4,7 +4,7 @@ namespace BW\Controllers;
 
 use BW\Controllers\BaseController;
 
-class AdminController extends BaseController
+class DashboardController extends BaseController
 {
     //
     public function __construct(){
