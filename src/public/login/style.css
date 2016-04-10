@@ -1,0 +1,12 @@
+body { background-color: #35679A; }
+
+.logo { margin: 10% auto 0 auto; }
+.login-panel { margin: 10% auto 0 auto; width: 368px; }
+.login-panel h4 { margin-top: 20px; }
+.link-footer { text-align: center; margin-top: 20px; }
+.link-footer .link { color: #FFFFFF; }
+.link-footer .link:hover { color: #FFFFFF; }
+
+@media (max-width: 398px){
+    .login-panel { width: 100%; }
+}
