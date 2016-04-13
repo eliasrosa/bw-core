@@ -38,7 +38,7 @@ class RememberController extends BaseController
             ];
 
             //
-            \Mail::send('BW::login.email', $dados, function ($mail) use($email)  {
+            \Mail::send(config('bw.views.login.email'), $dados, function ($mail) use($email)  {
                 $mail->to($email);
                 $mail->subject(config('auth.email.remember.subject'));
             });
