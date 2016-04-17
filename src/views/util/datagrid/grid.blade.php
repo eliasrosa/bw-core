@@ -1,22 +1,5 @@
 <div class="rpd-datagrid table-responsive">
 
-    <div class="row" style="margin: 0;">
-
-        <div class="col-md-7">
-            {!! $filter or '' !!}
-        </div>
-
-        <div class="col-md-5">
-            @include('rapyd::toolbar', [
-                'label' => $label,
-                'buttons_right' => $buttons['TR']
-            ])
-        </div>
-
-    </div>
-
-    <hr style="margin: 0;">
-
     <table{!! $dg->buildAttributes() !!}>
         <thead>
         <tr>
@@ -56,7 +39,6 @@
         @endforeach
         </tbody>
     </table>
-
 
     <div class="btn-toolbar" role="toolbar">
         @if ($dg->havePagination())

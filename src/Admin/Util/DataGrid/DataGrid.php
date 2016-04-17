@@ -10,7 +10,7 @@ class DataGrid extends ZofeDataGrid
 
     public function build($view = '')
     {
-        ($view == '') and $view = 'BW::datagrid';
+        ($view == '') and $view = 'BW::util.datagrid.grid';
         return parent::build($view);
     }
 

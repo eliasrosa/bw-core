@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -10,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{ config('bw.admin.titulo') }}</title>
+    <title>{{ config('bw.titulo') }}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/sb-admin/bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -32,7 +31,11 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Rapyd Style -->
     {!! Rapyd::styles() !!}
+
+    <!-- Custom Template head -->
+    @yield('style', '')
 
 </head>
 
@@ -49,7 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url(config('bw.admin.url')) }}">{{ config('bw.admin.titulo') }}</a>
+                <a class="navbar-brand" href="{{ url(config('bw.url')) }}">{{ config('bw.titulo') }}</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -57,11 +60,14 @@
 
             @include('BW::composers.menu')
 
+        <!-- /.navbar-static-side -->
+        </nav>
+
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div id="content" class="col-lg-12">
                         @yield('content')
                     </div>
                     <!-- /.col-lg-12 -->
@@ -90,6 +96,9 @@
 
     <!-- Rapyd JavaScript -->
     {!! Rapyd::scripts() !!}
+
+    <!-- Custom Template JavaScript -->
+    @yield('scripts', '')
 </body>
 
 </html>
