@@ -31,8 +31,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- Rapyd Style -->
-    {!! Rapyd::styles() !!}
+    {!! \BW\Admin\Helpers\Html::buildStyles() !!}
 
     <!-- Custom Template head -->
     @yield('style', '')
@@ -94,8 +93,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/sb-admin/dist/js/sb-admin-2.js') }}"></script>
 
-    <!-- Rapyd JavaScript -->
-    {!! Rapyd::scripts() !!}
+    {!! \BW\Admin\Helpers\Html::buildJavaScripts() !!}
 
     <!-- Custom Template JavaScript -->
     @yield('scripts', '')
