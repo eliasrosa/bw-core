@@ -1,4 +1,4 @@
-<div class="rpd-datagrid table-responsive">
+<div class="table-responsive">
 
     <table{!! $dg->buildAttributes() !!}>
         <thead>
@@ -46,7 +46,7 @@
                 {!! $dg->links() !!}
             </div>
             <div class="pull-right">
-                {!! $dg->totalRows() !!}
+                {!! $dg->totalRows() !!} Registro(s)
             </div>
         @endif
     </div>
