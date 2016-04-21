@@ -1,6 +1,6 @@
 @extends('BW::util.form.field')
 
 @section('field')
-    <input name="{{ $name }}" type="{{ $type }}"  {!! $attributes_html !!}>
-    <input name="{{ $name }}_confirmation" type="{{ $type }}" class="{{ $attributes['class'] }}" style="margin-top: 10px;" placeholder="Repita novamente">
+    <input name="{{ $field->name }}" type="{{ $field->type }}" {!! $field->getAttributes() !!}>
+    <input name="{{ $field->name }}_confirmation" type="{{ $field->type }}" class="{{ $field->attributes['class'] }}" style="margin-top: 10px;" placeholder="Repita novamente">
 @overwrite

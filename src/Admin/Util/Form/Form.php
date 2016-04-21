@@ -2,15 +2,14 @@
 
 namespace BW\Admin\Util\Form;
 
+use BW\Admin\Helpers\Html;
 use BW\Admin\Util\Form\Field;
 
 class Form
 {
     //
-    public $view_tpl = 'BW::util.form.form';
     public $fields_static = false;
     public $fields = [];
-    public $view;
     public $model;
 
     //
@@ -27,10 +26,13 @@ class Form
     //
     public function add($name, $label, $type)
     {
-        if (strpos($type, "\\") !== false) {
+        //
+        $config_class = config('bw.form.field.' . $type, false);
+
+        if($config_class){
+            $field_class = $config_class;
+        }else{
             $field_class = $type;
-        } else {
-            $field_class = '\BW\Admin\Util\Form\Field\\' .  ucfirst($type);
         }
 
         //instancing
@@ -51,7 +53,7 @@ class Form
         }
 
         // is static
-        $field_obj->is_static = $this->fields_static;
+        $field_obj->static = $this->fields_static;
 
         // add array
         $this->fields[$name] = $field_obj;
@@ -82,47 +84,9 @@ class Form
     }
 
     //
-    public function render($field_name = false)
+    public function getAttributes()
     {
-        // render this form
-        if($field_name === false){
-            return $this->renderForm();
-        }
-
-        $field = $this->field($field_name);
-        return $field->render();
+        return Html::buildAttributes($this->attributes);
     }
-
-    //
-    public function renderForm()
-    {
-        return $this->view->render();
-    }
-
-    //
-    public function buildFields()
-    {
-        foreach ($this->fields as $field_obj) {
-            $field_obj->build();
-        }
-    }
-
-    //
-    public function build($view = '')
-    {
-        //
-        $view = ($view != '') ? $view : $this->view_tpl;
-
-        //
-        $this->buildFields();
-
-        //
-        $this->view = view($view)->with([
-            'fields' => $this->fields,
-        ]);
-
-        return $this->view;
-    }
-
 
 }

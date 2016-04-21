@@ -1,8 +1,10 @@
 <form role="form" class="col-lg-6">
 
-    @foreach($fields as $field)
-        {!! $field->render() !!}
+
+    @foreach($form->fields as $field)
+        @include($field->view, ['field' => $field])
     @endforeach
+
 
     <p>-----------------------------------------------------</p>
 

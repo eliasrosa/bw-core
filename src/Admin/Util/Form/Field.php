@@ -2,17 +2,18 @@
 
 namespace BW\Admin\Util\Form;
 
+use BW\Admin\Helpers\Html;
+
 class Field
 {
-    public $view;
-    public $view_tpl = 'BW::util.form.field';
+    public $view = 'BW::util.form.field';
+    public $type = 'field';
     public $name = '';
     public $label = '';
     public $value = '';
-    public $type = 'field';
-    public $help_block = '';
-    public $is_static = false;
     public $model;
+    public $static = false;
+    public $help_block = '';
     public $attributes = [
         'class' => 'form-control'
     ];
@@ -38,14 +39,9 @@ class Field
     }
 
     //
-    public function buildAttributes()
+    public function getAttributes()
     {
-        $html = '';
-        foreach ($this->attributes as $key => $value) {
-            $html .= sprintf(' %s="%s"', $key, $value);
-        }
-
-        return $html;
+        return Html::buildAttributes($this->attributes);
     }
 
     //
@@ -59,16 +55,9 @@ class Field
     //
     public function setStatic($value)
     {
-        $this->is_static = $value;
+        $this->static = $value;
 
         return $this;
-    }
-
-
-    //
-    public function render()
-    {
-        return $this->view->render();
     }
 
     //
@@ -79,27 +68,5 @@ class Field
         }
 
         return $this->value;
-    }
-
-
-    //
-    public function build($view = '')
-    {
-        //
-        $view = ($view != '') ? $view : $this->view_tpl;
-
-        //
-        $this->view = view($view)->with([
-            'name' => $this->name,
-            'type' => $this->type,
-            'label' => $this->label,
-            'value' => $this->getValue(),
-            'attributes' => $this->attributes,
-            'attributes_html' => $this->buildAttributes(),
-            'help_block' => $this->help_block,
-            'is_static' => $this->is_static,
-        ]);
-
-        return $this->view;
     }
 }

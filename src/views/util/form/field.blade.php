@@ -1,10 +1,9 @@
 <div class="form-group">
-    <label>{{ $label }}</label>
-    @if($is_static)
-        <div class="form-control-static">{{ $value }}</div>
+    <label>{{ $field->label }}</label>
+    @if($field->static)
+        <div class="form-control-static">{{ $field->getValue() }}</div>
     @else
         @yield('field')
     @endif
-    <div class="help-block">{{ $help_block }}</div>
+    <div class="help-block">{{ $field->help_block }}</div>
 </div>
-

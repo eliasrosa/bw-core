@@ -4,6 +4,6 @@
 
     <h1 class="page-header">@yield('title')</h1>
 
-    {!! $form->render() !!}
+    @include('BW::util.form.form')
 
 @endsection
