@@ -47,27 +47,30 @@ class UsuariosController extends BaseController
     //
     public function create(){
 
-        $form = new Form(Usuario::find(2));
-        $form->add('nome', 'Nome', 'text')
-            ->addAttribute('placeholder', 'Seu nome')
-            ->setHelpBlock('Seu nome é muito importante!');
+        $form = new Form(Usuario::find(1));
 
-        $form->add('usuario', 'Usuário', 'text')
-            ->addAttribute('placeholder', 'Usuário');
+        $form->addGroup(function() use ($form){
+            $form->add('nome', 'Nome', 'Text')
+                ->setHelpBlock('Seu nome é muito importante!');
 
-        $form->add('email', 'E-mail', 'email')
-            ->setStatic(true);
+            $form->add('nome2', 'Nome2', 'Text');
+            $form->add('usuario', 'Usuário', 'Text');
+        }, 'Dados iniciais');
 
-        $form->add('foto', 'Foto', 'file');
-        $form->add('senha', 'Senha', 'password');
-        $form->add('senha2', 'Senha de operador', 'password');
+        $form->addGroup(function() use ($form){
+            $form->add('apelido', 'Apelido', 'Text');
+            $form->add('ref', 'Referencia', 'Text');
+        }, 'Painel 2');
 
-        $form->build();
+        $form->addGroup(function() use ($form){
+            $form->add('foto', 'Foto', 'File');
+            $form->add('senha1', 'Senha', 'Password');
+            $form->add('senha2', 'Senha de operador', 'Password');
+        }, 'Painel 3', 12);
 
-        return $this->view('usuarios.create')->with([
-            'form' => $form
-        ]);
 
+        //
+        return $this->view('usuarios.create')->with(compact('form'));
     }
 
 }

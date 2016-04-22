@@ -9,7 +9,8 @@ class Form
 {
     //
     public $fields_static = false;
-    public $fields = [];
+    public $group_id = 0;
+    public $groups = [];
     public $model;
 
     //
@@ -21,6 +22,24 @@ class Form
         if (is_object($source) && is_a($source, "\Illuminate\Database\Eloquent\Model")) {
             $this->model = $source;
         }
+    }
+
+    //
+    public function addGroup($callback, $title = null, $col = 6, $class = 'default')
+    {
+        // create
+        $group = new \stdClass();
+        $group->fields = [];
+        $group->title = $title;
+        $group->class = $class;
+        $group->col = $col;
+        $this->groups[$this->group_id] = $group;
+
+        // run fields add
+        $callback();
+
+        // next group
+        $this->group_id++;
     }
 
     //
@@ -55,8 +74,8 @@ class Form
         // is static
         $field_obj->static = $this->fields_static;
 
-        // add array
-        $this->fields[$name] = $field_obj;
+        // add field in group
+        $this->groups[$this->group_id]->fields[] = $field_obj;
 
         // return obj
         return $field_obj;
