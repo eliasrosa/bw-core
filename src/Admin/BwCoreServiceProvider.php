@@ -40,6 +40,13 @@ class BwCoreServiceProvider extends ServiceProvider
         $this->app->register('BW\Admin\Providers\DataGridServiceProvider');
         $this->app->register('BW\Admin\Providers\FlashServiceProvider');
 
+        //
+        \App::bind('Illuminate\Routing\ResourceRegistrar', function ()
+        {
+            return \App::make('BW\Admin\Providers\ResourceNoPrefixRegistrar');
+        });
+
+
     }
 
     public function map(Router $router)
