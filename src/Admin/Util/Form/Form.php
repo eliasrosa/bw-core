@@ -12,16 +12,48 @@ class Form
     public $group_id = 0;
     public $groups = [];
     public $model;
+    public $attributes = [
+        'method' => 'POST'
+    ];
 
     //
-    protected $method = 'POST';
-
-    //
-    public function __construct($source = '')
+    public function __construct($source = null)
     {
         if (is_object($source) && is_a($source, "\Illuminate\Database\Eloquent\Model")) {
             $this->model = $source;
         }
+    }
+
+    //
+    public function setAction($route)
+    {
+        $this->addAttribute('action', $route);
+
+        return $this;
+    }
+
+    //
+    public function setMethod($method)
+    {
+        // GET', 'HEAD', 'PUT', 'PATCH', 'DELETE
+        switch (strtoupper($method)) {
+            case 'PUT':
+                //$this->add('_method', null, 'Hidden')->setValue('PUT');
+                $this->addAttribute('method', 'POST');
+                break;
+
+             case 'PATCH':
+                //$this->add('_method', null, 'Hidden')->setValue('PATCH');
+                $this->addAttribute('method', 'POST');
+                break;
+
+             case 'DELETE':
+                //$this->add('_method', null, 'Hidden')->setValue('DELETE');
+                $this->addAttribute('method', 'POST');
+                break;
+        }
+
+        return $this;
     }
 
     //
@@ -66,9 +98,12 @@ class Form
             throw new \InvalidArgumentException('Third argument («type») must point to class inherited Field class');
         }
 
-        //
+        // is upload
         if ($field_obj->type == "file") {
-            $this->multipart = true;
+            $this->addAttribute([
+                'enctype' => 'multipart/form-data',
+                'method'  => 'POST'
+            ]);
         }
 
         // is static
@@ -82,24 +117,29 @@ class Form
     }
 
     //
-    public function remove($fieldname)
-    {
-        if (isset($this->fields[$fieldname]))
-            unset($this->fields[$fieldname]);
-
-        return $this;
-    }
-
-    //
     public function field($field_name)
     {
-        if (isset($this->fields[$field_name])) {
-            $field = $this->fields[$field_name];
-
-            return $field;
+        foreach ($this->groups as $group) {
+            foreach ($groups->fields as $name => $field_obj) {
+                if ($name == $field_name) {
+                    return $field_obj;
+                }
+            }
         }
 
         return false;
+    }
+
+    //
+    public function addAttribute($attr, $value = '')
+    {
+        if(is_array($attr)){
+            $this->attributes = array_merge($this->attributes, $attr);
+        }else{
+            $this->attributes[$attr] = $value;
+        }
+
+        return $this;
     }
 
     //

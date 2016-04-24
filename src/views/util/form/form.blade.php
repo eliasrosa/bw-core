@@ -1,7 +1,11 @@
-<form role="form" method="">
+{{ \BW\Admin\Helpers\Html::addCSS(asset('/packages/eliasrosa/bw-core/util/form/form.css')) }}
+{{ \BW\Admin\Helpers\Html::addJS(asset('/packages/eliasrosa/bw-core/util/form/form.js')) }}
+
+<form role="form"{!! $form->getAttributes() !!}>
+    {!! csrf_field() !!}
 
     @foreach($form->groups as $g)
-        <div class="col-lg-{{ $g->col }}">
+        <div class="groups col-lg-{{ $g->col }}">
             <div class="panel panel-{{ $g->class }}">
                 @if($g->title)
                     <div class="panel-heading">
@@ -17,7 +21,7 @@
         </div>
     @endforeach
 
-    <div class="col-lg-12">
+    <div class="toolbar-submit col-lg-12">
         <button type="submit" class="btn btn-primary">Salvar</button>
     </div>
 </form>

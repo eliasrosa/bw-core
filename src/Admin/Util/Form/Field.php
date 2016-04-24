@@ -30,9 +30,9 @@ class Field
     public function addAttribute($attr, $value = '')
     {
         if(is_array($attr)){
-            $this->atributes = array_merge($this->atributes, $attr);
+            $this->attributes = array_merge($this->attributes, $attr);
         }else{
-            $this->atributes[$attr] = $value;
+            $this->attributes[$attr] = $value;
         }
 
         return $this;
@@ -67,6 +67,6 @@ class Field
             $this->value = $this->model->{$this->name};
         }
 
-        return $this->value;
+        return old($this->name, $this->value);
     }
 }

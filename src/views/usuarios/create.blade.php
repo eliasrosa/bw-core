@@ -1,4 +1,4 @@
-@extends('BW::template.create')
+@extends('BW::template.form')
 
 @section('title', 'Novo usuário')
 

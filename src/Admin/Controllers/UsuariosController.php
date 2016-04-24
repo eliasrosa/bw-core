@@ -2,6 +2,8 @@
 
 namespace BW\Admin\Controllers;
 
+use Validator;
+use Illuminate\Http\Request;
 use BW\Admin\Util\Menu\Menu;
 use BW\Admin\Util\Form\Form;
 use BW\Admin\Models\Usuario;
@@ -27,6 +29,19 @@ class UsuariosController extends BaseController
         $grid->add('nome', 'Nome', true);
         $grid->add('email', 'E-mail', true);
         $grid->add('status', 'Status', true);
+        $grid->add('opcoes', 'Opções')->cell(function($a, $b){
+
+            $edit = sprintf('<a href="%s" class="btn btn-primary btn-sm">Editar</a>',
+                route('bw.usuarios.edit', $b->id)
+            );
+
+            $remove = sprintf('<a href="%s" class="btn btn-danger btn-sm">Remover</a>',
+                route('bw.usuarios.destroy', $b->id)
+            );
+
+            return $edit . ' ' . $remove;
+
+        });
         $grid->orderBy('id','desc');
 
         //
@@ -38,39 +53,84 @@ class UsuariosController extends BaseController
             ->with([
                 'grid' => $grid->build(),
                 'filter' => $filter,
-                'menu' => $menu->build()
+                'menu' => $menu->build(),
              ]
         );
     }
 
+    private function form($source = null){
+
+        $form = new Form($source);
+
+        $form->addGroup(function() use ($form){
+            $form->add('nome', 'Nome', 'Text');
+            $form->add('email', 'E-mail', 'Text');
+            $form->add('status', 'Status', 'CheckboxActive');
+        }, 'Dados');
+
+        $form->addGroup(function() use ($form){
+            $form->add('password', 'Senha', 'Password');
+        }, 'Segurança');
+
+        return $form;
+    }
 
     //
     public function create(){
 
-        $form = new Form(Usuario::find(1));
+        $form = $this->form()
+            ->setAction(route('bw.usuarios.store'));
+        //
+        return $this->view('usuarios.create')
+            ->with(compact('form'));
+    }
 
-        $form->addGroup(function() use ($form){
-            $form->add('nome', 'Nome', 'Text')
-                ->setHelpBlock('Seu nome é muito importante!');
+    //
+    public function edit($id){
 
-            $form->add('nome2', 'Nome2', 'Text');
-            $form->add('usuario', 'Usuário', 'Text');
-        }, 'Dados iniciais');
-
-        $form->addGroup(function() use ($form){
-            $form->add('apelido', 'Apelido', 'Text');
-            $form->add('ref', 'Referencia', 'Text');
-        }, 'Painel 2');
-
-        $form->addGroup(function() use ($form){
-            $form->add('foto', 'Foto', 'File');
-            $form->add('senha1', 'Senha', 'Password');
-            $form->add('senha2', 'Senha de operador', 'Password');
-        }, 'Painel 3', 12);
-
+        $form = $this->form(Usuario::find($id))
+            ->setAction(route('bw.usuarios.update', $id))
+            ->setMethod('PUT');
 
         //
-        return $this->view('usuarios.create')->with(compact('form'));
+        return $this->view('usuarios.edit')
+            ->with(compact('form'));
+    }
+
+
+    //
+    public function store(Request $request){
+
+        $validator = \Validator::make($request->all(), [
+            'status'   => 'boolean',
+            'nome'     => 'required',
+            'password' => 'required|confirmed|min:8',
+            'email'    => 'required|email|unique:bw_usuarios,email',
+        ]);
+
+        //
+        if ($validator->fails()) {
+
+            $this->flash()->error('Alguns campos não foram preenchidos corretamente');
+
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        //
+        $u = new Usuario();
+        $u->nome = $request->get('nome');
+        $u->email = $request->get('email');
+        $u->password = bcrypt($request->get('password'));
+        $u->status = $request->get('status', false);
+        $u->save();
+
+        //
+        $this->flash()->success('Usuário adicionado com sucesso!');
+
+        //
+        return redirect()->route('bw.usuarios.index');
     }
 
 }

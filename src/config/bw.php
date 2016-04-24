@@ -35,10 +35,13 @@ return [
     */
     'form' => [
         'field' => [
-            'text' => BW\Admin\Util\Form\Field\Text::class,
-            'email' => BW\Admin\Util\Form\Field\Email::class,
-            'password' => BW\Admin\Util\Form\Field\Password::class,
-            'file' => BW\Admin\Util\Form\Field\File::class,
+            'Text'           => BW\Admin\Util\Form\Field\Text::class,
+            'File'           => BW\Admin\Util\Form\Field\File::class,
+            'Email'          => BW\Admin\Util\Form\Field\Email::class,
+            'Hidden'         => BW\Admin\Util\Form\Field\Hidden::class,
+            'Password'       => BW\Admin\Util\Form\Field\Password::class,
+            'Checkbox'       => BW\Admin\Util\Form\Field\Checkbox::class,
+            'CheckboxActive' => BW\Admin\Util\Form\Field\CheckboxActive::class,
         ],
     ],
 

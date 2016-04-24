@@ -4,6 +4,8 @@
 
     <h1 class="page-header">@yield('title')</h1>
 
+    @include('BW::util.flash.message')
+
     <div id="lista-top" class="row">
         <div class="filter col-md-6">
             {!! $filter or '' !!}
