@@ -56,7 +56,6 @@ class BwCoreServiceProvider extends ServiceProvider
         });
 
         $router->group(BwRouter::getParameters('default'), function (Router $router) {
-            require __DIR__ . '/../routes/usuarios.php';
             require __DIR__ . '/../routes/admin.php';
         });
     }
