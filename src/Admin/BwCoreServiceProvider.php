@@ -20,6 +20,9 @@ class BwCoreServiceProvider extends ServiceProvider
         // publish public
         $this->publishes([ __DIR__ . '/../public' => public_path('packages/eliasrosa/bw-core')], 'public');
 
+        //
+        $this->publishes([ __DIR__ . '/../lang' => base_path('resources/lang')]);
+
         // publish migrations
         $this->publishes([
               __DIR__ . '/../database/migrations' => database_path('migrations'),
