@@ -14,7 +14,8 @@
     ],
     "require": {
         "eliasrosa/safevalue": "1.0.*",
-        "zofe/rapyd": "2.1.*"
+        "zofe/rapyd": "2.*",
+        "laracasts/flash": "2.*"
     },
     "autoload": {
         "psr-4": {

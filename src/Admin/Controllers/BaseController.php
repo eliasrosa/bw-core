@@ -2,10 +2,13 @@
 
 namespace BW\Admin\Controllers;
 
+use BW\Admin\Traits\Flash;
 use Illuminate\Routing\Controller;
 
 class BaseController extends Controller
 {
+    use Flash;
+
     /**
      * Show view.
      *

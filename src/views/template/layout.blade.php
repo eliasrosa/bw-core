@@ -97,6 +97,10 @@
 
     <!-- Custom Template JavaScript -->
     @yield('scripts', '')
+
+    <script>
+        $('#flash-overlay-modal').modal();
+    </script>
 </body>
 
 </html>

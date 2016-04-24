@@ -35,6 +35,8 @@ class BwCoreServiceProvider extends ServiceProvider
         $this->app->register('BW\Admin\Providers\ComposerServiceProvider');
         $this->app->register('BW\Admin\Providers\AuthServiceProvider');
         $this->app->register('BW\Admin\Providers\DataGridServiceProvider');
+        $this->app->register('BW\Admin\Providers\FlashServiceProvider');
+
     }
 
     public function map(Router $router)
