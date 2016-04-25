@@ -8,7 +8,4 @@ class File extends Field
 {
     public $type = 'file';
     public $view = 'BW::util.form.field.file';
-    public $attributes = [
-        'class' => ''
-    ];
 }

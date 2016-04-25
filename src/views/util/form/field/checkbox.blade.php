@@ -3,7 +3,7 @@
 @section('field')
     <div class="checkbox">
         <label>
-            <input name="{{ $field->name }}" {!! $field->getAttributes() !!}>
+            <input type="checkbox" name="{{ $item->name }}" value="1" {!! $item->buildAttributes() !!}>
         </label>
     </div>
 @overwrite

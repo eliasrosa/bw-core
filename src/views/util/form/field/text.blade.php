@@ -1,5 +1,5 @@
 @extends('BW::util.form.field')
 
 @section('field')
-     <input name="{{ $field->name }}" type="{{ $field->type }}" value="{{ $field->getValue() }}" {!! $field->getAttributes() !!}>
+     <input type="text" name="{{ $item->name }}" value="{{ $item->getValue() }}" {!! $item->buildAttributes() !!}>
 @overwrite

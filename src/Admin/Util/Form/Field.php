@@ -2,53 +2,44 @@
 
 namespace BW\Admin\Util\Form;
 
-use BW\Admin\Helpers\Html;
-
-class Field
+class Field extends Item
 {
-    public $view = 'BW::util.form.field';
-    public $type = 'field';
     public $name = '';
     public $label = '';
     public $value = '';
-    public $model;
+    public $type = 'text';
     public $static = false;
     public $help_block = '';
-    public $attributes = [
-        'class' => 'form-control'
-    ];
 
     //
-    public function __construct($name, $label, &$model = null)
+    public function __construct($args, &$model)
     {
-        $this->name = $name;
-        $this->label = $label;
-        $this->model = $model;
+        //
+        parent::__construct($model);
+
+        //
+        $this->addAttribute([
+            'class' => 'form-control'
+        ]);
+
+        //
+        list($this->name, $this->label) = $args;
     }
 
     //
-    public function addAttribute($attr, $value = '')
+    public function getValue()
     {
-        if(is_array($attr)){
-            $this->attributes = array_merge($this->attributes, $attr);
-        }else{
-            $this->attributes[$attr] = $value;
+        if($this->name != '' && $this->model && isset($this->model->{$this->name})){
+            $this->value = $this->model->{$this->name};
         }
 
-        return $this;
-    }
-
-    //
-    public function getAttributes()
-    {
-        return Html::buildAttributes($this->attributes);
+        return old($this->name, $this->value);
     }
 
     //
     public function setHelpBlock($value)
     {
         $this->help_block = $value;
-
         return $this;
     }
 
@@ -56,17 +47,14 @@ class Field
     public function setStatic($value)
     {
         $this->static = $value;
-
         return $this;
     }
 
     //
-    public function getValue()
+    public function setValue($value)
     {
-        if($this->model && isset($this->model->{$this->name})){
-            $this->value = $this->model->{$this->name};
-        }
-
-        return old($this->name, $this->value);
+        $this->value = $value;
+        return $this;
     }
+
 }

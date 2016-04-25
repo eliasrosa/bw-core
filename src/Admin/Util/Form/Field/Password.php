@@ -8,8 +8,14 @@ class Password extends Field
 {
     public $type = 'password';
     public $view = 'BW::util.form.field.password';
-    public $attributes = [
-        'placeholder' => 'Senha',
-        'class' => 'form-control'
-    ];
+
+    //
+    public function __construct($args, &$model)
+    {
+        //
+        parent::__construct($args, $model);
+
+        //
+        $this->addAttribute('placeholder', 'Senha');
+    }
 }

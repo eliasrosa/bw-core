@@ -1,1 +1,1 @@
-<input name="{{ $field->name }}" type="{{ $field->type }}" value="{{ $field->getValue() }}">
+<input type="hidden" name="{{ $item->name }}" value="{{ $item->getValue() }}">

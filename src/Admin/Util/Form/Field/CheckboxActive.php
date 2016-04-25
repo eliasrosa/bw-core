@@ -6,10 +6,12 @@ use BW\Admin\Util\Form\Field\Checkbox;
 
 class CheckboxActive extends Checkbox
 {
-    public function __construct($name, $label, &$model = null)
+    public function __construct($args, &$model)
     {
-        parent::__construct($name, $label, $model);
+        //
+        parent::__construct($args, $model);
 
+        //
         $this->setStatus('Ativado', 'Desativado');
     }
 
