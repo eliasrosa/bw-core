@@ -58,19 +58,19 @@ class UsuariosController extends BaseController
         );
     }
 
-    private function form($source = null){
+    private function form($method, $action, $source = null){
 
-        $form = new Form($source);
+        $form = new Form($method, $action, $source);
 
-        $form->addGroup(function() use ($form){
-            $form->add('nome', 'Nome', 'Text');
-            $form->add('email', 'E-mail', 'Text');
-            $form->add('status', 'Status', 'CheckboxActive');
-        }, 'Dados');
+        $form->addPanel('Dados do usuário', function($panel){
+            $panel->addText('nome', 'Nome');
+            $panel->addText('email', 'E-mail');
+            $panel->addCheckboxActive('status', 'Status');
+        });
 
-        $form->addGroup(function() use ($form){
-            $form->add('password', 'Senha', 'Password');
-        }, 'Segurança');
+        $form->addPanel('Dados de segurança', function($panel){
+            $panel->addPassword('password', 'Senha');
+        });
 
         return $form;
     }
@@ -78,8 +78,9 @@ class UsuariosController extends BaseController
     //
     public function create(){
 
-        $form = $this->form()
-            ->setAction(route('bw.usuarios.store'));
+        //
+        $form = $this->form('post', route('bw.usuarios.store'));
+
         //
         return $this->view('usuarios.create')
             ->with(compact('form'));
@@ -88,9 +89,8 @@ class UsuariosController extends BaseController
     //
     public function edit($id){
 
-        $form = $this->form(Usuario::find($id))
-            ->setAction(route('bw.usuarios.update', $id))
-            ->setMethod('PUT');
+        //
+        $form = $this->form('PUT', route('bw.usuarios.update', $id), Usuario::find($id));
 
         //
         return $this->view('usuarios.edit')
