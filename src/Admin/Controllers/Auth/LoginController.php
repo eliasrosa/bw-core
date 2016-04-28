@@ -23,7 +23,7 @@ class LoginController extends BaseController
         $remember = $request->input('remember');
 
         //
-        if (\Auth::attempt(['email' => $email, 'password' => $password])) {
+        if (\Auth::attempt(['email' => $email, 'password' => $password, 'status' => 1])) {
             $response = redirect()->route('bw.home');
 
             if($remember ===  '1'){
