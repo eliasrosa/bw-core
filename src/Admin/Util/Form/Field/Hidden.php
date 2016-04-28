@@ -9,14 +9,8 @@ class Hidden extends Field
     public $type = 'hidden';
     public $view = 'BW::util.form.field.hidden';
 
-    public function __construct($args, &$model)
+    public function __construct($name, $model)
     {
-        //
-        $this->name = $args[0];
-
-        //
-        $this->model = $model;
+        parent::__construct($name, null, $model);
     }
-
-
 }

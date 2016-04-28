@@ -10,10 +10,10 @@ class Password extends Field
     public $view = 'BW::util.form.field.password';
 
     //
-    public function __construct($args, &$model)
+    public function __construct($name, $label, $model)
     {
         //
-        parent::__construct($args, $model);
+        parent::__construct($name, $label, $model);
 
         //
         $this->addAttribute('placeholder', 'Senha');

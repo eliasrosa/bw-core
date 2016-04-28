@@ -24,6 +24,7 @@ class Item
     //
     public function getView()
     {
+        //
         return $this->view;
     }
 }

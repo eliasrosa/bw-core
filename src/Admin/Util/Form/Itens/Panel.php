@@ -18,15 +18,15 @@ class Panel extends Item
     public $view = 'BW::util.form.itens.panel';
 
     //
-    public function __construct($args, &$model)
+    public function __construct($title, $function_call, $model)
     {
         parent::__construct($model);
 
         //
-        list($this->title, $itens_group) = $args;
+        $this->title = $title;
 
         //
-        $itens_group($this);
+        $function_call($this);
     }
 
 }

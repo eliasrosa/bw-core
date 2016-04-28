@@ -12,21 +12,10 @@ class Checkbox extends Field
     public $view = 'BW::util.form.field.checkbox';
 
     //
-    public function setStatus($text_on, $text_off)
-    {
-        $this->addAttribute([
-            'data-on' => $text_on,
-            'data-off' => $text_off,
-        ]);
-
-        return $this;
-    }
-
-    //
-    public function __construct($args, &$model)
+    public function __construct($name, $label, $model)
     {
         //
-        parent::__construct($args, $model);
+        parent::__construct($name, $label, $model);
 
         //
         $this->addAttribute([
@@ -47,4 +36,14 @@ class Checkbox extends Field
         }
     }
 
+    //
+    public function setStatus($text_on, $text_off)
+    {
+        $this->addAttribute([
+            'data-on' => $text_on,
+            'data-off' => $text_off,
+        ]);
+
+        return $this;
+    }
 }

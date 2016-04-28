@@ -35,7 +35,11 @@ trait ItemTrait
         }
 
         //
-        $item_obj = new $item_class($args, $this->model);
+        $args[] = $this->model;
+
+        //
+        $reflector = new \ReflectionClass($item_class);
+        $item_obj = $reflector->newInstanceArgs($args);
 
         //
         if (!$item_obj instanceof Item) {

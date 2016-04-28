@@ -5,8 +5,8 @@ namespace BW\Admin\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use BW\Admin\Util\Menu\Menu;
-use BW\Admin\Util\Form\Form;
 use BW\Admin\Models\Usuario;
+use BW\Admin\Forms\UsuarioForm;
 use BW\Admin\Util\DataGrid\DataGrid;
 use BW\Admin\Controllers\BaseController;
 
@@ -35,8 +35,10 @@ class UsuariosController extends BaseController
                 route('bw.usuarios.edit', $b->id)
             );
 
-            $remove = sprintf('<a href="%s" class="btn btn-danger btn-sm">Remover</a>',
-                route('bw.usuarios.destroy', $b->id)
+            $remove = sprintf('<form action="%s" method="POST">' . csrf_field() .
+                              '<input type="hidden" name="_method" value="DELETE">' .
+                              '<input type="submit" class="btn btn-danger btn-sm" value="Remover">' .
+                              '</form>', route('bw.usuarios.destroy', $b->id)
             );
 
             return $edit . ' ' . $remove;
@@ -58,45 +60,15 @@ class UsuariosController extends BaseController
         );
     }
 
-    private function form($method, $action, $source = null){
-
-        $form = new Form($method, $action, $source);
-
-        $form->addPanel('Dados do usuário', function($panel){
-            $panel->addText('nome', 'Nome');
-            $panel->addText('email', 'E-mail');
-            $panel->addCheckboxActive('status', 'Status');
-        });
-
-        $form->addPanel('Dados de segurança', function($panel){
-            $panel->addPassword('password', 'Senha');
-        });
-
-        return $form;
-    }
-
     //
     public function create(){
 
         //
-        $form = $this->form('post', route('bw.usuarios.store'));
-
+        $form = new UsuarioForm();
         //
         return $this->view('usuarios.create')
             ->with(compact('form'));
     }
-
-    //
-    public function edit($id){
-
-        //
-        $form = $this->form('PUT', route('bw.usuarios.update', $id), Usuario::find($id));
-
-        //
-        return $this->view('usuarios.edit')
-            ->with(compact('form'));
-    }
-
 
     //
     public function store(Request $request){
@@ -128,8 +100,74 @@ class UsuariosController extends BaseController
 
         //
         $this->flash()->success('Usuário adicionado com sucesso!');
+        return redirect()->route('bw.usuarios.index');
+    }
+
+    //
+    public function edit($id){
 
         //
+        $form = new UsuarioForm($id);
+
+        //
+        return $this->view('usuarios.edit')
+            ->with(compact('form'));
+    }
+
+    //
+    public function update(Request $request){
+
+        $validator = \Validator::make($request->all(), [
+            'status'   => 'boolean',
+            'nome'     => 'required',
+            'password' => 'confirmed|min:8',
+            'email'    => 'required|email|unique:bw_usuarios,email,' . $request->get('id'),
+        ]);
+
+        //
+        if ($validator->fails()) {
+
+            $this->flash()->error('Alguns campos não foram preenchidos corretamente');
+
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        //
+        $u = Usuario::find($request->get('id'));
+        $u->nome = $request->get('nome');
+        $u->email = $request->get('email');
+        $u->status = $request->get('status', false);
+
+        // update password
+        if($request->get('password', false)){
+            $u->password = bcrypt($request->get('password'));
+        }
+
+        //
+        $u->save();
+
+        //
+        $this->flash()->success('Usuário atualizado com sucesso!');
+        return back();
+    }
+
+    //
+    public function destroy($id)
+    {
+        //
+        if($id == \Auth::user()->id){
+            $this->flash()->error('Você não pode remover seu próprio usuário!');
+            return back();
+        }
+
+        // delete
+        $u = Usuario::find($id);
+        $u->delete();
+
+        // redirect
+        $this->flash()->success('Usuário removido com sucesso!');
         return redirect()->route('bw.usuarios.index');
     }
 

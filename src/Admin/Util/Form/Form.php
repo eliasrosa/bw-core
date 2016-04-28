@@ -7,7 +7,7 @@ use BW\Admin\Util\Form\Traits\ItemTrait;
 
 class Form
 {
-    //
+    // Trait's
     use ItemTrait, HtmlTrait;
 
     //
@@ -36,27 +36,13 @@ class Form
     //
     public function setMethod($method)
     {
-        // GET', 'HEAD', 'PUT', 'PATCH', 'DELETE
-        switch (strtoupper($method)) {
-            case 'POST':
-                $this->addHidden('_method')->setValue('POST');
-                $this->addAttribute('method', 'POST');
-                break;
+        //
+        $this->addAttribute('method', 'POST');
+        $this->addHidden('_method')->setValue($method);
 
-            case 'PUT':
-                $this->addHidden('_method')->setValue('PUT');
-                $this->addAttribute('method', 'POST');
-                break;
-
-             case 'PATCH':
-                $this->addHidden('_method')->setValue('PATCH');
-                $this->addAttribute('method', 'POST');
-                break;
-
-             case 'DELETE':
-                $this->addHidden('_method')->setValue('DELETE');
-                $this->addAttribute('method', 'POST');
-                break;
+        //
+        if(!is_null($this->model) && ($method == 'PUT' OR $method == 'PATCH' OR $method == 'DELETE')){
+            $this->addHidden('id')->setValue($this->model->id);
         }
 
         //

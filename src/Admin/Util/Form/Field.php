@@ -12,7 +12,7 @@ class Field extends Item
     public $help_block = '';
 
     //
-    public function __construct($args, &$model)
+    public function __construct($name, $label, $model)
     {
         //
         parent::__construct($model);
@@ -23,7 +23,8 @@ class Field extends Item
         ]);
 
         //
-        list($this->name, $this->label) = $args;
+        $this->name = $name;
+        $this->label = $label;
     }
 
     //
