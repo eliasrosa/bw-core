@@ -3,7 +3,7 @@
 namespace BW\Controllers\Auth;
 
 use Eliasrosa\SafeValue;
-use BW\Models\Usuario;
+use BW\Models\User;
 use Illuminate\Http\Request;
 use BW\Controllers\BaseController;
 

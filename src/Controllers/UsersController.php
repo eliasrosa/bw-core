@@ -3,21 +3,21 @@
 namespace BW\Controllers;
 
 use Validator;
-use Illuminate\Http\Request;
+use BW\Models\User;
 use BW\Util\Menu\Menu;
-use BW\Models\Usuario;
-use BW\Forms\UsuarioForm;
+use BW\Forms\UserForm;
+use Illuminate\Http\Request;
 use BW\Util\DataGrid\DataGrid;
 use BW\Controllers\BaseController;
 
-class UsuariosController extends BaseController
+class UsersController extends BaseController
 {
 
     //
     public function index(){
 
         //
-        $filter = \DataFilter::source(\DB::table('bw_usuarios'));
+        $filter = \DataFilter::source(\DB::table('users'));
         $filter->add('nome','Nome', 'text');
         $filter->submit('Pesquisar');
         $filter->reset('Limpar');
@@ -26,19 +26,19 @@ class UsuariosController extends BaseController
         //
         $grid = DataGrid::source($filter);
         $grid->add('id', 'ID', true);
-        $grid->add('nome', 'Nome', true);
+        $grid->add('name', 'Nome', true);
         $grid->add('email', 'E-mail', true);
         $grid->add('status', 'Status', true);
         $grid->add('opcoes', 'Opções')->cell(function($a, $b){
 
             $edit = sprintf('<a href="%s" class="btn btn-primary btn-sm">Editar</a>',
-                route('bw.usuarios.edit', $b->id)
+                route('bw.users.edit', $b->id)
             );
 
             $remove = sprintf('<form action="%s" method="POST">' . csrf_field() .
                               '<input type="hidden" name="_method" value="DELETE">' .
                               '<input type="submit" class="btn btn-danger btn-sm" value="Remover">' .
-                              '</form>', route('bw.usuarios.destroy', $b->id)
+                              '</form>', route('bw.users.destroy', $b->id)
             );
 
             return $edit . ' ' . $remove;
@@ -48,7 +48,7 @@ class UsuariosController extends BaseController
 
         //
         $menu = new Menu();
-        $menu->add('Novo usuário', 'bw.usuarios.create');
+        $menu->add('Novo usuário', 'bw.users.create');
 
         //
         return $this->view('usuarios.index')
@@ -64,7 +64,7 @@ class UsuariosController extends BaseController
     public function create(){
 
         //
-        $form = new UsuarioForm();
+        $form = new UserForm();
         //
         return $this->view('usuarios.create')
             ->with(compact('form'));
@@ -77,7 +77,7 @@ class UsuariosController extends BaseController
             'status'   => 'boolean',
             'nome'     => 'required',
             'password' => 'required|confirmed|min:8',
-            'email'    => 'required|email|unique:bw_usuarios,email',
+            'email'    => 'required|email|unique:user,email',
         ]);
 
         //
@@ -91,7 +91,7 @@ class UsuariosController extends BaseController
         }
 
         //
-        $u = new Usuario();
+        $u = new User();
         $u->nome = $request->get('nome');
         $u->email = $request->get('email');
         $u->password = bcrypt($request->get('password'));
@@ -100,14 +100,14 @@ class UsuariosController extends BaseController
 
         //
         $this->flash()->success('Usuário adicionado com sucesso!');
-        return redirect()->route('bw.usuarios.index');
+        return redirect()->route('bw.users.index');
     }
 
     //
     public function edit($id){
 
         //
-        $form = new UsuarioForm($id);
+        $form = new UserForm($id);
 
         //
         return $this->view('usuarios.edit')
@@ -121,7 +121,7 @@ class UsuariosController extends BaseController
             'status'   => 'boolean',
             'nome'     => 'required',
             'password' => 'confirmed|min:8',
-            'email'    => 'required|email|unique:bw_usuarios,email,' . $request->get('id'),
+            'email'    => 'required|email|unique:users,email,' . $request->get('id'),
         ]);
 
         //
@@ -135,7 +135,7 @@ class UsuariosController extends BaseController
         }
 
         //
-        $u = Usuario::find($request->get('id'));
+        $u = User::find($request->get('id'));
         $u->nome = $request->get('nome');
         $u->email = $request->get('email');
         $u->status = $request->get('status', false);
@@ -156,6 +156,7 @@ class UsuariosController extends BaseController
     //
     public function destroy($id)
     {
+
         //
         if($id == \Auth::user()->id){
             $this->flash()->error('Você não pode remover seu próprio usuário!');
@@ -163,12 +164,12 @@ class UsuariosController extends BaseController
         }
 
         // delete
-        $u = Usuario::find($id);
+        $u = User::find($id);
         $u->delete();
 
         // redirect
         $this->flash()->success('Usuário removido com sucesso!');
-        return redirect()->route('bw.usuarios.index');
+        return redirect()->route('bw.users.index');
     }
 
 }

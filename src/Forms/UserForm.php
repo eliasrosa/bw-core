@@ -2,18 +2,18 @@
 
 namespace BW\Forms;
 
-use BW\Models\Usuario;
+use BW\Models\User;
 use BW\Util\Form\Form;
 
-class UsuarioForm extends Form
+class UserForm extends Form
 {
 
     public function __construct($id = 0){
 
         if($id){
-            parent::__construct('PUT', route('bw.usuarios.update', $id), Usuario::find($id));
+            parent::__construct('PUT', route('bw.users.update', $id), User::find($id));
         }else{
-            parent::__construct('post', route('bw.usuarios.store'));
+            parent::__construct('post', route('bw.users.store'));
         }
 
         //
@@ -23,7 +23,7 @@ class UsuarioForm extends Form
     private function createForm()
     {
         $this->addPanel('Dados do usuário', function($panel){
-            $panel->addText('nome', 'Nome');
+            $panel->addText('name', 'Nome');
             $panel->addText('email', 'E-mail');
             $panel->addCheckboxActive('status', 'Status');
         });

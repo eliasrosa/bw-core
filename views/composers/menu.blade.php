@@ -23,10 +23,10 @@
                 <a href="#"><i class="fa fa-users"></i> Usuários<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="{{ route('bw.usuarios.index') }}">Usuários</a>
+                        <a href="{{ route('bw.users.index') }}">Usuários</a>
                     </li>
                     <li>
-                        <a href="/admin/usuarios/grupos">Grupos</a>
+                        <a href="{{ route('bw.users.groups.index') }}">Grupos</a>
                     </li>
                 </ul>
             </li>
