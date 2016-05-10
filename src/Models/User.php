@@ -16,24 +16,27 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
+    //
     protected $table = 'users';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['name', 'email', 'password', 'status'];
+    protected $hidden = ['password', 'remember_token'];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['password'];
+    //
+    public function group()
+    {
+        return $this->belongsTo('BW\Models\UserGroup');
+    }
+
+    //
+    public function hasPermission($permission) {
+
+        if($this->group->super_administrator){
+            return true;
+        }
+
+        return (bool) $this->group->permissions()
+            ->where('permission', $permission)
+            ->first();
+    }
+
 }

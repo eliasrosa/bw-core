@@ -13,22 +13,11 @@ class UpdateUsersTable extends Migration
      */
     public function up()
     {
-        // remove
-        Schema::drop('password_resets');
-
         //
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('status');
-            $table->dropColumn('remember_token');
+            $table->integer('group_id');
         });
-
-        //
-        $admin = new User;
-        $admin->name = 'Administrador';
-        $admin->email = 'admin@admin.com';
-        $admin->password = bcrypt('admin');
-        $admin->status = true;
-        $admin->save();
     }
 
     /**
@@ -40,13 +29,7 @@ class UpdateUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('status');
-            $table->rememberToken();
-        });
-
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token')->index();
-            $table->timestamp('created_at');
+            $table->dropColumn('group_id');
         });
     }
 }

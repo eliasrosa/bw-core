@@ -16,17 +16,15 @@ class BwCoreServiceProvider extends ServiceProvider
 
         // publish config
         $this->publishes([__DIR__ . '/../../config/bw.php' => config_path('/bw.php')], 'config');
-
-        // publish public
-        $this->publishes([ __DIR__ . '/../../public' => public_path('packages/eliasrosa/bw-core')], 'public');
+        $this->publishes([__DIR__ . '/../../config/auth.php' => config_path('auth.php')], 'config');
+        $this->publishes([__DIR__ . '/../../public' => public_path('packages/eliasrosa/bw-core')], 'public');
+        $this->publishes([__DIR__ . '/../../lang' => base_path('resources/lang')]);
+        $this->publishes([__DIR__ . '/../../database/migrations' => database_path('migrations')], 'migrations');
 
         //
-        $this->publishes([ __DIR__ . '/../../lang' => base_path('resources/lang')]);
-
-        // publish migrations
-        $this->publishes([
-              __DIR__ . '/../../database/migrations' => database_path('migrations'),
-        ], 'migrations');
+        $router->middleware('bw.auth', \BW\Middleware\Authenticate::class);
+        $router->middleware('bw.csrf', \BW\Middleware\VerifyCsrfToken::class);
+        $router->middleware('bw.aclroutes', \BW\Middleware\AclRoutes::class);
     }
 
     public function register()
@@ -35,8 +33,8 @@ class BwCoreServiceProvider extends ServiceProvider
         \View::addNamespace('BW', __DIR__ . '/../../views');
 
         //
+        $this->app->register('BW\Providers\CommandServiceProvider');
         $this->app->register('BW\Providers\ComposerServiceProvider');
-        $this->app->register('BW\Providers\AuthServiceProvider');
         $this->app->register('BW\Providers\DataGridServiceProvider');
         $this->app->register('BW\Providers\FlashServiceProvider');
 
@@ -45,8 +43,6 @@ class BwCoreServiceProvider extends ServiceProvider
         {
             return \App::make('BW\Providers\ResourceNoPrefixRegistrar');
         });
-
-
     }
 
     public function map(Router $router)

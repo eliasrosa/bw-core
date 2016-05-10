@@ -16,10 +16,12 @@ class UsersGroupsController extends BaseController
     //
     public function index(){
 
-        dd(\Route::getRoutes());
+        //dd(\Route::getRoutes());
+
+
 
         //
-        return '';
+        return \Route::currentRouteName();
     }
 
 

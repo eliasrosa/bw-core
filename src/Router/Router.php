@@ -11,6 +11,7 @@ class Router {
                 'prefix' => config('bw.url'),
                 'middleware' => [
                     'bw.auth',
+                    'bw.aclroutes',
                     'bw.csrf'
                 ]
             ],
