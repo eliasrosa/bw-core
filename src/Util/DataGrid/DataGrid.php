@@ -26,4 +26,37 @@ class DataGrid extends ZofeDataGrid
     {
         return parent::link($url, $name, $position, $attributes);
     }
+
+    public function addOptions($route_edit, $route_delete)
+    {
+        $this->add('opcoes', 'Opções')->cell(function($a, $b) use ($route_edit, $route_delete){
+            $html = '';
+
+            //
+            $html .= sprintf('<a href="%s" class="btn btn-primary btn-xs">Editar</a> ',
+                route($route_edit, $b->id)
+            );
+
+            //
+            $html .= sprintf('<form action="%s" style="display: inline-block" method="POST">' . csrf_field() .
+                              '<input type="hidden" name="_method" value="DELETE">' .
+                              '<input type="submit" class="btn btn-danger btn-xs" value="Remover">' .
+                              '</form>', route($route_delete, $b->id)
+            );
+
+            return $html;
+        });
+    }
+
+    public function addStatus()
+    {
+        $this->add('status', 'Status', true)->cell(function($a, $b){
+            if($b->status){
+                return '<span class="label label-success">Ativado</span>';
+            }else{
+                return '<span class="label label-danger">Destivado</span>';
+            }
+        });
+    }
+
 }

@@ -18,6 +18,7 @@ class UsersController extends BaseController
         //
         $filter = \DataFilter::source(\DB::table('users'));
         $filter->add('nome','Nome', 'text');
+        $filter->add('email','E-mail', 'text');
         $filter->submit('Pesquisar');
         $filter->reset('Limpar');
         $filter->build();
@@ -27,22 +28,8 @@ class UsersController extends BaseController
         $grid->add('id', 'ID', true);
         $grid->add('name', 'Nome', true);
         $grid->add('email', 'E-mail', true);
-        $grid->add('status', 'Status', true);
-        $grid->add('opcoes', 'Opções')->cell(function($a, $b){
-
-            $edit = sprintf('<a href="%s" class="btn btn-primary btn-sm">Editar</a>',
-                route('bw.users.edit', $b->id)
-            );
-
-            $remove = sprintf('<form action="%s" method="POST">' . csrf_field() .
-                              '<input type="hidden" name="_method" value="DELETE">' .
-                              '<input type="submit" class="btn btn-danger btn-sm" value="Remover">' .
-                              '</form>', route('bw.users.destroy', $b->id)
-            );
-
-            return $edit . ' ' . $remove;
-
-        });
+        $grid->addStatus();
+        $grid->addOptions('bw.users.edit', 'bw.users.destroy');
         $grid->orderBy('id','desc');
 
         //
