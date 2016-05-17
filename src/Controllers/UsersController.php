@@ -4,7 +4,6 @@ namespace BW\Controllers;
 
 use Validator;
 use BW\Models\User;
-use BW\Util\Menu\Menu;
 use BW\Forms\UserForm;
 use Illuminate\Http\Request;
 use BW\Util\DataGrid\DataGrid;
@@ -47,15 +46,10 @@ class UsersController extends BaseController
         $grid->orderBy('id','desc');
 
         //
-        $menu = new Menu();
-        $menu->add('Novo usuário', 'bw.users.create');
-
-        //
         return $this->view('usuarios.index')
             ->with([
                 'grid' => $grid->build(),
                 'filter' => $filter,
-                'menu' => $menu->build(),
              ]
         );
     }
