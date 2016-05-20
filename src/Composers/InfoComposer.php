@@ -15,6 +15,6 @@ class InfoComposer
      */
     public function compose(View $view)
     {
-        $view->with('email', \Auth::user()->nome);
+        $view->with('email', \Auth::user()->email);
     }
 }

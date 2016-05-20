@@ -17,7 +17,7 @@ class UsersController extends BaseController
 
         //
         $filter = \DataFilter::source(\DB::table('users'));
-        $filter->add('nome','Nome', 'text');
+        $filter->add('name','Nome', 'text');
         $filter->add('email','E-mail', 'text');
         $filter->submit('Pesquisar');
         $filter->reset('Limpar');
@@ -56,9 +56,9 @@ class UsersController extends BaseController
 
         $validator = \Validator::make($request->all(), [
             'status'   => 'boolean',
-            'nome'     => 'required',
+            'name'     => 'required',
             'password' => 'required|confirmed|min:8',
-            'email'    => 'required|email|unique:user,email',
+            'email'    => 'required|email|unique:users',
         ]);
 
         //
@@ -73,7 +73,7 @@ class UsersController extends BaseController
 
         //
         $u = new User();
-        $u->nome = $request->get('nome');
+        $u->name = $request->get('name');
         $u->email = $request->get('email');
         $u->password = bcrypt($request->get('password'));
         $u->status = $request->get('status', false);
@@ -100,7 +100,7 @@ class UsersController extends BaseController
 
         $validator = \Validator::make($request->all(), [
             'status'   => 'boolean',
-            'nome'     => 'required',
+            'name'     => 'required',
             'password' => 'confirmed|min:8',
             'email'    => 'required|email|unique:users,email,' . $request->get('id'),
         ]);
@@ -117,7 +117,7 @@ class UsersController extends BaseController
 
         //
         $u = User::find($request->get('id'));
-        $u->nome = $request->get('nome');
+        $u->name = $request->get('name');
         $u->email = $request->get('email');
         $u->status = $request->get('status', false);
 
