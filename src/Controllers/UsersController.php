@@ -33,7 +33,7 @@ class UsersController extends BaseController
         $grid->orderBy('id','desc');
 
         //
-        return $this->view('usuarios.index')
+        return $this->view('users.index')
             ->with([
                 'grid' => $grid->build(),
                 'filter' => $filter,
@@ -47,7 +47,7 @@ class UsersController extends BaseController
         //
         $form = new UserForm();
         //
-        return $this->view('usuarios.create')
+        return $this->view('users.create')
             ->with(compact('form'));
     }
 
@@ -91,7 +91,7 @@ class UsersController extends BaseController
         $form = new UserForm($id);
 
         //
-        return $this->view('usuarios.edit')
+        return $this->view('users.edit')
             ->with(compact('form'));
     }
 
