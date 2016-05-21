@@ -42,6 +42,7 @@ return [
         'Hidden' => BW\Util\Form\Itens\Fields\Hidden::class,
         'Password' => BW\Util\Form\Itens\Fields\Password::class,
         'Checkbox' => BW\Util\Form\Itens\Fields\Checkbox::class,
+        'TextArea' => BW\Util\Form\Itens\Fields\TextArea::class,
         'CheckboxActive' => BW\Util\Form\Itens\Fields\CheckboxActive::class,
 
         // Itens
