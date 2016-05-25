@@ -13,7 +13,7 @@ class UserGroup extends Model
     //
     public function users()
     {
-        return $this->hasMany('BW\Models\User');
+        return $this->hasMany('BW\Models\User', 'group_id');
     }
 
     //

@@ -16,7 +16,7 @@ class UsersController extends BaseController
     public function index(){
 
         //
-        $filter = \DataFilter::source(\DB::table('users'));
+        $filter = \DataFilter::source(User::with('group'));
         $filter->add('name','Nome', 'text');
         $filter->add('email','E-mail', 'text');
         $filter->submit('Pesquisar');
@@ -28,6 +28,7 @@ class UsersController extends BaseController
         $grid->add('id', 'ID', true);
         $grid->add('name', 'Nome', true);
         $grid->add('email', 'E-mail', true);
+        $grid->add('group.name', 'Grupo', 'group_id');
         $grid->addStatus();
         $grid->addOptions('bw.users.edit', 'bw.users.destroy');
         $grid->orderBy('id','desc');
@@ -137,7 +138,6 @@ class UsersController extends BaseController
     //
     public function destroy($id)
     {
-
         //
         if($id == \Auth::user()->id){
             $this->flash()->error('Você não pode remover seu próprio usuário!');
