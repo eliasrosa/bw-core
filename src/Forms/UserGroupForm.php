@@ -23,17 +23,28 @@ class UserGroupForm extends Form
     private function createForm()
     {
         $this->addPanel('Dados do grupo de usuário', function($panel){
-            $panel->addText('name', 'Nome');
-            $panel->addCheckboxActive('status', 'Status');
+            $panel->addText('name', 'Nome do grupo');
+            $panel->addCheckboxActive('status', 'Status')->width = 6;
+            $panel->addCheckbox('super_administrator', 'Permissão total')->width = 6;
         });
 
         $this->addPanel('Descrição do grupo', function($panel){
-            $panel->addTextArea('description', 'Descrição');
+            $panel->addTextArea('description', 'Descrição')->addAttribute('style', 'height: 118px;');
         });
 
         $this->addPanel('Permissões de acesso', function($panel){
             $panel->width = 12;
-            $panel->addCheckbox('super_administrator', 'Permissão total');
+
+            foreach (\Route::getRoutes() as $route) {
+                if($route->getName()){
+                    if(isset($route->getAction()['middleware'])){
+                        if(in_array('bw.aclroutes', $route->getAction()['middleware'])){
+                            $panel->addCheckbox($route->getName(), $route->getName())->width = 3;
+                        }
+                    }
+                }
+            }
+
         });
 
         return $this;
