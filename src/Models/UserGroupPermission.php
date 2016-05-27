@@ -11,6 +11,9 @@ class UserGroupPermission extends Model
     public $timestamps = false;
 
     //
+    protected $fillable = array('permission');
+
+    //
     public function group()
     {
         return $this->belongsTo('BW\Models\UserGroup');

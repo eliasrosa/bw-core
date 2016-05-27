@@ -13,7 +13,7 @@ class UserGroupForm extends Form
         if($id){
             parent::__construct('PUT', route('bw.users.groups.update', $id), Model::find($id));
         }else{
-            parent::__construct('post', route('bw.users.groups.store'));
+            parent::__construct('POST', route('bw.users.groups.store'));
         }
 
         //
@@ -25,7 +25,7 @@ class UserGroupForm extends Form
         $this->addPanel('Dados do grupo de usuário', function($panel){
             $panel->addText('name', 'Nome do grupo');
             $panel->addCheckboxActive('status', 'Status')->width = 6;
-            $panel->addCheckbox('super_administrator', 'Permissão total')->width = 6;
+            $panel->addCheckbox('super_administrator', 'Super Administrador')->width = 6;
         });
 
         $this->addPanel('Descrição do grupo', function($panel){
@@ -33,18 +33,40 @@ class UserGroupForm extends Form
         });
 
         $this->addPanel('Permissões de acesso', function($panel){
-            $panel->width = 12;
-
+            $permissions = [];
             foreach (\Route::getRoutes() as $route) {
-                if($route->getName()){
+                if($route->getName() && $route->getName() != 'bw.home'){
+                    $name = $route->getName();
+
                     if(isset($route->getAction()['middleware'])){
                         if(in_array('bw.aclroutes', $route->getAction()['middleware'])){
-                            $panel->addCheckbox($route->getName(), $route->getName())->width = 3;
+                            $url = str_replace('.', '/', str_replace('bw.' , '/', $name));
+                            $permissions[$name] = [
+                                'label' => $url,
+                                'value' => $name,
+                                'checked' => '',
+                            ];
                         }
                     }
                 }
             }
 
+            //
+            if(count(old())){
+                foreach (old('permissions', []) as $i) {
+                    $permissions[$i]['checked'] = 'checked';
+                };
+            }else{
+                if($this->model){
+                    foreach ($this->model->permissions as $i) {
+                        $permissions[$i->permission]['checked'] = 'checked';
+                    };
+                }
+            }
+
+            //
+            $panel->width = 12;
+            $panel->addIncludeFile('BW::users.groups.permissions', $permissions);
         });
 
         return $this;

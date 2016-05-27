@@ -4,6 +4,7 @@ namespace BW\Controllers;
 
 use Validator;
 use BW\Models\UserGroup;
+use BW\Models\UserGroupPermission;
 use BW\Forms\UserGroupForm;
 use Illuminate\Http\Request;
 use BW\Util\DataGrid\DataGrid;
@@ -11,7 +12,6 @@ use BW\Controllers\BaseController;
 
 class UsersGroupsController extends BaseController
 {
-
     //
     public function index(){
 
@@ -47,6 +47,7 @@ class UsersGroupsController extends BaseController
 
         //
         $form = new UserGroupForm();
+
         //
         return $this->view('users.groups.create')
             ->with(compact('form'));
@@ -71,12 +72,19 @@ class UsersGroupsController extends BaseController
         }
 
         //
-        $u = new UserGroup();
-        $u->name = $request->get('name');
-        $u->description = $request->get('description');
-        $u->super_administrator = $request->get('super_administrator', false);
-        $u->status = $request->get('status', false);
-        $u->save();
+        $group = new UserGroup();
+        $group->name = $request->get('name');
+        $group->description = $request->get('description');
+        $group->super_administrator = $request->get('super_administrator', false);
+        $group->status = $request->get('status', false);
+        $group->save();
+
+        //
+        if(!$group->super_administrator){
+            foreach ($request->get('permissions', []) as $permission) {
+                $group->permissions()->create(['permission' => $permission]);
+            }
+        }
 
         //
         $this->flash()->success('Grupo adicionado com sucesso!');
@@ -87,10 +95,10 @@ class UsersGroupsController extends BaseController
     public function edit($id){
 
         //
-        $form = new UserForm($id);
+        $form = new UserGroupForm($id);
 
         //
-        return $this->view('users.edit')
+        return $this->view('users.groups.edit')
             ->with(compact('form'));
     }
 
@@ -98,45 +106,50 @@ class UsersGroupsController extends BaseController
     public function update(Request $request){
 
         //
+        $id = $request->get('id');
+
+        //
         if($id == \Auth::user()->group_id){
-            $this->flash()->error('Você não pode remover seu próprio grupo de usuário!');
+            $this->flash()->error('Você não pode editar seu próprio grupo de usuário!');
             return back();
         }
 
         //
         $validator = \Validator::make($request->all(), [
-            'status'   => 'boolean',
-            'nome'     => 'required',
-            'password' => 'confirmed|min:8',
-            'email'    => 'required|email|unique:users,email,' . $request->get('id'),
+            'name'                => 'required|unique:users_groups,name,' . $id,
+            'status'              => 'boolean',
+            'super_administrator' => 'boolean',
+            'description'         => 'required',
         ]);
 
         //
         if ($validator->fails()) {
-
             $this->flash()->error('Alguns campos não foram preenchidos corretamente');
-
             return back()
                 ->withErrors($validator)
                 ->withInput();
         }
 
         //
-        $u = User::find($request->get('id'));
-        $u->nome = $request->get('nome');
-        $u->email = $request->get('email');
-        $u->status = $request->get('status', false);
+        $group = UserGroup::find($id);
+        $group->name = $request->get('name');
+        $group->description = $request->get('description');
+        $group->super_administrator = $request->get('super_administrator', false);
+        $group->status = $request->get('status', false);
+        $group->save();
 
-        // update password
-        if($request->get('password', false)){
-            $u->password = bcrypt($request->get('password'));
+        //
+        $group->permissions()->delete();
+
+        //
+        if(!$group->super_administrator){
+            foreach ($request->get('permissions', []) as $permission) {
+                $group->permissions()->create(['permission' => $permission]);
+            }
         }
 
         //
-        $u->save();
-
-        //
-        $this->flash()->success('Usuário atualizado com sucesso!');
+        $this->flash()->success('Grupo atualizado com sucesso!');
         return back();
     }
 
