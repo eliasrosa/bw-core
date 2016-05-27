@@ -34,18 +34,21 @@ class UserGroupForm extends Form
 
         $this->addPanel('Permissões de acesso', function($panel){
             $permissions = [];
-            foreach (\Route::getRoutes() as $route) {
-                if($route->getName() && $route->getName() != 'bw.home'){
-                    $name = $route->getName();
+            $ignore_routes = config('bw.middleware.aclroutes.ignore_routes', []);
 
-                    if(isset($route->getAction()['middleware'])){
-                        if(in_array('bw.aclroutes', $route->getAction()['middleware'])){
-                            $url = str_replace('.', '/', str_replace('bw.' , '/', $name));
-                            $permissions[$name] = [
-                                'label' => $url,
-                                'value' => $name,
-                                'checked' => '',
-                            ];
+            foreach (\Route::getRoutes() as $route) {
+                if($route->getName()){
+                    if(!in_array($route->getName(), $ignore_routes)){
+                        $name = $route->getName();
+                        if(isset($route->getAction()['middleware'])){
+                            if(in_array('bw.aclroutes', $route->getAction()['middleware'])){
+                                $url = str_replace('.', '/', str_replace('bw.' , '/', $name));
+                                $permissions[$name] = [
+                                    'label' => $url,
+                                    'value' => $name,
+                                    'checked' => '',
+                                ];
+                            }
                         }
                     }
                 }

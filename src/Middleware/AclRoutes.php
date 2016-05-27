@@ -10,14 +10,13 @@ class AclRoutes
     protected $auth;
 
     //
-    protected $ignore_routes = [
-        'bw.home'
-    ];
+    protected $ignore_routes = [];
 
     //
     public function __construct()
     {
         $this->auth = \Auth::user();
+        $this->ignore_routes = config('bw.middleware.aclroutes.ignore_routes', []);
     }
 
     //
