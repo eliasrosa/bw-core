@@ -96,7 +96,7 @@
     {!! \BW\Helpers\Html::buildJavaScripts() !!}
 
     <!-- Custom Template JavaScript -->
-    @yield('scripts', '')
+    @yield('script', '')
 
     <script>
         $('#flash-overlay-modal').modal();
