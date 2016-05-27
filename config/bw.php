@@ -47,6 +47,7 @@ return [
 
         // Itens
         'Panel' => BW\Util\Form\Itens\Panel::class,
+        'IncludeFile' => BW\Util\Form\Itens\IncludeFile::class,
     ],
 
 ];
