@@ -2,6 +2,7 @@
 
 namespace BW\Util\DataGrid;
 
+use BW\Helpers\Html;
 use Zofe\Rapyd\DataGrid\DataGrid as ZofeDataGrid;
 
 class DataGrid extends ZofeDataGrid
@@ -29,6 +30,11 @@ class DataGrid extends ZofeDataGrid
 
     public function addOptions($route_edit, $route_delete)
     {
+
+        //
+        Html::addJS(asset('/packages/eliasrosa/bw-core/util/grid/remove.js'));
+
+        //
         $this->add('opcoes', 'Opções')->cell(function($a, $b) use ($route_edit, $route_delete){
             $html = '';
 
