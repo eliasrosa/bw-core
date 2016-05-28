@@ -5,6 +5,7 @@
         <tr>
             @foreach ($dg->columns as $column)
                 <th{!! $column->buildAttributes() !!}>
+                    {!! $column->label !!}
                     @if ($column->orderby)
                         @if ($dg->onOrderby($column->orderby_field, 'asc'))
                             <span class="glyphicon glyphicon-chevron-up"></span>
@@ -21,7 +22,6 @@
                             </a>
                         @endif
                     @endif
-                    {!! $column->label !!}
                 </th>
             @endforeach
         </tr>
