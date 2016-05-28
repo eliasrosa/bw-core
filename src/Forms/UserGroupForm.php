@@ -39,10 +39,10 @@ class UserGroupForm extends Form
             foreach (\Route::getRoutes() as $route) {
                 if($route->getName()){
                     if(!in_array($route->getName(), $ignore_routes)){
-                        $name = $route->getName();
+                        $name = 'route::' .$route->getName();
                         if(isset($route->getAction()['middleware'])){
                             if(in_array('bw.aclroutes', $route->getAction()['middleware'])){
-                                $url = str_replace('.', '/', str_replace('bw.' , '/', $name));
+                                $url = str_replace('.', '/', str_replace('route::bw.' , '/', $name));
                                 $permissions[$name] = [
                                     'label' => $url,
                                     'value' => $name,
