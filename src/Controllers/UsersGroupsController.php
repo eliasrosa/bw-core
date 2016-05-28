@@ -28,7 +28,8 @@ class UsersGroupsController extends BaseController
         $grid->add('id', 'ID', true);
         $grid->add('name', 'Nome', true);
         $grid->add('description','Descrição');
-        $grid->add('{{ $users->count() }}','Usuários relacionados');
+        $grid->add('{{ $users->count() }}','Usuários');
+        $grid->addBoolean('super_administrator', 'Administrador', 'Sim', 'Não');
         $grid->addStatus();
         $grid->addOptions('bw.users.groups.edit', 'bw.users.groups.destroy');
         $grid->orderBy('id','desc');

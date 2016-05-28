@@ -54,15 +54,22 @@ class DataGrid extends ZofeDataGrid
         });
     }
 
-    public function addStatus()
+
+    public function addBoolean($name, $title, $str_true, $str_false)
     {
-        $this->add('status', 'Status', true)->cell(function($a, $b){
-            if($b->status){
-                return '<span class="label label-success">Ativado</span>';
+        $this->add($name, $title, true)->cell(function($a, $b) use ($name, $str_true, $str_false){
+            if((bool) $b->$name){
+                return '<span class="label label-success">' . $str_true . '</span>';
             }else{
-                return '<span class="label label-danger">Destivado</span>';
+                return '<span class="label label-danger">' . $str_false . '</span>';
             }
         });
+    }
+
+
+    public function addStatus()
+    {
+        $this->addBoolean('status', 'Status', 'Ativado', 'Desativado');
     }
 
 }
