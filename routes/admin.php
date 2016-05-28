@@ -6,5 +6,7 @@ Route::get('/', [
     'uses' => 'BW\Controllers\DashboardController@dashboard',
 ]);
 
-Route::resource('users/groups', 'BW\Controllers\UsersGroupsController');
-Route::resource('users', 'BW\Controllers\UsersController');
+$except = ['except' => ['show']];
+
+Route::resource('users/groups', '\BW\Controllers\UsersGroupsController', $except);
+Route::resource('users', '\BW\Controllers\UsersController', $except);
