@@ -61,9 +61,19 @@ class UserGroupForm extends Form
                 };
             }else{
                 if($this->model){
+                    $erros = [];
                     foreach ($this->model->permissions as $i) {
-                        $permissions[$i->permission]['checked'] = 'checked';
+                        if(isset($permissions[$i->permission])){
+                            $permissions[$i->permission]['checked'] = 'checked';
+                        }else{
+                            $erros[] = '- ' . $i->permission;
+                        }
                     };
+
+                    if(count($erros)){
+                        $msg = 'As seguinte permissões não existem mais e serão removidas ao salvar o grupo<br><br>' . join('<br>', $erros);
+                        app('flash')->warning($msg);
+                    }
                 }
             }
 
