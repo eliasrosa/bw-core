@@ -24,16 +24,29 @@ class LoginController extends BaseController
 
         //
         if (\Auth::attempt(['email' => $email, 'password' => $password, 'status' => 1])) {
-            $response = redirect()->route('bw.home');
 
-            if($remember ===  '1'){
-                $cookie = cookie()->forever('bw_login_remember', $email);
-            }else{
-                $cookie = cookie()->forget('bw_login_remember');
-            }
+            //
+            $user = \Auth::user();
+            if((bool) $user->group->status){
+
+                $response = redirect()->route('bw.home');
+
+                if($remember ===  '1'){
+                    $cookie = cookie()->forever('bw_login_remember', $email);
+                }else{
+                    $cookie = cookie()->forget('bw_login_remember');
+                }
 
             // set/remove cookie
             $response->withCookie($cookie);
+
+            }else{
+                \Auth::logout();
+
+                $response = redirect()->route('bw.login.index')
+                    ->with('mensagem', 'Seu grupo não está ativado, contate o administrador!')
+                    ->withInput($request->except('password'));
+            }
 
         }else{
             $response = redirect()->route('bw.login.index')
