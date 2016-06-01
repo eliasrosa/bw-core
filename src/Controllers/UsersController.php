@@ -59,6 +59,7 @@ class UsersController extends BaseController
             'status'   => 'boolean',
             'name'     => 'required',
             'password' => 'required|confirmed|min:8',
+            'group_id' => 'required|integer',
             'email'    => 'required|email|unique:users',
         ]);
 
@@ -78,6 +79,7 @@ class UsersController extends BaseController
         $u->email = $request->get('email');
         $u->password = bcrypt($request->get('password'));
         $u->status = $request->get('status', false);
+        $u->group_id = $request->get('group_id');
         $u->save();
 
         //
@@ -102,6 +104,7 @@ class UsersController extends BaseController
         $validator = \Validator::make($request->all(), [
             'status'   => 'boolean',
             'name'     => 'required',
+            'group_id' => 'required|integer',
             'password' => 'confirmed|min:8',
             'email'    => 'required|email|unique:users,email,' . $request->get('id'),
         ]);
@@ -121,6 +124,7 @@ class UsersController extends BaseController
         $u->name = $request->get('name');
         $u->email = $request->get('email');
         $u->status = $request->get('status', false);
+        $u->group_id = $request->get('group_id');
 
         // update password
         if($request->get('password', false)){

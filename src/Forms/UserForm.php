@@ -4,6 +4,7 @@ namespace BW\Forms;
 
 use BW\Models\User;
 use BW\Util\Form\Form;
+use BW\Models\UserGroup;
 
 class UserForm extends Form
 {
@@ -25,11 +26,12 @@ class UserForm extends Form
         $this->addPanel('Dados do usuário', function($panel){
             $panel->addText('name', 'Nome');
             $panel->addText('email', 'E-mail');
-            $panel->addCheckboxActive('status', 'Status');
+            $panel->addSelect('group_id', 'Grupo')->setOptions(UserGroup::get());
         });
 
         $this->addPanel('Dados de segurança', function($panel){
             $panel->addPassword('password', 'Senha');
+            $panel->addCheckboxActive('status', 'Status');
         });
 
         return $this;
