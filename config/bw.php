@@ -79,6 +79,12 @@ return [
         // Dashboard
         ['label' => 'Dashboard', 'icon' => 'fa fa-dashboard', 'route' => 'bw.home'],
 
+        // Medias
+        ['label' => 'Mídias', 'icon' => 'fa fa-film', 'itens' => [
+            ['label' => 'Imagens', 'route' => 'bw.media.images.index'],
+        ]],
+
+
         // Configurações
         ['label' => 'Configurações', 'icon' => 'fa fa-gear', 'itens' => [
 
