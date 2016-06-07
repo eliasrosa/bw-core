@@ -39,6 +39,7 @@ return [
         'Text' => BW\Util\Form\Itens\Fields\Text::class,
         'File' => BW\Util\Form\Itens\Fields\File::class,
         'Email' => BW\Util\Form\Itens\Fields\Email::class,
+        'Select' => BW\Util\Form\Itens\Fields\Select::class,
         'Hidden' => BW\Util\Form\Itens\Fields\Hidden::class,
         'Password' => BW\Util\Form\Itens\Fields\Password::class,
         'Checkbox' => BW\Util\Form\Itens\Fields\Checkbox::class,
@@ -83,7 +84,6 @@ return [
         ['label' => 'Mídias', 'icon' => 'fa fa-film', 'itens' => [
             ['label' => 'Imagens', 'route' => 'bw.media.images.index'],
         ]],
-
 
         // Configurações
         ['label' => 'Configurações', 'icon' => 'fa fa-gear', 'itens' => [
