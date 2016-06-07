@@ -4,7 +4,8 @@ O BW é basicamente um Back-end para Larvel 5.1
 ## Instalação
 
 ```
-composer create-project laravel/laravel "5.1.*"
+composer create-project laravel/laravel projeto "5.1.*"
+cd projeto
 composer require eliasrosa/bw-core "dev-master"
 ```
 
