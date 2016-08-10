@@ -13,7 +13,6 @@
         <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/font-awesome-4.6.3/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/metisMenu/metisMenu.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/DataTables-1.10.12/media/css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/DataTables-1.10.12/media/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/packages/eliasrosa/bw-core/template/layout.css') }}" rel="stylesheet">
 
