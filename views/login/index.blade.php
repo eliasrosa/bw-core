@@ -39,3 +39,15 @@
         <a class="link" href="{{ route('bw.login.remember') }}">Esqueci minha senha</a>
     </div>
 @endsection
+
+@section('script')
+    @parent
+
+    <script type="text/javascript">
+        $(function(){
+            if($('form input[name="email"]').val()){
+               $('form input[name="password"]').focus();
+            }
+        });
+    </script>
+@endsection

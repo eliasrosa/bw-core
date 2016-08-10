@@ -35,5 +35,7 @@
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/jquery/jquery-3.1.0.min.js') }}"></script>
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js') }}"></script>
 
+        @yield('script')
+
     </body>
 </html>
