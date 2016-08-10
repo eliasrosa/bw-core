@@ -7,7 +7,6 @@ use BW\Models\UserGroup;
 use BW\Models\UserGroupPermission;
 use BW\Forms\UserGroupForm;
 use Illuminate\Http\Request;
-use BW\Util\DataGrid\DataGrid;
 use BW\Controllers\BaseController;
 
 class UsersGroupsController extends BaseController
@@ -16,31 +15,10 @@ class UsersGroupsController extends BaseController
     public function index(){
 
         //
-        $filter = \DataFilter::source(UserGroup::with('users'));
-        $filter->add('name','Nome', 'text');
-        $filter->add('description','Descrição', 'text');
-        $filter->submit('Pesquisar');
-        $filter->reset('Limpar');
-        $filter->build();
+        $grupos = UserGroup::with('users')->get();
 
         //
-        $grid = DataGrid::source($filter);
-        $grid->add('id', 'ID', true);
-        $grid->add('name', 'Nome', true);
-        $grid->add('description','Descrição');
-        $grid->add('{{ $users->count() }}','Usuários');
-        $grid->addBoolean('super_administrator', 'Administrador', 'Sim', 'Não');
-        $grid->addStatus();
-        $grid->addOptions('bw.users.groups.edit', 'bw.users.groups.destroy');
-        $grid->orderBy('id','desc');
-
-        //
-        return $this->view('users.groups.index')
-            ->with([
-                'grid' => $grid->build(),
-                'filter' => $filter,
-             ]
-        );
+        return $this->view('users.groups.index')->with('grupos', $grupos);
     }
 
     //

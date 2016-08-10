@@ -1,8 +1,47 @@
 @extends('BW::template.index')
 
-@section('title', '<span class="fa fa-user"></span> Usuários')
+@section('header.icon', 'fa fa-user')
+@section('header.title', 'Usuários')
 
-@section('title_buttons')
-    <a href="{{ route('bw.users.create') }}"><span class="fa fa-plus"></span> Adicionar usuário</a>
+@section('header.menu')
+    <li><a href="{{ route('bw.users.create') }}">Adicionar usuário</a></li>
 @endsection
 
+@section('content.index')
+
+    <div class="table-responsive">
+        <table class="datatable-simple">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Grupo</th>
+                    <th>Status</th>
+                    <th>Opçoes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($usuarios as $i)
+                <tr>
+                    <td>{{ $i->id }}</td>
+                    <td>{{ $i->name }}</td>
+                    <td>{{ $i->email }}</td>
+                    <td>{{ $i->group->name }}</td>
+                    <td><span class="label label-{{ $i->status ? 'success' : 'danger'}}">{{ $i->status ? 'Ativado' : 'Destivado'}}</span></td>
+                    <td>
+                        <a href="{{ route('bw.users.edit', $i->id) }}" class="btn btn-primary btn-xs">Editar</a>
+
+                        <form action="{{ route('bw.users.destroy', $i->id) }}" style="display: inline-block" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="submit" class="btn btn-danger btn-xs" value="Remover">
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+@endsection

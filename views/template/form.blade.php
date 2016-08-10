@@ -2,10 +2,12 @@
 
 @section('content')
 
-    <h1 class="page-header">@yield('title')</h1>
-
     @include('BW::util.flash.message')
 
-    @include('BW::util.form.form')
+    <div class="page-header">
+        <h1>@yield('title')</h1>
+
+        @include('BW::util.form.form')
+    </div>
 
 @endsection

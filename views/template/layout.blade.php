@@ -4,14 +4,17 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="robots" content="noindex">
+        <meta name="googlebot" content="noindex">
 
         <title>{{ config('bw.titulo') }}</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/font-awesome-4.6.3/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/metisMenu/metisMenu.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/DataTables-1.10.12/media/css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/DataTables-1.10.12/media/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/packages/eliasrosa/bw-core/template/layout.css') }}" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -55,13 +58,7 @@
 
             <!-- Page Content -->
             <div id="page-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div id="content" class="col-lg-12">
-                            @yield('content')
-                        </div>
-                    </div>
-                </div>
+                @yield('content')
             </div>
         </div>
 
@@ -69,6 +66,8 @@
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/jquery/jquery-3.1.0.min.js') }}"></script>
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/metisMenu/metisMenu.min.js') }}"></script>
+        <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/DataTables-1.10.12/media/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/DataTables-1.10.12/media/js/dataTables.bootstrap.min.js') }}"></script>
         <script src="{{ asset('/packages/eliasrosa/bw-core/template/layout.js') }}"></script>
 
         <!-- Custom Template JavaScript -->

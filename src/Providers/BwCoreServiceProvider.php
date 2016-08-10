@@ -33,10 +33,10 @@ class BwCoreServiceProvider extends ServiceProvider
         \View::addNamespace('BW', __DIR__ . '/../../views');
 
         //
+        $this->app->register('BW\Providers\FlashServiceProvider');
         $this->app->register('BW\Providers\CommandServiceProvider');
         $this->app->register('BW\Providers\ComposerServiceProvider');
-        $this->app->register('BW\Providers\DataGridServiceProvider');
-        $this->app->register('BW\Providers\FlashServiceProvider');
+        //$this->app->register('Magic\Providers\MagicRelationshipServiceProvider');
 
         //
         \App::bind('Illuminate\Routing\ResourceRegistrar', function ()

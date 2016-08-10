@@ -6,7 +6,6 @@ use Validator;
 use BW\Models\User;
 use BW\Forms\UserForm;
 use Illuminate\Http\Request;
-use BW\Util\DataGrid\DataGrid;
 use BW\Controllers\BaseController;
 
 class UsersController extends BaseController
@@ -16,30 +15,10 @@ class UsersController extends BaseController
     public function index(){
 
         //
-        $filter = \DataFilter::source(User::with('group'));
-        $filter->add('name','Nome', 'text');
-        $filter->add('email','E-mail', 'text');
-        $filter->submit('Pesquisar');
-        $filter->reset('Limpar');
-        $filter->build();
+        $usuarios = User::with('group')->get();
 
         //
-        $grid = DataGrid::source($filter);
-        $grid->add('id', 'ID', true);
-        $grid->add('name', 'Nome', true);
-        $grid->add('email', 'E-mail', true);
-        $grid->add('group.name', 'Grupo', 'group_id');
-        $grid->addStatus();
-        $grid->addOptions('bw.users.edit', 'bw.users.destroy');
-        $grid->orderBy('id','desc');
-
-        //
-        return $this->view('users.index')
-            ->with([
-                'grid' => $grid->build(),
-                'filter' => $filter,
-             ]
-        );
+        return $this->view('users.index')->with('usuarios', $usuarios);
     }
 
     //

@@ -3,7 +3,7 @@
 //
 Route::get('/', [
     'as' => 'bw.home',
-    'uses' => 'BW\Controllers\DashboardController@dashboard',
+    'uses' => 'BW\Controllers\HomeController@index',
 ]);
 
 $except = ['except' => ['show']];

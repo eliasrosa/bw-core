@@ -1,3 +1,9 @@
+.navbar-default-list { background: #fff; }
+.navbar-default-list .navbar-brand { color: #337ab7; }
+.navbar-default-list .navbar-brand:hover { color: #337ab7; }
+.navbar-default-list .navbar-nav > li > a:hover { color: #337ab7; text-decoration: underline; }
+.dataTables_wrapper .dataTables_paginate .paginate_button { padding: 0; }
+
 #wrapper {
     padding: 0;
     margin: 0;
@@ -127,4 +133,25 @@
 
 #sidebar-wrapper .sidebar-nav > .sidebar-brand a span {
     margin-left: 60px;
+}
+
+#page-wrapper {
+    margin: 0;
+    padding: 0 20px;
+}
+
+#page-wrapper .page-header {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+#page-wrapper .page-header h1 {
+    border-bottom: 1px solid #e7e7e7;
+    padding: 0 0 5px 0;
+    font-size: 30px;
+}
+
+#page-wrapper .page-header h1 > .icon {
+    margin-right: 7px;
 }
