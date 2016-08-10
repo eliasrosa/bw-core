@@ -1,4 +1,4 @@
-<ul class="nav navbar-top-links navbar-right">
+<ul class="nav navbar-nav navbar-right navbar-info">
     <li>
         <a href="#"><i class="fa fa-user fa-fw"></i> {{ $email }}</a>
     </li>

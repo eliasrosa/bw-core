@@ -1,0 +1,130 @@
+#wrapper {
+    padding: 0;
+    margin: 0;
+}
+
+#wrapper .navbar-static-top {
+    background-color: #346699;
+}
+
+#btn-slidemenu {
+    display: block;
+    float: left;
+    margin: 8px 10px 8px 0;
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid #ddd;
+    cursor: pointer;
+    background: transparent;
+}
+
+#btn-slidemenu > .icon-bar {
+    background-color: #FFF;
+}
+
+#btn-slidemenu:hover > .icon-bar {
+    background-color: #DDD;
+}
+
+#wrapper .navbar .navbar-header .navbar-brand {
+    padding-left: 0;
+    color: #FFF;
+}
+
+#wrapper .navbar .navbar-info {
+    margin: 0;
+}
+
+#wrapper .navbar .navbar-info li a {
+    color: #FFF;
+}
+
+#wrapper .navbar .navbar-info li a:hover {
+    color: #DDD;
+}
+
+#sidebar-wrapper {
+    z-index: 2000;
+    position: fixed;
+    left: -251px;
+    top: 0;
+    width: 251px;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #346699;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    border-right: 1px solid #999;
+}
+
+#sidebar-wrapper.toggled {
+    left: 0;
+}
+
+#sidebar-wrapper ul li a:focus {
+    background: transparent;
+}
+
+#sidebar-wrapper .sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#sidebar-wrapper .sidebar-nav li {
+    line-height: 40px;
+}
+
+#sidebar-wrapper .sidebar-nav li a {
+    padding-left: 20px;
+    display: block;
+    text-decoration: none;
+    color: #FFF;
+}
+#sidebar-wrapper .sidebar-nav li a .icon{
+    width: 15px;
+    margin-right: 10px;
+}
+
+#sidebar-wrapper .sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255, 0.2);
+}
+
+#sidebar-wrapper .nav-second-level li a{
+    padding: 0 0 0 35px;
+}
+
+#sidebar-wrapper .nav-third-level li a {
+    padding: 0 0 0 55px;
+}
+
+#sidebar-wrapper .nav-second-level li a .icon,
+#sidebar-wrapper .nav-third-level li a .icon {
+    margin-right: 4px;
+}
+
+#sidebar-wrapper .sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 65px;
+}
+
+#sidebar-wrapper .sidebar-nav > .sidebar-brand a {
+    color: #FFF;
+}
+
+#sidebar-wrapper .sidebar-nav > .sidebar-brand a:hover {
+    color: #DDD;
+    background: none;
+}
+
+#sidebar-wrapper .sidebar-nav > .sidebar-brand a span {
+    margin-left: 60px;
+}
