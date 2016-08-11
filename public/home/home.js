@@ -2,18 +2,18 @@ $(function(){
 
     //
     var addLink = function(label, icon, href){
-        var html = '<a href="' + href + '"><span class="' + icon + '"></span>' + label + '</a>';
+        var html = '<a href="' + href + '"><span class="' + icon + '"></span><span class="label">' + label + '</span></a>';
         $('#home-container').append(html);
     }
 
-    // pega todos os itens menu, não ignorando
-    // header, home
-    var apps = $('#sidebar-wrapper ul.sidebar-nav > li:not(li:first, li:contains("Home"))');
+    //
+    var apps = $('#sidebar-wrapper ul.sidebar-nav > li:not(li:first, li:contains("Home")) > a');
 
+    //
     apps.each(function(index, el){
-        var icon = $('a span', el).attr('class');
-        var href = $('a', el).data('href-index');
-        var label = $('a', el).text();
+        var icon = $('span', el).attr('class');
+        var href = $(el).data('route-index');
+        var label = $(el).text();
 
         addLink(label, icon, href);
     });

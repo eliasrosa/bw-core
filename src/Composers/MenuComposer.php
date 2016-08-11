@@ -17,6 +17,7 @@ class MenuComposer
         //
         foreach ($this->menus as &$m1) {
             $m1['href'] = isset($m1['route']) ? route($m1['route']) : '#';
+            $m1['route-index'] = isset($m1['route-index']) ? route($m1['route-index']) : '#';
 
             if(isset($m1['itens'])){
                 foreach ($m1['itens'] as &$m2) {
