@@ -29,7 +29,3 @@
 
     @yield('content.index')
 @endsection
-
-@section('style')
-    <link href="{{ asset('/packages/eliasrosa/bw-core/template/index.css') }}" rel="stylesheet">
-@endsection
