@@ -36,7 +36,7 @@ class BwCoreServiceProvider extends ServiceProvider
         $this->app->register('BW\Providers\FlashServiceProvider');
         $this->app->register('BW\Providers\CommandServiceProvider');
         $this->app->register('BW\Providers\ComposerServiceProvider');
-        //$this->app->register('Magic\Providers\MagicRelationshipServiceProvider');
+        $this->app->register('Magic\Providers\MagicRelationshipServiceProvider');
 
         //
         \App::bind('Illuminate\Routing\ResourceRegistrar', function ()
