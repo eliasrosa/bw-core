@@ -13,8 +13,9 @@
         }
     ],
     "require": {
+        "laracasts/flash": "2.*",
         "eliasrosa/safevalue": "1.0.*",
-        "laracasts/flash": "2.*"
+        "eliasrosa/bw-magic-relationships": "dev-master"
     },
     "autoload": {
         "psr-4": {
