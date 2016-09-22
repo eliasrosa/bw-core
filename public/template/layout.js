@@ -45,10 +45,7 @@ $(function() {
 
     // dataTable
     $('#page-wrapper .datatable-simple')
-        .addClass('table table-hover table-striped')
-        .dataTable({
-            scrollX: true
-        });
+        .addClass('table table-hover table-striped');
 
 
     $('table form :submit[value="Remover"]').on('click', function() {
