@@ -1,12 +1,12 @@
 # BW PHP Framework
-O BW é basicamente um Back-end para Larvel 5.1
+O BW é basicamente um Back-End para Larvel 5.1
 
-## Instalação
+### Instalação
 
 ```
 composer create-project laravel/laravel projeto "5.1.*"
 cd projeto
-composer require eliasrosa/bw-core "dev-master"
+composer require eliasrosa/bw-core
 ```
 
 Após a instalação do composer, você deve registrar o ServiceProvider
@@ -18,26 +18,27 @@ Após a instalação do composer, você deve registrar o ServiceProvider
 ];
 ```
 
-Publicando arquivos
+### Publicando arquivos
+É importante o uso do parâmetro "--force" para forçar a substituição do arquivo 'config/auth.php' 
 
 ```
-php artisan vendor:publish
+php artisan vendor:publish --force
 ```
 
-Banco de dados
+### Banco de dados
 
 ```
 php artisan migrate
 ```
 
-Criando usuário
+### Criando usuário 'admin'
 
 ```
 php artisan bw:create-user
 ```
 
-
-
+### Acessando o painel administrativo
+<http://[web-app]/admin>
 
 
 
