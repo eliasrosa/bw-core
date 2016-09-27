@@ -2,7 +2,7 @@
 
 namespace BW\Models;
 
-use Magic\Traits\MagicRelationship;
+use BW\Util\Relationships\Traits\RelationshipTrait;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -15,7 +15,7 @@ class User extends Model implements AuthenticatableContract,
                                        AuthorizableContract,
                                        CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword, MagicRelationship;
+    use Authenticatable, Authorizable, CanResetPassword, RelationshipTrait;
 
     //
     protected $table = 'users';

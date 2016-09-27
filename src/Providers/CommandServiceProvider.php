@@ -8,7 +8,8 @@ class CommandServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        // Register
+        // Register comands
         $this->commands('BW\Console\Commands\CreateUser');
+        $this->commands('BW\Console\Commands\ListRelationship');
     }
 }
