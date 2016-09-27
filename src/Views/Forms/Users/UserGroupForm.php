@@ -1,6 +1,6 @@
 <?php
 
-namespace BW\Forms;
+namespace BW\Views\Forms\Users;
 
 use BW\Models\UserGroup as Model;
 use BW\Util\Form\Form;

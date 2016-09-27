@@ -10,8 +10,8 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        \View::composer('BW::composers.info', 'BW\Composers\InfoComposer');
-        \View::composer('BW::composers.menu', 'BW\Composers\MenuComposer');
+        \View::composer('BW::composers.info', 'BW\Views\Composers\InfoComposer');
+        \View::composer('BW::composers.menu', 'BW\Views\Composers\MenuComposer');
     }
 
     public function register()

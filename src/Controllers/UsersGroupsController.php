@@ -4,10 +4,10 @@ namespace BW\Controllers;
 
 use Validator;
 use BW\Models\UserGroup;
-use BW\Models\UserGroupPermission;
-use BW\Forms\UserGroupForm;
 use Illuminate\Http\Request;
+use BW\Models\UserGroupPermission;
 use BW\Controllers\BaseController;
+use BW\Views\Forms\Users\UserGroupForm;
 
 class UsersGroupsController extends BaseController
 {

@@ -4,8 +4,8 @@ namespace BW\Controllers;
 
 use Validator;
 use BW\Models\User;
-use BW\Forms\UserForm;
 use Illuminate\Http\Request;
+use BW\Views\Forms\Users\UserForm;
 use BW\Controllers\BaseController;
 
 class UsersController extends BaseController

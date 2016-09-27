@@ -1,6 +1,6 @@
 <?php
 
-namespace BW\Composers;
+namespace BW\Views\Composers;
 
 use Illuminate\Contracts\View\View;
 
