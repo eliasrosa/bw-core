@@ -12,7 +12,7 @@ class MenuComposer
     public function __construct()
     {
         //
-        $this->menus = config('bw.menus', []);
+        $this->menus = \BWAdmin::get('menu')->get();
 
         //
         foreach ($this->menus as &$m1) {

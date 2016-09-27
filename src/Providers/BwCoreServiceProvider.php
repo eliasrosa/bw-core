@@ -38,6 +38,15 @@ class BwCoreServiceProvider extends ServiceProvider
         $this->app->register('BW\Providers\ComposerServiceProvider');
         $this->app->register('Magic\Providers\MagicRelationshipServiceProvider');
 
+        // Register facade
+        $this->app->bind('bw.admin', function($app) {
+            return new \BW\BWAdmin();
+        });
+
+        // Register alias
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('BWAdmin', 'BW\Support\Facades\BWFacade');
+
         //
         \App::bind('Illuminate\Routing\ResourceRegistrar', function ()
         {

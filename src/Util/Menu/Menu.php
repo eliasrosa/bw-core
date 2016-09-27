@@ -2,28 +2,8 @@
 
 namespace BW\Util\Menu;
 
-class Menu
-{
-    private $links = [];
+use BW\Util\Container\BaseContainer;
 
-    public function add($titulo, $route, $class = null)
-    {
-        $link = [
-            'titulo' => $titulo,
-            'route' => $route,
-            'class' => $class,
-        ];
+class Menu extends BaseContainer {
 
-        $this->links[] = $link;
-    }
-
-    public function build($view = '')
-    {
-        ($view == '') and $view = 'BW::util.menu.links';
-
-        return view($view)
-            ->with([
-                'links' => $this->links
-            ]);
-    }
 }
