@@ -20,7 +20,9 @@ class BaseContainer {
         $config = config($config_key, []);
 
         //
-        $this->data[] = $config[0];
+        if(count($config)){
+            $this->data[] = $config[0];
+        }
 
         //
         return $this;
