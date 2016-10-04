@@ -35,19 +35,30 @@ return [
     */
     'form' => [
 
-        // fields
-        'Text' => BW\Util\Form\Itens\Fields\Text::class,
-        'File' => BW\Util\Form\Itens\Fields\File::class,
-        'Email' => BW\Util\Form\Itens\Fields\Email::class,
-        'Select' => BW\Util\Form\Itens\Fields\Select::class,
-        'Hidden' => BW\Util\Form\Itens\Fields\Hidden::class,
-        'Password' => BW\Util\Form\Itens\Fields\Password::class,
-        'Checkbox' => BW\Util\Form\Itens\Fields\Checkbox::class,
-        'TextArea' => BW\Util\Form\Itens\Fields\TextArea::class,
+        // Common fields
+        'Text'           => BW\Util\Form\Itens\Fields\Text::class,
+        'File'           => BW\Util\Form\Itens\Fields\File::class,
+        'Email'          => BW\Util\Form\Itens\Fields\Email::class,
+        'Select'         => BW\Util\Form\Itens\Fields\Select::class,
+        'Hidden'         => BW\Util\Form\Itens\Fields\Hidden::class,
+        'Password'       => BW\Util\Form\Itens\Fields\Password::class,
+        'Checkbox'       => BW\Util\Form\Itens\Fields\Checkbox::class,
+        'TextArea'       => BW\Util\Form\Itens\Fields\TextArea::class,
         'CheckboxActive' => BW\Util\Form\Itens\Fields\CheckboxActive::class,
 
+        // Mask
+        'Mask'         => BW\Util\Form\Itens\Fields\Mask::class,
+        'Cep'          => BW\Util\Form\Itens\Fields\Cep::class,
+        'Cpf'          => BW\Util\Form\Itens\Fields\Cpf::class,
+        'Cnpj'         => BW\Util\Form\Itens\Fields\Cnpj::class,
+        'Integer'      => BW\Util\Form\Itens\Fields\Integer::class,
+        'Currency'     => BW\Util\Form\Itens\Fields\Currency::class,
+        'CpfOrCnpj'    => BW\Util\Form\Itens\Fields\CpfOrCnpj::class,
+        'Telephone'    => BW\Util\Form\Itens\Fields\Telephone::class,
+        'LicensePlate' => BW\Util\Form\Itens\Fields\LicensePlate::class,
+
         // Itens
-        'Panel' => BW\Util\Form\Itens\Panel::class,
+        'Panel'       => BW\Util\Form\Itens\Panel::class,
         'IncludeFile' => BW\Util\Form\Itens\IncludeFile::class,
     ],
 
