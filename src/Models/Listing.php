@@ -22,7 +22,7 @@ class Listing extends Model
         $instance = new $related;
 
         return new MorphOneToMany(
-            $instance->newQuery(), $model, 'listable', 'relation_listings_rel',
+            $instance->newQuery(), $model, 'listable', 'listings_rel',
             'listable_id', 'list_id', 'ref', false
         );
     }
@@ -35,7 +35,7 @@ class Listing extends Model
 
         $instance = new $relation['model'];
         return new MorphOneToMany(
-            $instance->newQuery(), $this, 'listable', 'relation_listings_rel',
+            $instance->newQuery(), $this, 'listable', 'listings_rel',
             'list_id', 'listable_id', 'ref', true
         );
     }

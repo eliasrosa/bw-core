@@ -1,6 +1,6 @@
 <?php
 
-namespace BW\Relationships;
+namespace BW\Util\Relationships;
 
 use Illuminate\Database\Eloquent\Collection;
 
