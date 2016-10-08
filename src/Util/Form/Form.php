@@ -4,6 +4,7 @@ namespace BW\Util\Form;
 
 use BW\Traits\HtmlTrait;
 use BW\Util\Form\Traits\ItemTrait;
+use BW\Util\Relationships\CreateForm;
 
 class Form
 {
@@ -47,5 +48,11 @@ class Form
 
         //
         return $this;
+    }
+
+    //
+    public function createPanelsRelationships($model)
+    {
+        return new CreateForm($model, $this);
     }
 }

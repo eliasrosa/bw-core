@@ -12,6 +12,7 @@ class Field extends Item
     public $type = 'text';
     public $static = false;
     public $help_block = '';
+    public $width = 12;
 
     //
     public function __construct($name, $label, $model)
@@ -34,6 +35,17 @@ class Field extends Item
     {
         if($this->name != '' && $this->model && isset($this->model->{$this->name})){
             $this->value = $this->model->{$this->name};
+        }
+
+        //
+        if(isset($this->model)){
+            if(strpos($this->name, '.')){
+                list($relation_model, $name) = explode('.', $this->name);
+                if(is_object($this->model->{$relation_model})){
+                    $obj = $this->model->{$relation_model};
+                    $this->value = $obj->{$name};
+                }
+            }
         }
 
         return old($this->name, $this->value);
@@ -60,4 +72,10 @@ class Field extends Item
         return $this;
     }
 
+    //
+    public function setWidth($width)
+    {
+        $this->width = $width;
+        return $this;
+    }
 }

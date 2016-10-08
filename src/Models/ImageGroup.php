@@ -15,12 +15,22 @@ class ImageGroup extends Model
     protected $fillable = [];
 
     //
-    static function getRelationship($model, $relation = array()){
-
-        //
+    static function getRelationship($model, $relation = array())
+    {
         return  $model->hasMany(get_class(), 'ref_id')
                       ->where('relation_id', $relation['id'])
                       ->orderBy('position');
+    }
+
+    //
+    static function addFormField($form, $field)
+    {
+        $title = isset($field['title']) ? $field['title'] : ucfirst($field['name']);
+        $width = isset($field['width']) ? $field['width'] : 12;
+
+        //
+        $form->addText($field['name'], $title)
+             ->setWidth($width);
     }
 
     //

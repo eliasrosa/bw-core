@@ -15,10 +15,20 @@ class Tag extends Model
     protected $fillable = [];
 
     //
-    static function getRelationship($model, $relation = array()){
+    static function getRelationship($model, $relation = array())
+    {
+        return $model->morphToMany(get_class(), 'taggable', 'relation_tags_rel');
+    }
+
+    //
+    static function addFormField($form, $field)
+    {
+        $title = isset($field['title']) ? $field['title'] : ucfirst($field['name']);
+        $width = isset($field['width']) ? $field['width'] : 6;
 
         //
-        return $model->morphToMany(get_class(), 'taggable', 'relation_tags_rel');
+        $form->addText($field['name'], $title)
+             ->setWidth($width);
     }
 
     // IMPORTANTE

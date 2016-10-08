@@ -38,7 +38,7 @@ class UsersController extends BaseController
             'status'   => 'boolean',
             'name'     => 'required',
             'password' => 'required|confirmed|min:8',
-            'group_id' => 'required|integer',
+            'group_id' => 'not_in:0',
             'email'    => 'required|email|unique:users',
         ]);
 

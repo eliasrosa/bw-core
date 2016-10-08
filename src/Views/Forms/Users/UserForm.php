@@ -26,7 +26,8 @@ class UserForm extends Form
         $this->addPanel('Dados do usuário', function($panel){
             $panel->addText('name', 'Nome');
             $panel->addText('email', 'E-mail');
-            $panel->addSelect('group_id', 'Grupo')->setOptions(UserGroup::get());
+            $panel->addSelect('group_id', 'Grupo')
+                  ->setOptions(UserGroup::get());
         });
 
         $this->addPanel('Dados de segurança', function($panel){

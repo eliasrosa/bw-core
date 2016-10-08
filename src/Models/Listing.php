@@ -16,15 +16,27 @@ class Listing extends Model
     protected $fillable = [];
 
     //
-    static function getRelationship($model, $relation = array()){
-
+    static function getRelationship($model, $relation = array())
+    {
         $related = get_class();
         $instance = new $related;
 
         return new MorphOneToMany(
             $instance->newQuery(), $model, 'listable', 'listings_rel',
-            'listable_id', 'list_id', 'ref', false
+            'listable_id', 'list_id', 'ref', false, $relation['id']
         );
+    }
+
+    //
+    static function addFormField($form, $field)
+    {
+        $title = isset($field['title']) ? $field['title'] : ucfirst($field['name']);
+        $width = isset($field['width']) ? $field['width'] : 6;
+
+        //
+        $form->addSelect("{$field['name']}.id", $title)
+             ->setOptions($field['type']::where('relation_id', $field['id'])->get())
+             ->setWidth($width);
     }
 
     // IMPORTANTE
@@ -36,7 +48,7 @@ class Listing extends Model
         $instance = new $relation['model'];
         return new MorphOneToMany(
             $instance->newQuery(), $this, 'listable', 'listings_rel',
-            'list_id', 'listable_id', 'ref', true
+            'list_id', 'listable_id', 'ref', true, $this->relation_id
         );
     }
 

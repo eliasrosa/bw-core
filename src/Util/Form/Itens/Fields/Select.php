@@ -10,23 +10,17 @@ class Select extends Field
     protected $options = [];
 
     //
-    public function __construct($name, $label, $options = [], $model = null)
-    {
-        //
-        parent::__construct($name, $label, $model);
-
-        //
-        $this->options = $options;
-    }
-
     public function getOptions()
     {
         return $this->options;
     }
 
+    //
     public function setOptions($collection, $key = 'id', $label = 'name')
     {
         $list = [];
+        $list[0] = '-- Selecione --';
+
         foreach ($collection as $c) {
             $list[$c->$key] = $c->$label;
         }
@@ -37,5 +31,4 @@ class Select extends Field
         //
         return $this;
     }
-
 }
