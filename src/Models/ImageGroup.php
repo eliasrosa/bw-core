@@ -23,6 +23,10 @@ class ImageGroup extends Model
     }
 
     //
+    static function attachRelationships($model, $relation){}
+    static function detachRelationships($model, $relation){}
+
+    //
     static function addFormField($form, $field)
     {
         $title = isset($field['title']) ? $field['title'] : ucfirst($field['name']);

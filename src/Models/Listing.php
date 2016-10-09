@@ -28,6 +28,31 @@ class Listing extends Model
     }
 
     //
+    static function attachRelationships($model, $relation)
+    {
+        $relationship = $model->{$relation['name']}();
+
+        if($model->{$relation['name']}){
+            $id = $model->{$relation['name']}->id;
+            $relationship->detach([$id]);
+        }
+
+        //
+        $relationship->attach(request($relation['name']));
+    }
+
+    //
+    static function detachRelationships($model, $relation)
+    {
+        $relationship = $model->{$relation['name']}();
+
+        if($model->{$relation['name']}){
+            $id = $model->{$relation['name']}->id;
+            $relationship->detach([$id]);
+        }
+    }
+
+    //
     static function addFormField($form, $field)
     {
         $width = isset($field['width']) ? $field['width'] : 6;

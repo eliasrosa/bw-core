@@ -17,6 +17,30 @@ trait RelationshipTrait
         return $relationship;
     }
 
+    public function saveRelationships()
+    {
+        $relationships = \BWAdmin::get('relationships')->get()
+            ->where('model', get_class())
+            ->where('parent', request('_relationship_parent'));
+
+        //
+        $relationships->each(function($relation){
+            $relation['type']::attachRelationships($this, $relation);
+        });
+    }
+
+    public function deleteRelationships()
+    {
+        $relationships = \BWAdmin::get('relationships')->get()
+            ->where('model', get_class())
+            ->where('parent', request('_relationship_parent'));
+
+        //
+        $relationships->each(function($relation){
+            $relation['type']::detachRelationships($this, $relation);
+        });
+    }
+
     //
     public function __get($key)
     {

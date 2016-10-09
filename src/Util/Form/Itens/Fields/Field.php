@@ -43,9 +43,10 @@ class Field extends Item
         //
         if(isset($this->model) && $this->relation_key){
             $relation = $this->model->{$this->name};
-            $this->value = $relation->{$this->relation_key};
+            if($relation){
+                $this->value = $relation->{$this->relation_key};
+            }
         }
-
 
         return old($this->name, $this->value);
     }
