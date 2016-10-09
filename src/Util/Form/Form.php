@@ -13,6 +13,7 @@ class Form
 
     //
     public $model = null;
+    public $validator_attributes = [];
 
     //
     public function __construct($method, $action, $source = null)
@@ -54,5 +55,26 @@ class Form
     public function createPanelsRelationships($model)
     {
         return new CreateForm($model, $this);
+    }
+
+    //
+    public function getValidatorAttributes($item = null)
+    {
+        if(is_null($item)){
+            $item = $this;
+        }
+
+        if(isset($item->itens) && is_array($item->itens)){
+            foreach ($item->itens as $key => $i) {
+                if(isset($i->name) && isset($i->label)){
+                    $this->validator_attributes[$i->name] = $i->label;
+                }
+
+                //
+                $this->getValidatorAttributes($i);
+            }
+        }
+
+        return $this->validator_attributes;
     }
 }

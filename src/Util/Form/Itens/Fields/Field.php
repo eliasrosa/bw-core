@@ -15,6 +15,9 @@ class Field extends Item
     public $width = 12;
 
     //
+    private $relation_key = null;
+
+    //
     public function __construct($name, $label, $model)
     {
         //
@@ -38,15 +41,11 @@ class Field extends Item
         }
 
         //
-        if(isset($this->model)){
-            if(strpos($this->name, '.')){
-                list($relation_model, $name) = explode('.', $this->name);
-                if(is_object($this->model->{$relation_model})){
-                    $obj = $this->model->{$relation_model};
-                    $this->value = $obj->{$name};
-                }
-            }
+        if(isset($this->model) && $this->relation_key){
+            $relation = $this->model->{$this->name};
+            $this->value = $relation->{$this->relation_key};
         }
+
 
         return old($this->name, $this->value);
     }
@@ -55,6 +54,13 @@ class Field extends Item
     public function setHelpBlock($value)
     {
         $this->help_block = $value;
+        return $this;
+    }
+
+    //
+    public function setRelationKey($key)
+    {
+        $this->relation_key = $key;
         return $this;
     }
 

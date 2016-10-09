@@ -30,12 +30,12 @@ class Listing extends Model
     //
     static function addFormField($form, $field)
     {
-        $title = isset($field['title']) ? $field['title'] : ucfirst($field['name']);
         $width = isset($field['width']) ? $field['width'] : 6;
 
         //
-        $form->addSelect("{$field['name']}.id", $title)
+        $form->addSelect($field['name'], $field['title'])
              ->setOptions($field['type']::where('relation_id', $field['id'])->get())
+             ->setRelationKey('id')
              ->setWidth($width);
     }
 

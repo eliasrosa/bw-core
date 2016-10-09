@@ -38,6 +38,8 @@ class Relationships {
                 'name' => $name,
                 'type' => $type,
                 'parent' => $parent,
+                'title' => isset($params['title']) ? $params['title'] : ucfirst($name),
+                'validator' => isset($params['validator']) ? $params['validator'] : null,
             ]);
 
             //
