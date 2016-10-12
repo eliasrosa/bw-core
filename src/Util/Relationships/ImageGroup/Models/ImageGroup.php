@@ -1,11 +1,11 @@
 <?php
 
-namespace BW\Models;
+namespace BW\Util\Relationships\ImageGroup\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use BW\Util\Relationships\Traits\RelationshipTrait;
+use BW\Util\Relationships\RelationshipTrait;
 
-class Image extends Model
+class ImageGroup extends Model
 {
     // Trait
     use RelationshipTrait;
@@ -20,8 +20,9 @@ class Image extends Model
     //
     static function getRelationship($model, $relation = array())
     {
-        return  $model->hasOne(get_class(), 'ref_id')
-                      ->where('relation_id', $relation['id']);
+        return  $model->hasMany(get_class(), 'ref_id')
+                      ->where('relation_id', $relation['id'])
+                      ->orderBy('position');
     }
 
     //
@@ -42,11 +43,8 @@ class Image extends Model
     //
     public function ref()
     {
-        $relation = \BWAdmin::get('relationships')
-            ->get($this->relation_id)
-            ->first();
+        $relation = \BWAdmin::get('relationships')->get($this->relation_id)->first();
 
-        //
         return $this->belongsTo($relation['model']);
     }
 }

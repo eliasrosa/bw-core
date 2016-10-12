@@ -1,10 +1,10 @@
 <?php
 
-namespace BW\Models;
+namespace BW\Util\Relationships\Listing\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use BW\Util\Relationships\MorphOneToMany;
-use BW\Util\Relationships\Traits\RelationshipTrait;
+use BW\Util\Relationships\RelationshipTrait;
 
 class Listing extends Model
 {
@@ -19,8 +19,7 @@ class Listing extends Model
     static $manager_menu = true;
     static $manager_menu_icon = 'fa fa-list';
     static $manager_menu_title = 'Gerenciar listas';
-    static $manager_controller = '\BW\Controllers\Relationships\ListingControllers';
-
+    static $manager_controller = '\BW\Util\Relationships\Listing\ListingController';
 
     //
     static function getRelationship($model, $relation = array())

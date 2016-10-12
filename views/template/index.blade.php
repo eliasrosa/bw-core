@@ -22,7 +22,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         @yield('header.menu', '')
 
-                        @include('BW::template.menu-relationships')
+                        @include('BW::util.relationships.menu')
 
                     </ul>
                 </div>

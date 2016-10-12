@@ -74,7 +74,7 @@ class Relationships {
         if(strpos($type, "\\") !== false){
             return $type;
         }else{
-            return 'BW\Models\\' . $type;
+            return 'BW\Util\Relationships\\' . $type . '\Models\\' . $type;
         }
     }
 
@@ -95,7 +95,6 @@ class Relationships {
                      ->where('model', $model)
                      ->where('parent', $parent)
                      ->groupBy('type');
-
 
         $menus = [];
         $types->each(function($relationships, $type) use(&$menus){

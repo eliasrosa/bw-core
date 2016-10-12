@@ -1,4 +1,3 @@
-
 @if(isset($relations_menu))
     @foreach($relations_menu as $menu)
         <li>

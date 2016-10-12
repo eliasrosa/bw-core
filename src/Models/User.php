@@ -2,7 +2,7 @@
 
 namespace BW\Models;
 
-use BW\Util\Relationships\Traits\RelationshipTrait;
+use BW\Util\Relationships\RelationshipTrait;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;

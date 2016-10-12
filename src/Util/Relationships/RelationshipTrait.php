@@ -1,6 +1,6 @@
 <?php
 
-namespace BW\Util\Relationships\Traits;
+namespace BW\Util\Relationships;
 
 use LogicException;
 
