@@ -21,8 +21,12 @@
                 <div class="collapse navbar-collapse" id="view-menu">
                     <ul class="nav navbar-nav navbar-right">
                         @yield('header.menu', '')
+
+                        @include('BW::template.menu-relationships')
+
                     </ul>
                 </div>
+
             </nav>
         @endif
     </div>

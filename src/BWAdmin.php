@@ -31,6 +31,12 @@ class BWAdmin {
     }
 
     //
+    public function createRelationshipsMenu($menu)
+    {
+        return $this->relationships->createMenu($menu);
+    }
+
+    //
     public function get($key)
     {
         return $this->{$key};

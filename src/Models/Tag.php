@@ -15,6 +15,12 @@ class Tag extends Model
     protected $fillable = [];
 
     //
+    static $manager_menu = true;
+    static $manager_menu_icon = 'fa fa-check-square-o';
+    static $manager_menu_title = 'Gerenciar marcadores';
+    static $manager_controller = '\BW\Controllers\Relationships\TagControllers';
+
+    //
     static function getRelationship($model, $relation = array())
     {
         return $model->morphToMany(get_class(), 'taggable', 'relation_tags_rel');

@@ -16,6 +16,13 @@ class Listing extends Model
     protected $fillable = [];
 
     //
+    static $manager_menu = true;
+    static $manager_menu_icon = 'fa fa-list';
+    static $manager_menu_title = 'Gerenciar listas';
+    static $manager_controller = '\BW\Controllers\Relationships\ListingControllers';
+
+
+    //
     static function getRelationship($model, $relation = array())
     {
         $related = get_class();

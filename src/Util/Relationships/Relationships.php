@@ -87,4 +87,42 @@ class Relationships {
 
         return $this->data;
     }
+
+    //
+    public function createMenu($model, $parent = null)
+    {
+        $types = $this->data
+                     ->where('model', $model)
+                     ->where('parent', $parent)
+                     ->groupBy('type');
+
+
+        $menus = [];
+        $types->each(function($relationships, $type) use(&$menus){
+
+            if($type::$manager_menu){
+                $m = new \StdClass();
+                $m->title = $type::$manager_menu_title;
+                $m->icon = $type::$manager_menu_icon;
+                $itens = [];
+
+                $relationships->sortBy('title')
+                    ->each(function($i,  $k) use(&$itens){
+                        $id = $i['id'];
+                        $name = $i['name'];
+
+                        $itens[$k] = new \StdClass();
+                        $itens[$k]->href = route("bw.relationships.{$id}.index");
+                        $itens[$k]->title = $i['title'];
+                    });
+
+                $m->itens = $itens;
+
+                //
+                $menus[] = $m;
+            }
+        });
+
+        return $menus;
+    }
 }

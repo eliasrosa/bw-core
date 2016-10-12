@@ -18,7 +18,11 @@ class UsersController extends BaseController
         $usuarios = User::with('group')->get();
 
         //
-        return $this->view('users.index')->with('usuarios', $usuarios);
+        return $this->view('users.index')
+            ->with([
+                'usuarios' => $usuarios,
+                'relations_menu' => \BWAdmin::createRelationshipsMenu(User::class),
+            ]);
     }
 
     //

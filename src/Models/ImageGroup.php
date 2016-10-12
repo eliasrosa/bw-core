@@ -15,6 +15,9 @@ class ImageGroup extends Model
     protected $fillable = [];
 
     //
+    static $manager_menu = false;
+
+    //
     static function getRelationship($model, $relation = array())
     {
         return  $model->hasMany(get_class(), 'ref_id')
