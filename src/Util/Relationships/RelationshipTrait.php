@@ -7,7 +7,36 @@ use LogicException;
 trait RelationshipTrait
 {
     //
-    private function getModelFromName($key)
+    public function __get($key)
+    {
+        $relation = $this->getRelationFromName($key);
+
+        if(!is_null($relation)){
+
+            if ($this->relationLoaded($key)) {
+                return $this->relations[$key];
+            }
+
+            $relationship = $relation['type']::getRelationship($this, $relation);
+            return $this->relations[$key] = $relationship->getResults();
+        }
+
+        return parent::__get($key);
+    }
+
+    //
+    public function __call($method, $parameters)
+    {
+        $relation = $this->getRelationFromName($method);
+        if(!is_null($relation)){
+            return $relation['type']::getRelationship($this, $relation);
+        }
+
+        return parent::__call($method, $parameters);
+    }
+
+    //
+    private function getRelationFromName($key)
     {
         $relationship = \BWAdmin::get('relationships')->get()
             ->where('model', get_class())
@@ -17,6 +46,7 @@ trait RelationshipTrait
         return $relationship;
     }
 
+    //
     public function saveRelationships()
     {
         $relationships = \BWAdmin::get('relationships')->get()
@@ -25,7 +55,7 @@ trait RelationshipTrait
 
         //
         $relationships->each(function($relation){
-            $relation['type']::attachRelationships($this, $relation);
+            $relation['type']::attach($this, $relation);
         });
     }
 
@@ -37,36 +67,7 @@ trait RelationshipTrait
 
         //
         $relationships->each(function($relation){
-            $relation['type']::detachRelationships($this, $relation);
+            $relation['type']::detach($this, $relation);
         });
-    }
-
-    //
-    public function __get($key)
-    {
-        $model = $this->getModelFromName($key);
-        if(!is_null($model)){
-
-            if ($this->relationLoaded($key)) {
-                return $this->relations[$key];
-            }
-
-            $relations = $model['type']::getRelationship($this, $model);
-            return $this->relations[$key] = $relations->getResults();
-        }
-
-        return parent::__get($key);
-    }
-
-    //
-    public function __call($method, $parameters)
-    {
-
-        $model = $this->getModelFromName($method);
-        if(!is_null($model)){
-            return $model['type']::getRelationship($this, $model);
-        }
-
-        return parent::__call($method, $parameters);
     }
 }

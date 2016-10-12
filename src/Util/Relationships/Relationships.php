@@ -37,6 +37,7 @@ class Relationships {
                 'model' => $model,
                 'name' => $name,
                 'type' => $type,
+                'type_model' => $type::$model,
                 'parent' => $parent,
                 'title' => isset($params['title']) ? $params['title'] : ucfirst($name),
                 'validator' => isset($params['validator']) ? $params['validator'] : null,
@@ -74,7 +75,7 @@ class Relationships {
         if(strpos($type, "\\") !== false){
             return $type;
         }else{
-            return 'BW\Util\Relationships\\' . $type . '\Models\\' . $type;
+            return 'BW\Util\Relationships\\' . $type . '\\' . $type . 'Relationship';
         }
     }
 
