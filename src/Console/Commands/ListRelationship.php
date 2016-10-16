@@ -11,7 +11,7 @@ class ListRelationship extends Command
 
     //
     protected $signature = 'bw:list-relationship
-                            {--id= : Filtra os resultados por ID}';
+                            {--id= : Busca por um determinado ID}';
 
     //
     public function handle()
@@ -21,19 +21,25 @@ class ListRelationship extends Command
         $id = $this->option('id');
         $results = \BWAdmin::get('relationships')->get($id);
 
-        foreach ($results as $i) {
-            $properties  = "ID: {$i['id']}\n";
-            $properties .= "Type: {$i['type']}\n";
-            $properties .= "Parent: {$i['parent']}\n";
+        foreach ($results as $params) {
+
+            //
+            unset($params['relationships']);
+
+            //
+            $properties = '';
+            foreach ($params as $key => $value) {
+               $properties .= "{$key}: {$value}\n";
+            }
 
             $data[] = [
-                $i['model'],
-                $i['name'],
+                $params['model'],
+                $params['name'],
                 $properties
             ];
         };
 
         //
-        $this->table(['Model', 'Name', 'Properties'], $data);
+        $this->table(['Model', 'Name', 'All Properties'], $data);
     }
 }
