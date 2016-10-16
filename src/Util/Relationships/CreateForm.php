@@ -9,10 +9,11 @@ class CreateForm
     private $form;
     private $model;
 
-    public function __construct($model, $form)
+    public function __construct($form, $model, $parent_id = null)
     {
         $this->form = $form;
         $this->model = $model;
+        $this->parent_id = $parent_id;
         $this->relations = $this->getRelations();
 
         //
@@ -24,6 +25,7 @@ class CreateForm
         return BWAdmin::get('relationships')
             ->get()
             ->where('model', get_class($this->model))
+            ->where('parent', $this->parent_id)
             ->groupBy('panel');
     }
 
@@ -36,7 +38,6 @@ class CreateForm
                 $fields->each(function($field) use ($panel){
                     $field['type']::addFormField($panel, $field);
                 });
-
             });
         });
     }

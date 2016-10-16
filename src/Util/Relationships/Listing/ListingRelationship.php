@@ -14,13 +14,17 @@ abstract class ListingRelationship extends RelationshipBase
     static $manager_menu = true;
     static $manager_menu_icon = 'fa fa-list';
     static $manager_menu_title = 'Gerenciar listas';
-    static $manager_controller = '\BW\Util\Relationships\Listing\ListingController';
+
+    //
+    static function getManagerRouterFile()
+    {
+        return __DIR__ . '/../../../../routes/admin-listing.php';
+    }
 
     //
     static function getRelationship($model, $relation = [])
     {
         $instance = new static::$model;
-
         return new MorphOneToMany(
             $instance->newQuery(), $model, 'listable', 'listings_rel',
             'listable_id', 'list_id', 'ref', false, $relation['id']

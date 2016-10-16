@@ -5,7 +5,9 @@
     @include('BW::util.flash.message')
 
     <div class="page-header">
+
         <h1><span class="icon @yield('header.icon')"></span>@yield('header.title')</h1>
+        @include('BW::template.breadcrumb')
 
         @if(View::hasSection('header.menu'))
             <nav class="navbar navbar-default navbar-default-list">

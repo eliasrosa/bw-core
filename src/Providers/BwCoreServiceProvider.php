@@ -62,16 +62,15 @@ class BwCoreServiceProvider extends ServiceProvider
         $router->group(BwRouter::getParameters('default'), function (Router $router) {
             require __DIR__ . '/../../routes/admin.php';
 
-
-            //
-            $relationships = \BWAdmin::get('relationships')->get();
-            foreach ($relationships as $relations) {
-                if($relations['type']::$manager_menu){
-                    \Route::resource('relationships/' . $relations['id'], $relations['type']::$manager_controller, [
-                        'except' => ['show']
-                    ]);
-                }
-            };
+            // relationships
+            $router->group(['prefix' => 'relationships'], function (Router $router) {
+                $relationships = \BWAdmin::get('relationships')->get();
+                foreach ($relationships as $relations) {
+                    if($relations['type']::$manager_menu){
+                        require $relations['type']::getManagerRouterFile();
+                    }
+                };
+            });
         });
     }
 }

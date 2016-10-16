@@ -6,11 +6,13 @@ class Relationships {
 
     //
     private $data;
+    private $models;
 
     //
     public function __construct()
     {
         $this->data = collect();
+        $this->models = [];
     }
 
     //
@@ -18,8 +20,14 @@ class Relationships {
     {
         //
         $config = config($config_key, []);
-        foreach ($config as $model => $relationships) {
-           $this->createCollect($model, null, $relationships);
+        foreach ($config as $model => $params) {
+            $this->createCollect($model, null, $params['relationships']);
+
+            //
+            unset($params['relationships']);
+
+            //
+            $this->models[$model] = $params;
         }
     }
 
@@ -49,15 +57,10 @@ class Relationships {
             //
             if(isset($params['relationships']) && is_array($params['relationships'])){
                 $relationships_child = $params['relationships'];
-
-                if(is_null($parent)){
-                    $parent_new = $data['model'] . '::' . $data['name'];
-                }else{
-                    $parent_new = $parent . '.' . $name;
-                }
+                $parent_new = $id;
 
                 //
-               $this->createCollect($data['type'], $parent_new, $relationships_child);
+               $this->createCollect($data['type_model'], $parent_new, $relationships_child);
             }
         }
     }
@@ -108,11 +111,10 @@ class Relationships {
 
                 $relationships->sortBy('title')
                     ->each(function($i,  $k) use(&$itens){
-                        $id = $i['id'];
-                        $name = $i['name'];
-
                         $itens[$k] = new \StdClass();
-                        $itens[$k]->href = route("bw.relationships.{$id}.index");
+                        $itens[$k]->href = route('bw.relationships.listing.index', [
+                            'relation_id' => $i['id']
+                        ]);
                         $itens[$k]->title = $i['title'];
                     });
 
@@ -124,5 +126,11 @@ class Relationships {
         });
 
         return $menus;
+    }
+
+    //
+    public function getModel($model)
+    {
+        return $this->models[$model];
     }
 }

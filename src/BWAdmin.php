@@ -31,9 +31,9 @@ class BWAdmin {
     }
 
     //
-    public function createRelationshipsMenu($menu)
+    public function createRelationshipsMenu($model, $parent_id = null)
     {
-        return $this->relationships->createMenu($menu);
+        return $this->relationships->createMenu($model, $parent_id);
     }
 
     //

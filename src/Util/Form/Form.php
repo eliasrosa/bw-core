@@ -52,9 +52,9 @@ class Form
     }
 
     //
-    public function createPanelsRelationships($model)
+    public function createPanelsRelationships($model, $parent_id = null)
     {
-        return new CreateForm($model, $this);
+        return new CreateForm($this, $model, $parent_id);
     }
 
     //

@@ -13,5 +13,14 @@ class Listing extends Model
 
     //
     protected $table = 'listings';
-    protected $fillable = [];
+    protected $fillable = ['name', 'email', 'password', 'status'];
+
+    public function ref()
+    {
+         $relation = \BWAdmin::get('relationships')
+            ->get($this->relation_id)
+            ->first();
+
+        return $this->morphedByMany($relation['model'], 'listable', 'listings_rel', 'list_id');
+    }
 }

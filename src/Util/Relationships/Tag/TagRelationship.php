@@ -10,10 +10,15 @@ abstract class TagRelationship extends RelationshipBase
     static $model = 'BW\Util\Relationships\Tag\Models\Tag';
 
     //
-    static $manager_menu = true;
+    static $manager_menu = false;
     static $manager_menu_icon = 'fa fa-check-square-o';
     static $manager_menu_title = 'Gerenciar marcadores';
-    static $manager_controller = 'BW\Util\Relationships\Tag\TagController';
+
+    //
+    static function getManagerRouterFile()
+    {
+        return __DIR__ . '/../../../../routes/admin-tag.php';
+    }
 
     //
     static function getRelationship($model, $relation = array())

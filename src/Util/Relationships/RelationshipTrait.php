@@ -51,7 +51,7 @@ trait RelationshipTrait
     {
         $relationships = \BWAdmin::get('relationships')->get()
             ->where('model', get_class())
-            ->where('parent', request('_relationship_parent'));
+            ->where('parent', request('relation_id'));
 
         //
         $relationships->each(function($relation){
@@ -63,7 +63,7 @@ trait RelationshipTrait
     {
         $relationships = \BWAdmin::get('relationships')->get()
             ->where('model', get_class())
-            ->where('parent', request('_relationship_parent'));
+            ->where('parent', request('relation_id'));
 
         //
         $relationships->each(function($relation){
