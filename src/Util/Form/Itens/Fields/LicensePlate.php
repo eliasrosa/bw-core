@@ -4,10 +4,10 @@ namespace BW\Util\Form\Itens\Fields;
 
 class LicensePlate extends Mask
 {
-    public $mask = 'SSS-0000';
+    public $mask = 'SSS-9999';
     public $placeholder = 'XXX-0000';
 
-
+    //
     public function __construct($name, $label, $model)
     {
         //
