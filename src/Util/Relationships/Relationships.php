@@ -48,7 +48,7 @@ class Relationships {
                 'type_model' => $type::$model,
                 'parent' => $parent,
                 'title' => isset($params['title']) ? $params['title'] : ucfirst($name),
-                'validator' => isset($params['validator']) ? $params['validator'] : null,
+                'validator' => isset($params['validator']) ? $params['validator'] : $type::$validator,
             ]);
 
             //

@@ -9,6 +9,7 @@ abstract class ListingRelationship extends RelationshipBase
 {
     //
     static $model = 'BW\Util\Relationships\Listing\Models\Listing';
+    static $validator = 'required|not_in:0';
 
     //
     static $manager_menu = true;

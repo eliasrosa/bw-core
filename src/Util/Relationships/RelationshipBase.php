@@ -6,6 +6,7 @@ class RelationshipBase
 {
     //
     static $model = null;
+    static $validator = null;
 
     //
     static $manager_menu = false;
