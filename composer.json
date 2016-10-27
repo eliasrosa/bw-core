@@ -14,7 +14,8 @@
     ],
     "require": {
         "laracasts/flash": "2.*",
-        "eliasrosa/safevalue": "1.0.*"
+        "eliasrosa/safevalue": "1.0.*",
+        "intervention/image": "2.3.*"
     },
     "autoload": {
         "psr-4": {
