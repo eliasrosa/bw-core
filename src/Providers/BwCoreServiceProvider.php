@@ -36,6 +36,7 @@ class BwCoreServiceProvider extends ServiceProvider
         $this->app->register('BW\Providers\FlashServiceProvider');
         $this->app->register('BW\Providers\CommandServiceProvider');
         $this->app->register('BW\Providers\ComposerServiceProvider');
+        $this->app->register('Intervention\Image\ImageServiceProvider');
 
         // Register facade
         $this->app->bind('bw.admin', function($app) {
@@ -45,6 +46,7 @@ class BwCoreServiceProvider extends ServiceProvider
         // Register alias
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('BWAdmin', 'BW\Support\Facades\BWFacade');
+        $loader->alias('Image', 'Intervention\Image\Facades\Image');
 
         //
         \App::bind('Illuminate\Routing\ResourceRegistrar', function ()
