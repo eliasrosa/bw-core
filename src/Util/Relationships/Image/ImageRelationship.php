@@ -2,6 +2,7 @@
 
 namespace BW\Util\Relationships\Image;
 
+use Image;
 use BW\Util\Relationships\RelationshipBase;
 
 abstract class ImageRelationship extends RelationshipBase
@@ -23,7 +24,21 @@ abstract class ImageRelationship extends RelationshipBase
         $width = isset($field['width']) ? $field['width'] : 12;
 
         //
-        $form->addText($field['name'], $title)
-             ->setWidth($width);
+        $form->addFile($field['name'], $title)
+            ->addAttribute('accept', 'image/gif, image/jpeg, image/png')
+            ->setWidth($width);
+    }
+
+    static function attach($model, $relation = [])
+    {
+        Image::make(\Input::file($relation['name']))
+            ->resize(300, 200)
+            ->save('image/foo.jpg');
+    }
+
+    //
+    static function detach($model, $relation = [])
+    {
+
     }
 }

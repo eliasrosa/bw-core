@@ -81,4 +81,30 @@ return [
             ]
         ]
     ],
+
+    /*
+    * -------------------------------------------------------------
+    * Image/Cache
+    * -------------------------------------------------------------
+    */
+    'images' => [
+
+        // templates filters
+        'templates' => [],
+
+        // caminho das imagens originais
+        'path' => storage_path('images'),
+
+        // cache - em minutos
+        'lifetime' => 43800,
+
+        // suportado: 'gd', 'imagick'
+        'driver' => 'gd',
+
+        // permitir acesso para usuários visitantes ao template 'orginal'
+        'allow_acess_original' => false,
+
+        // permitir acesso para usuários visitantes ao template 'download'
+        'allow_acess_download' => false,
+    ],
 ];

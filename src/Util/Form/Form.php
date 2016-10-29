@@ -39,7 +39,12 @@ class Form
     public function setMethod($method)
     {
         //
-        $this->addAttribute('method', 'POST');
+        $this->addAttribute([
+            'method' => 'POST',
+            'enctype' => 'multipart/form-data'
+        ]);
+
+        //
         $this->addHidden('_method')->setValue($method);
 
         //

@@ -1,0 +1,14 @@
+<?php
+
+namespace DummyNamespace;
+
+use Intervention\Image\Image;
+use Intervention\Image\Filters\FilterInterface;
+
+class DummyClass implements FilterInterface
+{
+    public function applyFilter(Image $image)
+    {
+        return $image->resize(50, 50);
+    }
+}
