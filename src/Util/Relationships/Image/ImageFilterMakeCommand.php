@@ -45,6 +45,6 @@ class ImageFilterMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Filter';
+        return $rootNamespace.'\Filters';
     }
 }
