@@ -24,4 +24,25 @@ class Image extends Model
         //
         return $this->belongsTo($relation['model']);
     }
+
+    //
+    public function getFilename()
+    {
+        return $this->id . '.' . $this->type;
+    }
+
+    //
+    public function getPath()
+    {
+        return storage_path('app/' . config('bw.images.storage')) . '/' . $this->getFilename();
+    }
+
+    //
+    public function getUrl($template)
+    {
+        return route('images', [
+            'template' => $template,
+            'filename' => $this->getFilename(),
+        ]);
+    }
 }

@@ -137,9 +137,8 @@ class ImageController extends BaseController
     private function getImagePath($filename)
     {
         // don't allow '..' in filenames
-        $image_path = config('bw.images.path') . '/' . str_replace('..', '', $filename);
+        $image_path = storage_path('app/' . config('bw.images.storage')) . '/' . str_replace('..', '', $filename);
         if (file_exists($image_path) && is_file($image_path)) {
-            // file found
             return $image_path;
         }
 

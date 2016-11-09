@@ -2,6 +2,7 @@
 
 namespace BW\Providers;
 
+use Storage;
 use Illuminate\Support\ServiceProvider;
 
 class ImageServiceProvider extends ServiceProvider
@@ -15,6 +16,7 @@ class ImageServiceProvider extends ServiceProvider
     {
         //
         $this->createRouter();
+        $this->createStorageFolder();
     }
 
     /**
@@ -28,14 +30,8 @@ class ImageServiceProvider extends ServiceProvider
         $this->app->register('Intervention\Image\ImageServiceProvider');
 
         // Register alias
-        $this->app->alias('image', 'Intervention\Image\ImageManager');
-
-        // create image
-        $this->app['image'] = $this->app->share(function ($app) {
-            return new ImageManager([
-                'driver' => config('bw.images.driver'),
-            ]);
-        });
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('Image', 'Intervention\Image\Facades\Image');
 
         // register command
         $this->commands('BW\Util\Relationships\Image\ImageFilterMakeCommand');
@@ -53,5 +49,11 @@ class ImageServiceProvider extends ServiceProvider
             'uses' => 'BW\Util\Relationships\Image\ImageController@getResponse',
             'as' => 'images'
         ])->where(array('filename' => '[ \w\\.\\/\\-\\@]+'));
+    }
+
+    //
+    private function createStorageFolder()
+    {
+        Storage::makeDirectory(config('bw.images.storage'));
     }
 }
