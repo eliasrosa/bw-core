@@ -20,6 +20,7 @@ class Image extends Field
 
         //
         Html::addCSS(asset('/packages/eliasrosa/bw-core/util/form/image.css'));
+        Html::addJS(asset('/packages/eliasrosa/bw-core/util/form/image.js'));
 
         //
         $this->addAttribute('accept', 'image/jpeg, image/png, image/bmp');
@@ -32,9 +33,15 @@ class Image extends Field
         return $this->model->{$this->name}->getUrl($filter);
     }
 
+    //
+    public function getId()
+    {
+        return $this->model->{$this->name}->id;
+    }
+
+    //
     public function hasImage()
     {
         return (bool) $this->model->{$this->name};
     }
-
 }

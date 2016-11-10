@@ -3,22 +3,40 @@
 namespace BW\Util\Relationships\Image;
 
 use Auth;
+use Config;
+use Storage;
 use Closure;
+use BW\Traits\Flash;
 use Intervention\Image\ImageManager;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Response as IlluminateResponse;
-use Config;
+use BW\Util\Relationships\Image\Models\Image as ImageModel;
 
 class ImageController extends BaseController
 {
-    /**
-     * Get HTTP response of either original image file or
-     * template applied file.
-     *
-     * @param  string $template
-     * @param  string $filename
-     * @return Illuminate\Http\Response
-     */
+    //
+    use Flash;
+
+    //
+    public function getRemove($id)
+    {
+        // find
+        $image = ImageModel::find($id);
+
+        // delete file
+        if(file_exists($image->getPath())){
+           unlink($image->getPath());
+        }
+
+        // delete record
+        $image->delete();
+
+        // redirect
+        $this->flash()->success('Imagem removida com sucesso!');
+        return back();
+    }
+
+    //
     public function getResponse($template, $filename)
     {
         switch (strtolower($template)) {
@@ -33,13 +51,7 @@ class ImageController extends BaseController
         }
     }
 
-    /**
-     * Get HTTP response of template applied image file
-     *
-     * @param  string $template
-     * @param  string $filename
-     * @return Illuminate\Http\Response
-     */
+    //
     public function getImage($template, $filename)
     {
         $template = $this->getTemplate($template);
@@ -64,12 +76,7 @@ class ImageController extends BaseController
         return $this->buildResponse($content);
     }
 
-    /**
-     * Get HTTP response of original image file
-     *
-     * @param  string $filename
-     * @return Illuminate\Http\Response
-     */
+    //
     public function getOriginal($filename)
     {
         // check permission
@@ -82,12 +89,7 @@ class ImageController extends BaseController
         return $this->buildResponse(file_get_contents($path));
     }
 
-    /**
-     * Get HTTP response of original image as download
-     *
-     * @param  string $filename
-     * @return Illuminate\Http\Response
-     */
+    //
     public function getDownload($filename)
     {
         // check permission
@@ -102,12 +104,7 @@ class ImageController extends BaseController
         );
     }
 
-    /**
-     * Returns corresponding template object from given template name
-     *
-     * @param  string $template
-     * @return mixed
-     */
+    //
     private function getTemplate($template)
     {
         $template = config("bw.images.templates.{$template}");
@@ -128,12 +125,7 @@ class ImageController extends BaseController
         }
     }
 
-    /**
-     * Returns full image path from given filename
-     *
-     * @param  string $filename
-     * @return string
-     */
+    //
     private function getImagePath($filename)
     {
         // don't allow '..' in filenames
@@ -146,12 +138,7 @@ class ImageController extends BaseController
         abort(404);
     }
 
-    /**
-     * Builds HTTP response from given image data
-     *
-     * @param  string $content
-     * @return Illuminate\Http\Response
-     */
+    //
     private function buildResponse($content)
     {
         // define mime type

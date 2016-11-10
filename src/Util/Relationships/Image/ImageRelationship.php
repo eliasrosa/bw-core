@@ -21,6 +21,12 @@ abstract class ImageRelationship extends RelationshipBase
     }
 
     //
+    static function getManagerRouterFile()
+    {
+        return __DIR__ . '/../../../../routes/admin-image.php';
+    }
+
+    //
     static function addFormField($form, $relation)
     {
         $title = isset($relation['title']) ? $relation['title'] : ucfirst($relation['name']);

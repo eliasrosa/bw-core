@@ -67,7 +67,7 @@ class BwCoreServiceProvider extends ServiceProvider
             $router->group(['prefix' => 'relationships'], function (Router $router) {
                 $relationships = \BWAdmin::get('relationships')->get();
                 foreach ($relationships as $relations) {
-                    if($relations['type']::$manager_menu){
+                    if(method_exists($relations['type'], 'getManagerRouterFile')){
                         require $relations['type']::getManagerRouterFile();
                     }
                 };
