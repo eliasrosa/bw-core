@@ -30,12 +30,14 @@
                     <td>{{ $i->group->name }}</td>
                     <td><span class="label label-{{ $i->status ? 'success' : 'danger'}}">{{ $i->status ? 'Ativado' : 'Destivado'}}</span></td>
                     <td>
-                        <a href="{{ route('bw.users.edit', $i->id) }}" class="btn btn-primary btn-xs">Editar</a>
+                        <a href="{{ route('bw.users.edit', $i->id) }}" class="btn btn-primary btn-xs"><span class="fa fa-edit"></span> Editar</a>
 
                         <form action="{{ route('bw.users.destroy', $i->id) }}" style="display: inline-block" method="POST">
                             {{ csrf_field() }}
                             <input type="hidden" name="_method" value="DELETE">
-                            <input type="submit" class="btn btn-danger btn-xs" value="Remover">
+                            <button type="submit" class="btn btn-danger btn-xs btn-remove-record">
+                                <span class="fa fa-trash-o"></span> Remover
+                            </button>
                         </form>
                     </td>
                 </tr>

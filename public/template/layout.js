@@ -48,10 +48,10 @@ $(function() {
         .addClass('table table-hover table-striped');
 
 
-    $('table form :submit[value="Remover"]').on('click', function() {
-        if(!confirm('Tem certeza remover esse registro?')){
+    // remove-record
+    $('table form .btn-remove-record').on('click', function() {
+        if(!confirm('Tem certeza que deseja remover este registro?')){
             return false;
         }
     });
-
 });
