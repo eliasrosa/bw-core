@@ -22,6 +22,7 @@
         "psr-4": {
             "BW\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
 
