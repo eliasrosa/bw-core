@@ -1,13 +1,14 @@
 <?php
 
-namespace BW\Util\Form\Itens\Fields;
+namespace BW\Util\Relationships\Image;
 
 use BW\Helpers\Html;
+use BW\Util\Form\Itens\Fields\Field;
 
-class Image extends Field
+class ImageField extends Field
 {
     public $type = 'file';
-    public $view = 'BW::util.form.itens.fields.image';
+    public $view = 'BW::util.relationships.image.field';
 
     //
     public $image = null;

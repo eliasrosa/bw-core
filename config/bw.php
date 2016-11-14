@@ -39,13 +39,15 @@ return [
         'Text' => BW\Util\Form\Itens\Fields\Text::class,
         'File' => BW\Util\Form\Itens\Fields\File::class,
         'Email' => BW\Util\Form\Itens\Fields\Email::class,
-        'Image' => BW\Util\Form\Itens\Fields\Image::class,
         'Select' => BW\Util\Form\Itens\Fields\Select::class,
         'Hidden' => BW\Util\Form\Itens\Fields\Hidden::class,
         'Password' => BW\Util\Form\Itens\Fields\Password::class,
         'Checkbox' => BW\Util\Form\Itens\Fields\Checkbox::class,
         'TextArea' => BW\Util\Form\Itens\Fields\TextArea::class,
         'CheckboxActive' => BW\Util\Form\Itens\Fields\CheckboxActive::class,
+
+        // Relationships
+        'Image' => BW\Util\Relationships\Image\ImageField::class,
 
         // Mask
         'Mask' => BW\Util\Form\Itens\Fields\Mask::class,

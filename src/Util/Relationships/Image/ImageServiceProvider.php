@@ -1,6 +1,6 @@
 <?php
 
-namespace BW\Providers;
+namespace BW\Util\Relationships\Image;
 
 use Storage;
 use Illuminate\Support\ServiceProvider;

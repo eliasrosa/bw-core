@@ -36,7 +36,7 @@ class BwCoreServiceProvider extends ServiceProvider
         $this->app->register('BW\Providers\FlashServiceProvider');
         $this->app->register('BW\Providers\CommandServiceProvider');
         $this->app->register('BW\Providers\ComposerServiceProvider');
-        $this->app->register('BW\Providers\ImageServiceProvider');
+        $this->app->register('BW\Util\Relationships\Image\ImageServiceProvider');
 
         // Register facade
         $this->app->bind('bw.admin', function($app) {
