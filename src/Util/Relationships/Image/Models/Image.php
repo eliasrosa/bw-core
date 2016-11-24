@@ -13,6 +13,7 @@ class Image extends Model
     //
     protected $table = 'images';
     protected $fillable = [];
+    protected $appends = ['filename'];
 
     //
     public function ref()
@@ -26,15 +27,9 @@ class Image extends Model
     }
 
     //
-    public function getFilename()
-    {
-        return $this->id . '.' . $this->type;
-    }
-
-    //
     public function getPath()
     {
-        return storage_path('app/' . config('bw.images.storage')) . '/' . $this->getFilename();
+        return storage_path('app/' . config('bw.images.storage')) . '/' . $this->filename;
     }
 
     //
@@ -42,7 +37,13 @@ class Image extends Model
     {
         return route('images', [
             'template' => $template,
-            'filename' => $this->getFilename(),
+            'filename' => $this->filename,
         ]);
+    }
+
+    //
+    public function getFilenameAttribute($value)
+    {
+        return $this->id . '.' . $this->type;
     }
 }

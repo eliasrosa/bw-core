@@ -15,7 +15,7 @@ class Field extends Item
     public $width = 12;
 
     //
-    private $relation_key = null;
+    public $relation_key = null;
 
     //
     public function __construct($name, $label, $model)

@@ -3,39 +3,16 @@
 namespace BW\Util\Relationships\Image;
 
 use Auth;
+use Image;
 use Config;
 use Storage;
 use Closure;
-use BW\Traits\Flash;
 use Intervention\Image\ImageManager;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Response as IlluminateResponse;
-use BW\Util\Relationships\Image\Models\Image as ImageModel;
 
 class ImageController extends BaseController
 {
-    //
-    use Flash;
-
-    //
-    public function getRemove($id)
-    {
-        // find
-        $image = ImageModel::find($id);
-
-        // delete file
-        if(file_exists($image->getPath())){
-           unlink($image->getPath());
-        }
-
-        // delete record
-        $image->delete();
-
-        // redirect
-        $this->flash()->success('Imagem removida com sucesso!');
-        return back();
-    }
-
     //
     public function getResponse($template, $filename)
     {

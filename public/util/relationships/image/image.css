@@ -1,0 +1,31 @@
+form .field-image {
+}
+
+form .field-image .image {
+    border: 1px solid #ccc;
+    width: 100px;
+    height: 100px;
+    display: block;
+    float: left;
+    font-size: 50px;
+    line-height: 95px;
+    text-align:center;
+    background: #EEE;
+    color: #BBB;
+}
+
+form .field-image .options {
+    display: block;
+    float: left;
+    margin: 0 0 0 20px;
+    padding: 0;
+}
+
+form .field-image .options input {
+    margin-top: 7px;
+}
+
+form .field-image .progress {
+    margin-bottom: 10px;
+    height: 25px;
+}

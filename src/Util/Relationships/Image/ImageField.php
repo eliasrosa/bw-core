@@ -9,9 +9,8 @@ class ImageField extends Field
 {
     public $type = 'file';
     public $view = 'BW::util.relationships.image.field';
-
-    //
-    public $image = null;
+    public $relation = [];
+    public $ref_id = 0;
 
     //
     public function __construct($name, $label, $model)
@@ -20,29 +19,27 @@ class ImageField extends Field
         parent::__construct($name, $label, $model);
 
         //
-        Html::addCSS(asset('/packages/eliasrosa/bw-core/util/form/image.css'));
-        Html::addJS(asset('/packages/eliasrosa/bw-core/util/form/image.js'));
+        Html::addJS(asset('/packages/eliasrosa/bw-core/vendor/fileupload-9.14.0/jquery.ui.widget.js'));
+        Html::addJS(asset('/packages/eliasrosa/bw-core/vendor/fileupload-9.14.0/jquery.iframe-transport.js'));
+        Html::addJS(asset('/packages/eliasrosa/bw-core/vendor/fileupload-9.14.0/jquery.fileupload.js'));
 
         //
-        $this->addAttribute('accept', 'image/jpeg, image/png, image/bmp');
-        $this->addAttribute('style', 'border: none; padding: 0; margin-top: 10px;');
+        Html::addCSS(asset('/packages/eliasrosa/bw-core/util/relationships/image/image.css'));
+        Html::addJS(asset('/packages/eliasrosa/bw-core/util/relationships/image/image.js'));
+
+        //
+        $this->ref_id = isset($model->id) ? $model->id : 0;;
     }
 
     //
-    public function getImageUrl($filter)
+    public function setRelation($relation)
     {
-        return $this->model->{$this->name}->getUrl($filter);
+        return $this->relation = $relation;
     }
 
     //
-    public function getId()
+    public function getRefId()
     {
-        return $this->model->{$this->name}->id;
-    }
-
-    //
-    public function hasImage()
-    {
-        return (bool) $this->model->{$this->name};
+        return $this->ref_id;
     }
 }

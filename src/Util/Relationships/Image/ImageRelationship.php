@@ -33,7 +33,8 @@ abstract class ImageRelationship extends RelationshipBase
         $width = isset($relation['width']) ? $relation['width'] : 12;
 
         $form->addImage($relation['name'], $title)
-             ->setWidth($width);
+             ->setWidth($width)
+             ->setRelation($relation);
     }
 
     static function attach($model, $relation = [])
