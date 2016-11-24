@@ -1,5 +1,12 @@
 $(function() {
 
+    // ajax setup
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     // sidebar levels
     $('#sidebar-wrapper .sidebar-nav').metisMenu();
 
@@ -48,7 +55,7 @@ $(function() {
         .addClass('table table-hover table-striped');
 
 
-    // remove-record
+    //
     $('table form .btn-remove-record').on('click', function() {
         if(!confirm('Tem certeza que deseja remover este registro?')){
             return false;
