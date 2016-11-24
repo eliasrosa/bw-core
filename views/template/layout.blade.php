@@ -69,6 +69,7 @@
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/DataTables-1.10.12/media/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/DataTables-1.10.12/media/js/dataTables.bootstrap.min.js') }}"></script>
         <script src="{{ asset('/packages/eliasrosa/bw-core/template/layout.js') }}"></script>
+        <script src="{{ asset('/packages/eliasrosa/bw-core/util/helpers.js') }}"></script>
 
         <!-- Custom Template JavaScript -->
         {!! \BW\Helpers\Html::buildJavaScripts() !!}
