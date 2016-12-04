@@ -51,7 +51,7 @@ class ImageApiController extends BaseController
 
             return response()->json([
                 'error' => true,
-                'message' => $errors->first('file_image'),
+                'message' => $errors->first('imagem'),
             ]);
         }
 
