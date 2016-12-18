@@ -72,14 +72,9 @@ class Relationships {
     }
 
     //
-    public function getTypeClass($type)
+    public function getTypeClass($class)
     {
-
-        if(strpos($type, "\\") !== false){
-            return $type;
-        }else{
-            return 'BW\Util\Relationships\\' . $type . '\\' . $type . 'Relationship';
-        }
+        return config('bw.relationships.' . $class, false) ?: $class;
     }
 
     //

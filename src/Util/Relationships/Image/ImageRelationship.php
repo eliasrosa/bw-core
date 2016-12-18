@@ -32,9 +32,11 @@ abstract class ImageRelationship extends RelationshipBase
         $title = isset($relation['title']) ? $relation['title'] : ucfirst($relation['name']);
         $width = isset($relation['width']) ? $relation['width'] : 12;
 
-        $form->addImage($relation['name'], $title)
-             ->setWidth($width)
-             ->setRelation($relation);
+        $form->addItem('BW\Util\Relationships\Image\ImageField', [
+            $relation['name'],
+            $title
+        ])->setWidth($width)
+          ->setRelation($relation);
     }
 
     static function attach($model, $relation = [])

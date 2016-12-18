@@ -46,9 +46,6 @@ return [
         'TextArea' => BW\Util\Form\Itens\Fields\TextArea::class,
         'CheckboxActive' => BW\Util\Form\Itens\Fields\CheckboxActive::class,
 
-        // Relationships
-        'Image' => BW\Util\Relationships\Image\ImageField::class,
-
         // Mask
         'Mask' => BW\Util\Form\Itens\Fields\Mask::class,
         'Cep' => BW\Util\Form\Itens\Fields\Cep::class,
@@ -63,6 +60,16 @@ return [
         // Itens
         'Panel' => BW\Util\Form\Itens\Panel::class,
         'IncludeFile' => BW\Util\Form\Itens\IncludeFile::class,
+    ],
+
+    /*
+    * -------------------------------------------------------------
+    * Relationships
+    * -------------------------------------------------------------
+    */
+    'relationships' => [
+        'Image' => BW\Util\Relationships\Image\ImageRelationship::class,
+        'Listing' => BW\Util\Relationships\Listing\ListingRelationship::class,
     ],
 
     /*

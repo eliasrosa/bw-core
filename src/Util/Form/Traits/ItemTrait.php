@@ -23,7 +23,7 @@ trait ItemTrait
     }
 
     //
-    private function addItem($name_class, $args)
+    public function addItem($name_class, $args)
     {
         //
         $config_class = config('bw.form.' . $name_class, false);

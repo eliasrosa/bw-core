@@ -8,7 +8,7 @@ use BW\Util\Form\Itens\Fields\Field;
 class ImageField extends Field
 {
     public $type = 'file';
-    public $view = 'BW::util.relationships.image.field';
+    public $view = 'BW::util.relationships.image.image';
     public $relation = [];
     public $ref_id = 0;
 
