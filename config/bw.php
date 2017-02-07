@@ -69,6 +69,7 @@ return [
     */
     'relationships' => [
         'Image' => BW\Util\Relationships\Image\ImageRelationship::class,
+        'ImageGallery' => BW\Util\Relationships\Image\GalleryRelationship::class,
         'Listing' => BW\Util\Relationships\Listing\ListingRelationship::class,
     ],
 
