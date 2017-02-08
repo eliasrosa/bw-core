@@ -32,6 +32,10 @@ class BwCoreServiceProvider extends ServiceProvider
         //
         \View::addNamespace('BW', __DIR__ . '/../../views');
 
+        // merge config files
+        $this->mergeConfigFrom(__DIR__ . '/../../config/bw.php', 'bw');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/auth.php', 'auth');
+
         //
         $this->app->register('BW\Providers\FlashServiceProvider');
         $this->app->register('BW\Providers\CommandServiceProvider');
