@@ -57,13 +57,13 @@ class ImageApiController extends BaseController
 
         //
         $this->destroy($relation_id, $ref_id);
-
+        
         //
         $img = Image::make($file);
 
         //
         $image = new ImageModel();
-        $image->position = 0;
+        $image->position = Input::get('position', 0);
         $image->ref_id = $ref_id;
         $image->relation_id = $relation_id;
         $image->type = last(explode('/', $img->mime()));
@@ -76,6 +76,7 @@ class ImageApiController extends BaseController
         return response()->json([
             'error' => false,
             'message' => 'Imagem enviada com sucesso!',
+            'data' => $image->toArray(),
         ]);
 
     }

@@ -1,0 +1,91 @@
+#modal-galeria-imagens .modal-body .image {
+    border: 1px solid #ccc;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    font-size: 18px;
+    line-height: 95px;
+    text-align:center;
+    color: #BBB;
+    margin: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+#modal-galeria-imagens .modal-body .ui-state-highlight {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    font-size: 18px;
+    line-height: 95px;
+    text-align:center;
+    color: #BBB;
+    overflow: hidden;
+    border: 1px dashed #ccc;
+    position: relative;
+    background: #eee;
+}
+
+
+#modal-galeria-imagens .modal-body .image .options {
+    height: 20px;
+    width: 100px;
+    position: absolute;
+    top: 40px;
+    right: 0px;
+    font-size: 12px;
+    text-align: center;    
+    display: none;
+    line-height: 12px;
+}
+
+#modal-galeria-imagens .modal-body .image:hover .options {
+    display: block;
+}
+
+#modal-galeria-imagens .modal-body .image .options .btn-move {
+    cursor: move;
+}
+
+#modal-galeria-imagens .modal-body .image.fa-warning {
+    color: #c9302c;
+}
+
+#modal-galeria-imagens .fileinput-button {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+#modal-galeria-imagens .fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px !important;
+  direction: ltr;
+  cursor: pointer;
+}
+
+/* Fixes for IE < 8 */
+@media screen\9 {
+  #modal-galeria-imagens .fileinput-button input {
+    filter: alpha(opacity=0);
+    font-size: 100%;
+    height: 100%;
+  }
+}
+
+
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+  left: 50px;
+}

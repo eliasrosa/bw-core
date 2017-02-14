@@ -11,6 +11,7 @@
         <title>{{ config('bw.titulo') }}</title>
 
         <!-- Bootstrap Core CSS -->
+        <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/jquery-ui-1.12.1/jquery-ui.min.css') }}" rel="stylesheet">
         <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/font-awesome-4.6.3/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/packages/eliasrosa/bw-core/vendor/metisMenu/metisMenu.min.css') }}" rel="stylesheet" type="text/css">
@@ -65,6 +66,7 @@
         <!-- JavaScript Template -->
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/jquery/jquery-3.1.0.min.js') }}"></script>
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/metisMenu/metisMenu.min.js') }}"></script>
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/DataTables-1.10.12/media/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('/packages/eliasrosa/bw-core/vendor/DataTables-1.10.12/media/js/dataTables.bootstrap.min.js') }}"></script>
