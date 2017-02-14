@@ -131,7 +131,7 @@ $(function(){
                         }
                     });
                 }else{
-                    var html = '<p>Para de enviar a imagem, salve o formulário antes.</p>';
+                    var html = '<p>Para enviar a imagem, salve o formulário antes.</p>';
 
                     //
                     $(el).html(html);
