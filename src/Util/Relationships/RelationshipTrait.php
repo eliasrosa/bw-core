@@ -36,7 +36,7 @@ trait RelationshipTrait
     }
 
     //
-    private function getRelationFromName($key)
+    public function getRelationFromName($key)
     {
         $relationship = \BWAdmin::get('relationships')->get()
             ->where('model', get_class())

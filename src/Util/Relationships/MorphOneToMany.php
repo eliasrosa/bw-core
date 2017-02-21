@@ -40,7 +40,8 @@ class MorphOneToMany extends \Illuminate\Database\Eloquent\Relations\MorphToMany
             //
             if (isset($dictionary[$key])) {
                 $type = ($this->inverse === false) ? 'one' : 'many';
-                $value = $this->getRelationValue($dictionary, $key, $type);
+                $relationship = $model->getRelationFromName($relation);
+                $value = $this->getRelationValue($dictionary, $key, $type, $relationship);
                 $model->setRelation($relation, $value);
             }else{
                 $model->setRelation($relation, null);
@@ -51,9 +52,16 @@ class MorphOneToMany extends \Illuminate\Database\Eloquent\Relations\MorphToMany
     }
 
     //
-    protected function getRelationValue(array $dictionary, $key, $type)
+    protected function getRelationValue(array $dictionary, $key, $type, $relationship)
     {
         $value = $dictionary[$key];
-        return $type == 'one' ? reset($value) : $this->related->newCollection($value);
+
+        if($type == 'one'){
+           return $this->related->newCollection($value)
+            ->where('relation_id', $relationship['id'])
+            ->first();
+        }
+
+        return $this->related->newCollection($value);
     }
 }
