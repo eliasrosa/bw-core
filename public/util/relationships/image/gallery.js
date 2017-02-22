@@ -1,6 +1,12 @@
 $(function(){
 
-    $.fn.galery = function() {
+    // data-placement="top" \
+    // data-original-title="Tooltip on top"
+    // imagem.tooltip();
+
+    $.fn.gallery = function(command) {
+
+        var command = (typeof command != 'undefined') ? command : 'undefined';     
 
         return this.each(function(index, el) {
 
@@ -52,7 +58,14 @@ $(function(){
                             if(json.error){
                                 alert(json.message);
                             }else{
-                                $('div.image[data-id='+file.id+']').fadeOut();
+                                $('div.image[data-id='+file.id+']').remove();
+
+                                //
+                                var count = $('.image', body).length;
+                                if(count == 0){
+                                    $('.empty', body).show();
+                                }
+   
                             }
                         })
                     }
@@ -74,18 +87,14 @@ $(function(){
 
             // cria uma imagem nova
             var createNewImage = function(id){
+                $('.empty', body).hide();
+
                 var imagem = $('<div class="image"><span class="progress-porcent">0%</span></div>');
                 addImage(imagem);
             }
 
-// data-placement="top" \
-// data-original-title="Tooltip on top"
-// imagem.tooltip();
-
-
             // cria o evento de upload
             var createEventUpload = function(){
-
                 $("input[type=file]", el).fileupload({
                     url: url_base + '/upload',
                     formData: {},
@@ -119,8 +128,10 @@ $(function(){
 
                     //
                     progress: function (e, data) {
+                        console.log(e);
+                        console.log(data);
                         var porcent = parseInt(data.loaded / data.total * 100, 10);
-                        $('.progress-porcent', el).html(porcent + '%');
+                        $('.progress-porcent:first', el).html(porcent + '%');
                     },
 
                     //
@@ -137,9 +148,13 @@ $(function(){
                     $('.loading', body).hide();
 
                     //
-                    $.each(json.data, function(i, image){
-                        createImage(image, false);
-                    });
+                    if(json.data.length){
+                        $.each(json.data, function(i, image){
+                            createImage(image, false);
+                        });
+                    }else{
+                        $('.empty', body).show();
+                    }
 
                 });
             };
@@ -148,7 +163,7 @@ $(function(){
             var createEventDropAndDrag = function(){
                 body.sortable({
                     itens: '.image',
-                    cancel: ".loading",
+                    cancel: ".loading, .empty",
                     placeholder: 'ui-state-highlight',
                     forcePlaceholderSize: true,
                     handle: ".btn-move",
@@ -181,33 +196,51 @@ $(function(){
                 body.disableSelection();
             }
 
-            //
-            getAllImages();
-            createEventUpload();
-            createEventDropAndDrag();
+            console.log(command);
+
+            switch(command) {
+                case 'open':
+                    getAllImages();
+                    break;
+
+                case 'undefined':
+                    getAllImages();
+                    createEventUpload();
+                    createEventDropAndDrag();
+                    break;
+            }
         });
     };
 
-
-
     // Modal
     //////////////////////////////////////////////////
-    $(".field-gallery .modal").on("shown.bs.modal", function(e) {
-        $(this).removeData('bs.modal');
-    });
+    $(".field-gallery .modal").on("show.bs.modal", function(e) {
+        
+        // .remove as imagens
+        $('.image', this).remove();
 
+        // hide .empty
+        $('.empty', this).hide();
+
+        // show .loading
+        $('.loading', this).show();
+
+        // load all images
+        $(this).parent(".field-gallery").gallery('open');
+    });
 
     // Open gallery
     //////////////////////////////////////////////////
     $('form .field-gallery').each(function(index, el){
-        var galery = $(el);
-        var modal = $('.modal', el);
+        var gallery = $(el);
+        var modal = $('.modal', gallery);
 
-        $('.field-gallery .btn-open-gallery-images').on('click', function(){
+        $('.btn-open-gallery-images', gallery).on('click', function(){
            modal.modal('show');
         });
 
-        galery.galery();
+        //
+        gallery.gallery();
     });
 
 }( jQuery ));

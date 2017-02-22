@@ -17,7 +17,11 @@
                         </div>
 
                         <div class="modal-body">
-                            <div class="loading">Carregando...</div>
+                            <div class="loading">
+                                <span class="fa fa-circle-o-notch fa-spin"></span>
+                                Carregando...
+                            </div>
+                            <div class="empty">Nenhuma imagem encontrada!</div>
                         </div>
 
                         <div class="modal-footer">
