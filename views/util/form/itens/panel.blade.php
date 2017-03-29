@@ -1,4 +1,4 @@
-<div class="groups col-lg-{{ $item->width or '12' }}" {!! $item->buildAttributes() !!}>
+<div class="groups col-lg-12" {!! $item->buildAttributes() !!}>
     <div class="panel panel-{{ $item->type or 'default' }}">
         @if(!is_null($item->title))
             <div class="panel-heading">
