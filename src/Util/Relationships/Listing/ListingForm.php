@@ -36,7 +36,7 @@ class ListingForm extends Form
         $this->addHidden('relation_id')->setValue($relation['id']);
 
         //
-        $this->addPanel('Dados do veículo', function($panel){
+        $this->addPanel('Dados', function($panel){
             $panel->addText('name', 'Nome');
             $panel->addTextArea('description', 'Descrição')
                   ->addAttribute('style', 'height: 120px;');
