@@ -6,7 +6,7 @@
 
      @include('BW::util.form.itens', ['item' => $form])
 
-    <div class="toolbar-submit col-lg-12">
+    <div class="toolbar-submit col-lg-12" style="text-align: center;">
         <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Salvar</button>
     </div>
 </form>
