@@ -8,6 +8,12 @@ abstract class GalleryRelationship extends RelationshipBase
 {
     //
     static $model = 'BW\Util\Relationships\Image\Models\Gallery';
+    
+    //
+    static function getManagerRouterFile()
+    {
+        return __DIR__ . '/../../../../routes/admin-image-gallery.php';
+    }
 
     //
     static function getRelationship($model, $relation = array())
