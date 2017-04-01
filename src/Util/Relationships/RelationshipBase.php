@@ -12,7 +12,7 @@ class RelationshipBase
     static $manager_menu = false;
     static $manager_menu_icon = null;
     static $manager_menu_title = null;
-    static $manager_controller = null;
+    static $manager_menu_route = null;
 
     //
     static function attach($model, $relation = []){}

@@ -14,6 +14,7 @@ abstract class TagRelationship extends RelationshipBase
     static $manager_menu = true;
     static $manager_menu_icon = 'fa fa-check-square-o';
     static $manager_menu_title = 'Gerenciar marcadores';
+    static $manager_menu_route = 'bw.relationships.tag.index';
 
     //
     static function getManagerRouterFile()

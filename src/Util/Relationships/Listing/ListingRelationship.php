@@ -15,6 +15,7 @@ abstract class ListingRelationship extends RelationshipBase
     static $manager_menu = true;
     static $manager_menu_icon = 'fa fa-list';
     static $manager_menu_title = 'Gerenciar listas';
+    static $manager_menu_route = 'bw.relationships.listing.index';
 
     //
     static function getManagerRouterFile()

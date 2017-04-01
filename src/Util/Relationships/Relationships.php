@@ -105,9 +105,9 @@ class Relationships {
                 $itens = [];
 
                 $relationships->sortBy('title')
-                    ->each(function($i,  $k) use(&$itens){
+                    ->each(function($i,  $k) use(&$itens, $type){
                         $itens[$k] = new \StdClass();
-                        $itens[$k]->href = route('bw.relationships.listing.index', [
+                        $itens[$k]->href = route($type::$manager_menu_route, [
                             'relation_id' => $i['id']
                         ]);
                         $itens[$k]->title = $i['title'];
