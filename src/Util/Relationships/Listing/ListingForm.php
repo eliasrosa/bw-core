@@ -37,9 +37,15 @@ class ListingForm extends Form
 
         //
         $this->addPanel('Dados', function($panel){
-            $panel->addText('name', 'Nome');
+            $panel->addText('name', 'Nome')
+                  ->width = 6;
+                  
+            $panel->addInteger('position', 'Posição')
+                  ->width = 6;
+                  
             $panel->addTextArea('description', 'Descrição')
                   ->addAttribute('style', 'height: 120px;');
+            //      
         });
     }
 

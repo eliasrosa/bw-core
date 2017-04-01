@@ -20,6 +20,7 @@ Gerenciar itens do campo: {{ $relation['title'] }}
                     <th>Nome</th>
                     <th>Registros relacionados</th>
                     <th>Descrição</th>
+                    <th style="width: 75px; text-align: center;">Posição</th>
                     <th style="width: 150px;">Opçoes</th>
                 </tr>
             </thead>
@@ -30,6 +31,7 @@ Gerenciar itens do campo: {{ $relation['title'] }}
                     <td>{{ $i->name }}</td>
                     <td>{{ $i->ref->count() }}</td>
                     <td>{{ $i->description }}</td>
+                    <td style="text-align: center;">{{ $i->position }}</td>
                     <td>
                         <a href="{{ route('bw.relationships.listing.edit', ['id' => $i->id, 'relation_id' => $relation['id']]) }}" class="btn btn-primary btn-xs">Editar</a>
 

@@ -66,6 +66,7 @@ class ListingController extends BaseController
         //
         $i = new Listing();
         $i->name = $request->get('name');
+        $i->position = (int) $request->get('position');
         $i->description = $request->get('description');
         $i->relation_id = $relation['id'];
         $i->save();
@@ -112,6 +113,7 @@ class ListingController extends BaseController
         //
         $i = Listing::find($request->get('id'));
         $i->name = $request->get('name');
+        $i->position = (int) $request->get('position');
         $i->description = $request->get('description');
         $i->save();
 
