@@ -3,9 +3,13 @@
 namespace BW\Util\Relationships;
 
 use LogicException;
+use BW\Util\Relationships\Listing\ListingModelTrait;
 
 trait RelationshipTrait
 {
+    //
+    use ListingModelTrait;
+
     //
     public function __get($key)
     {
