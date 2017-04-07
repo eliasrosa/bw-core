@@ -23,7 +23,11 @@ class ListingController extends BaseController
         $breadcrumb = $this->createBreadcrumb();
 
         //
-        $lists = Listing::where('relation_id', $relation['id'])->get();
+        $lists = Listing::where('relation_id', $relation['id'])
+            ->orderBy('position')
+            ->get();
+
+        //
         $relations_menu = \BWAdmin::createRelationshipsMenu(Listing::class, $relation['id']);
 
         //
