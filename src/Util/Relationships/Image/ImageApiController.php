@@ -5,18 +5,19 @@ namespace BW\Util\Relationships\Image;
 use Input;
 use Image;
 use Validator;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use BW\Util\Relationships\Image\Models\Image as ImageModel;
 
 class ImageApiController extends BaseController
 {
     //
-    public function getImage($relation_id, $ref_id)
+    public function getImage(Request $request)
     {
         //
         $image = ImageModel::where([
-            'relation_id' => $relation_id,
-            'ref_id' => $ref_id
+            'relation_id' => $request->get('relation_id'),
+            'ref_id' => $request->get('ref_id')
         ])->first();
 
         if($image){
@@ -34,10 +35,12 @@ class ImageApiController extends BaseController
     }
 
     //
-    public function postUpload($relation_id, $ref_id)
+    public function postUpload(Request $request)
     {
         //
-        $file = Input::file('imagem');
+        $relation_id = $request->get('relation_id');
+        $ref_id = $request->get('ref_id');
+        $file = $request->file('imagem');
 
         //
         $validator = Validator::make([
@@ -82,8 +85,13 @@ class ImageApiController extends BaseController
     }
 
     //
-    public function getRemove($relation_id, $ref_id)
+    public function getRemove(Request $request)
     {
+        //
+        $relation_id = $request->get('relation_id');
+        $ref_id = $request->get('ref_id');
+
+        //
         if($this->destroy($relation_id, $ref_id)){
 
             // redirect

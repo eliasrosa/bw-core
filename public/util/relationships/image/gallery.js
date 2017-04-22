@@ -6,18 +6,32 @@ $(function(){
 
     $.fn.gallery = function(command) {
 
-        var command = (typeof command != 'undefined') ? command : 'undefined';     
+        var command = (typeof command != 'undefined') ? command : 'init';     
 
         return this.each(function(index, el) {
 
+            //
             var gallery = $(el);
             var modal = $('.modal', gallery);
             var body = $('.modal-body', modal);
-            var url_site = $(el).data('url-site');
-            var url_base = $(el).data('url-base');
-            var ref_id = $(el).data('relation-ref-id');
+            
+            // urls
+            var url_images = $(el).data('url-images');
+            var url_gallery = $(el).data('url-gallery');
+            var url_remove = $(el).data('url-remove');
+            var url_reorder = $(el).data('url-reorder');
+            var url_upload = $(el).data('url-upload');
+
+            // dados comuns
+            var common_data = {
+                relation_id: $(el).data('relation-id'),
+                ref_id: $(el).data('relation-ref-id'),
+            };
+
+            // posição inicial das imagens
             var position_id = 0;            
 
+            // function
             // adiciona a imagem ao body
             var addImage = function(imagem){
                 position_id++;
@@ -27,18 +41,20 @@ $(function(){
                 body.append(imagem);
             }
 
-            //
+            // function
+            // reorganiza as posições das imagens
             var changeImage = function(imagem, position_id){
                var old = $('.image[data-position-id='+position_id+']', body);
                imagem.attr('data-position-id', position_id);
                old.replaceWith(imagem);
             }
 
+            // function
             // cria uma imagem
             var createImage = function(file, position_id){
 
-                var small = url_site + '/bw-small/' + file.filename;
-                var original = url_site + '/original/' + file.filename;
+                var small = url_images + '/bw-small/' + file.filename;
+                var original = url_images + '/original/' + file.filename;
                 var imagem = $('<div class="image" data-id="' + file.id + '">\
                                     <img src="' + small + '" />\
                                     <div class="options"> \
@@ -52,9 +68,8 @@ $(function(){
                 // cria o evento de remoção
                 $('.btn-trash', imagem).on('click', function(){
                     if(confirm('Tem certeza que deseja remover esta imagem?')){
-                        var jqxhr = $.getJSON(url_base + '/' + file.id + '/remove');
+                        var jqxhr = $.getJSON(url_remove, $.extend(common_data, { id: file.id }));
                         jqxhr.done(function(json) {
-
                             if(json.error){
                                 alert(json.message);
                             }else{
@@ -70,11 +85,6 @@ $(function(){
                         })
                     }
 
-                });
-                
-                //
-                $('.btn-move', imagem).on('click', function(){
-                    alert('move');
                 });
 
                 //
@@ -96,7 +106,7 @@ $(function(){
             // cria o evento de upload
             var createEventUpload = function(){
                 $("input[type=file]", el).fileupload({
-                    url: url_base + '/upload',
+                    url: url_upload,
                     formData: {},
                     dataType: 'json',
                     replaceFileInput: false,
@@ -108,9 +118,9 @@ $(function(){
                         $.each(data.files, function(index, file) {
                             createNewImage();
 
-                            data.formData = {
+                            data.formData = $.extend({
                                 'position': position_id
-                            };
+                            }, common_data);
                         
                             var jqXHR = data.submit()
                                 .success(function (result, textStatus, jqXHR) {})
@@ -128,8 +138,6 @@ $(function(){
 
                     //
                     progress: function (e, data) {
-                        console.log(e);
-                        console.log(data);
                         var porcent = parseInt(data.loaded / data.total * 100, 10);
                         $('.progress-porcent:first', el).html(porcent + '%');
                     },
@@ -140,8 +148,8 @@ $(function(){
             };
 
             //
-            var getAllImages = function(){
-                var jqxhr = $.getJSON(url_base);
+            var loadImages = function(){
+                var jqxhr = $.getJSON(url_gallery, common_data);
                 jqxhr.done(function(json) {
 
                     //
@@ -185,8 +193,11 @@ $(function(){
 
                         $.ajax({
                             type: "POST",
-                            url: url_base + '/reorder',
-                            data: { 'images': images, 'positions': positions},
+                            url: url_reorder,
+                            data: $.extend({ 
+                                'images': images,
+                                'positions': positions
+                            }, common_data),
                             dataType: "json"
                         });
 
@@ -196,15 +207,12 @@ $(function(){
                 body.disableSelection();
             }
 
-            console.log(command);
-
             switch(command) {
                 case 'open':
-                    getAllImages();
+                    loadImages();
                     break;
 
-                case 'undefined':
-                    getAllImages();
+                case 'init':
                     createEventUpload();
                     createEventDropAndDrag();
                     break;
@@ -243,4 +251,4 @@ $(function(){
         gallery.gallery();
     });
 
-}( jQuery ));
+});

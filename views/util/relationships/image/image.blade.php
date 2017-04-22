@@ -3,8 +3,10 @@
 @section('field')
     <div data-relation-ref-id="{{ $item->getRefId() }}"
          data-relation-id="{{ $item->relation['id'] }}"
-         data-url-site="{{ asset('/images') }}"
-         data-url-base="{{ route('bw.relationships.image.get', [$item->relation['id'], $item->getRefId()]) }}"
+         data-url-asset="{{ asset('/images') }}"
+         data-url-image="{{ route('bw.relationships.image.get') }}"
+         data-url-remove="{{ route('bw.relationships.image.remove') }}"
+         data-url-upload="{{ route('bw.relationships.image.upload') }}"
          class="field-image clearfix">
     </div>
 @overwrite

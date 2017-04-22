@@ -5,18 +5,19 @@ namespace BW\Util\Relationships\Image;
 use Input;
 use Image;
 use Validator;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use BW\Util\Relationships\Image\Models\Gallery as GalleryModel;
 
 class GalleryApiController extends BaseController
 {
     //
-    public function getImages($relation_id, $ref_id)
+    public function getImages(Request $request)
     {
         //
         $images = GalleryModel::where([
-            'relation_id' => $relation_id,
-            'ref_id' => $ref_id
+            'relation_id' => $request->get('relation_id'),
+            'ref_id' => $request->get('ref_id')
         ])
         ->orderBy('position', 'asc')
         ->get();
@@ -28,14 +29,16 @@ class GalleryApiController extends BaseController
     }
 
     //
-    public function postReorder($relation_id, $ref_id)
+    public function postReorder(Request $request)
     {
         //
         $positions = request('positions', []);
         $images = request('images', []);
 
-        //
-        $result = GalleryModel::whereIn('id', request('images', []))->get();
+        $result = GalleryModel::where([
+            'relation_id' => $request->get('relation_id'),
+            'ref_id' => $request->get('ref_id')
+        ])->whereIn('id', $request->get('images', []))->get();
 
         //
         foreach ($images as $k => $id) {
@@ -52,7 +55,7 @@ class GalleryApiController extends BaseController
 
 
     //
-    public function postUpload($relation_id, $ref_id)
+    public function postUpload(Request $request)
     {
         //
         $file = Input::file('imagem');
@@ -79,8 +82,8 @@ class GalleryApiController extends BaseController
         //
         $image = new GalleryModel();
         $image->position = request('position', 0);
-        $image->ref_id = $ref_id;
-        $image->relation_id = $relation_id;
+        $image->ref_id = $request->get('ref_id');
+        $image->relation_id = $request->get('relation_id');
         $image->type = last(explode('/', $img->mime()));
         $image->save();
 
@@ -97,13 +100,13 @@ class GalleryApiController extends BaseController
     }
 
     //
-    public function getRemove($relation_id, $ref_id, $id){
+    public function getRemove(Request $request){
 
         // find
         $image = GalleryModel::where([
-            'relation_id' => $relation_id,
-            'ref_id' => $ref_id,
-            'id' => $id,
+            'relation_id' => $request->get('relation_id'),
+            'ref_id' => $request->get('ref_id'),
+            'id' => $request->get('id'),
         ])->first();
 
         if($image){

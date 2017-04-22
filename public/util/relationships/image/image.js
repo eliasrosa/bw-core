@@ -4,17 +4,24 @@ $(function(){
 
         return this.each(function(index, el) {
 
-            var url_site = $(el).data('url-site');
-            var url_base = $(el).data('url-base');
-            var ref_id = $(el).data('relation-ref-id');
-            var data = {}
+            // urls
+            var url_asset = $(el).data('url-asset');
+            var url_image = $(el).data('url-image');
+            var url_remove = $(el).data('url-remove');
+            var url_upload = $(el).data('url-upload');
+
+            // 
+            var common_data = {
+                relation_id: $(el).data('relation-id'),
+                ref_id: $(el).data('relation-ref-id'),
+            }
 
             //
             var createEventUpload = function(){
 
                 $("input[type='file']", el).fileupload({
-                    url: url_base + '/upload',
-                    formData: {},
+                    url: url_upload,
+                    formData: common_data,
                     dataType: 'json',
                     replaceFileInput: false,
 
@@ -75,11 +82,11 @@ $(function(){
             var createHtml = function(){
 
                 var html = ' \
-                <div class="image" style="background: #FFF url(' + url_site + '/bw-small/' + data.filename + ') no-repeat center center"></div> \
+                <div class="image" style="background: #FFF url(' + url_asset + '/bw-small/' + data.filename + ') no-repeat center center"></div> \
                 <div class="options"> \
-                    <a href="' + url_site + '/download/' + data.filename + '" class="btn btn-success btn-xs"><span class="fa fa-download"></span> Download</a> \
-                    <a href="' + url_site + '/original/' + data.filename + '" class="btn btn-primary btn-xs" target="_blank"><span class="fa fa-image"></span> Exibir original</a> \
-                    <a href="' + url_base + '/remove" class="btn btn-danger btn-remove btn-xs"><span class="fa fa-trash-o"></span> Remover imagem</a> \
+                    <a href="' + url_asset + '/download/' + data.filename + '" class="btn btn-success btn-xs"><span class="fa fa-download"></span> Download</a> \
+                    <a href="' + url_asset + '/original/' + data.filename + '" class="btn btn-primary btn-xs" target="_blank"><span class="fa fa-image"></span> Exibir original</a> \
+                    <a href="' + url_remove + '" class="btn btn-danger btn-remove btn-xs"><span class="fa fa-trash-o"></span> Remover imagem</a> \
                     <input name="imagem" type="file" accept="image/jpeg, image/png, image/bmp"> \
                 </div>';
 
@@ -90,9 +97,7 @@ $(function(){
                 $('.btn-remove', el).on('click', function() {
                     if(confirm('Tem certeza que deseja remover esta imagem?')){
                         //
-                        var jqxhr = $.getJSON(url_base  + '/remove');
-
-                        //
+                        var jqxhr = $.getJSON(url_remove, common_data);
                         jqxhr.done(function(json) {
 
                             if(json.error){
@@ -115,10 +120,10 @@ $(function(){
             //
             var getImage = function(){
 
-                if(ref_id){
+                if(common_data.ref_id){
 
                     //
-                    var jqxhr = $.getJSON(url_base);
+                    var jqxhr = $.getJSON(url_image, common_data);
 
                     //
                     jqxhr.done(function(json) {

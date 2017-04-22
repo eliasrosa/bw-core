@@ -2,8 +2,11 @@
     <div class="form-group @if ($errors->has($item->name)) has-error @endif">
         <div data-relation-ref-id="{{ $item->getRefId() }}"
              data-relation-id="{{ $item->relation['id'] }}"
-             data-url-site="{{ asset('/images') }}"
-             data-url-base="{{ route('bw.relationships.image.gallery.get', [$item->relation['id'], $item->getRefId()]) }}"
+             data-url-images="{{ asset('/images') }}"
+             data-url-gallery="{{ route('bw.relationships.image.gallery') }}"
+             data-url-remove="{{ route('bw.relationships.image.gallery.remove') }}"
+             data-url-reorder="{{ route('bw.relationships.image.gallery.reorder') }}"
+             data-url-upload="{{ route('bw.relationships.image.gallery.upload') }}"
              class="field-gallery clearfix">
 
             <span class="btn btn-success btn-open-gallery-images">Abrir {{ $item->label }}</span>

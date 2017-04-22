@@ -2,17 +2,17 @@
 //
 // Image
 //
-Route::get('image/{relation_id}/{ref_id}', [
+Route::get('image', [
     'uses' => 'BW\Util\Relationships\Image\ImageApiController@getImage',
     'as' => 'bw.relationships.image.get',
 ]);
 
-Route::get('image/{relation_id}/{ref_id}/remove', [
+Route::get('image/remove', [
     'uses' => 'BW\Util\Relationships\Image\ImageApiController@getRemove',
-    'as' => 'bw.relationships.image.destroy',
+    'as' => 'bw.relationships.image.remove',
 ]);
 
-Route::post('image/{relation_id}/{ref_id}/upload', [
+Route::post('image/upload', [
     'uses' => 'BW\Util\Relationships\Image\ImageApiController@postUpload',
     'as' => 'bw.relationships.image.upload',
 ]);

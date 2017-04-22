@@ -1,12 +1,5 @@
 $(function() {
 
-    // ajax setup
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
     // sidebar levels
     $('#sidebar-wrapper .sidebar-nav').metisMenu();
 
