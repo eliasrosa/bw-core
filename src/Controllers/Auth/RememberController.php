@@ -2,6 +2,7 @@
 
 namespace BW\Controllers\Auth;
 
+use Mail;
 use Eliasrosa\SafeValue;
 use BW\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class RememberController extends BaseController
         $email = $request->input('email');
 
         //
-        $usuario = Usuario::where('email', $email)
+        $usuario = User::where('email', $email)
             ->where('status', 1)
             ->first();
 
@@ -38,7 +39,7 @@ class RememberController extends BaseController
             ];
 
             //
-            \Mail::send(config('bw.views.login.email'), $dados, function ($mail) use($email)  {
+            Mail::send(config('bw.views.login.email'), $dados, function ($mail) use($email)  {
                 $mail->to($email);
                 $mail->subject(config('auth.email.remember.subject'));
             });
