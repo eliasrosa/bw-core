@@ -27,6 +27,18 @@ class Image extends Model
     }
 
     //
+    public static function boot () {
+        parent::boot();
+        
+        // delete file
+        self::deleting(function ($value) {
+            if(file_exists($value->getPath())){
+                unlink($value->getPath());
+            }
+        });
+    }
+
+    //
     public function getPath()
     {
         return storage_path('app/' . config('bw.images.storage')) . '/' . $this->filename;

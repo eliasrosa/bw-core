@@ -119,11 +119,6 @@ class ImageApiController extends BaseController
 
         if($image){
 
-            // delete file
-            if(file_exists($image->getPath())){
-               unlink($image->getPath());
-            }
-
             // delete record
             $image->delete();
 

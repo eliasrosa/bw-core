@@ -36,4 +36,15 @@ abstract class GalleryRelationship extends RelationshipBase
         ])->setWidth($width)
           ->setRelation($relation);
     }
+
+    static function detach($model, $relation = [])
+    {
+        //
+        if($model->{$relation['name']}){
+            foreach ($model->{$relation['name']} as $i) {
+                $i->delete();
+            };
+        }
+    }
+
 }

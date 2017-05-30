@@ -72,6 +72,10 @@ abstract class ImageRelationship extends RelationshipBase
     //
     static function detach($model, $relation = [])
     {
-
+        //
+        if($model->{$relation['name']}){
+            $model->{$relation['name']}->delete();
+        }
     }
+
 }
