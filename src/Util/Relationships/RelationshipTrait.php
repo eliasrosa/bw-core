@@ -11,7 +11,7 @@ trait RelationshipTrait
     use ListingModelTrait;
 
     //
-    public function __get($key)
+    public function __getRelationshipTrait($key)
     {
         $relation = $this->getRelationFromName($key);
 
@@ -25,18 +25,18 @@ trait RelationshipTrait
             return $this->relations[$key] = $relationship->getResults();
         }
 
-        return parent::__get($key);
+        return self::$MAGIC_METHOD_NO_RETURN;
     }
 
     //
-    public function __call($method, $parameters)
+    public function __callRelationshipTrait($method, $parameters)
     {
         $relation = $this->getRelationFromName($method);
         if(!is_null($relation)){
             return $relation['type']::getRelationship($this, $relation);
         }
 
-        return parent::__call($method, $parameters);
+        return self::$MAGIC_METHOD_NO_RETURN;
     }
 
     //
