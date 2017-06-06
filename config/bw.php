@@ -44,6 +44,7 @@ return [
         'Password' => BW\Util\Form\Itens\Fields\Password::class,
         'Checkbox' => BW\Util\Form\Itens\Fields\Checkbox::class,
         'TextArea' => BW\Util\Form\Itens\Fields\TextArea::class,
+        'TextAreaEditor' => BW\Util\Form\Itens\Fields\TextAreaEditor::class,
         'CheckboxActive' => BW\Util\Form\Itens\Fields\CheckboxActive::class,
 
         // Mask
