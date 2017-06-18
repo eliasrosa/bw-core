@@ -31,14 +31,23 @@ class TextAreaEditor extends Field
         Html::addJS(asset($path . '/util/form/textarea-editor.js'));
     }
 
-
+    //
     public function getEditorType()
     {
         if(isset($this->model)){
-            return $this->model->getParametersTextarea($this->name)['type'];
+            return $this->model->getParametersTextAreaEditorTrait($this->name)['type'];
         }
 
         return 'simple-text';
+    }
+
+    public function getEditorSource()
+    {
+        if(isset($this->model)){
+            return $this->model->getSourceTextAreaEditorTrait($this->name);
+        }
+
+        return null;
     }
 
 }

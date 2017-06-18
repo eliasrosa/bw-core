@@ -3,6 +3,7 @@
 namespace BW\Util\Form\Itens\Fields;
 
 use Exception;
+use cebe\markdown\GithubMarkdown as Markdown;
 
 trait TextAreaEditorTrait
 {
@@ -13,7 +14,7 @@ trait TextAreaEditorTrait
 	];
 
 	//
-	private function isKeyTextarea($key){
+	private function isKeyTextAreaEditorTrait($key){
 		if(in_array($key, static::$textarea)){
 			return true;
 		}
@@ -22,20 +23,50 @@ trait TextAreaEditorTrait
 	}
 
 	//
-	public function setParametersTextarea($key, $value)
+	public function setParametersTextAreaEditorTrait($key, $value)
 	{
 		$this->textarea_parameters[$key] = $value;
 	}
 
+    //
+    public function getSourceTextAreaEditorTrait($key)
+    {
+        if($this->isKeyTextAreaEditorTrait($key)){
+            $regex  = '/^---int-textarea-parameters---\r\n';
+            $regex .= '(.*)\r\n';
+            $regex .= '---end-textarea-parameters---\r\n(.*)$/s';
+
+            //
+            preg_match($regex, $this->getAttribute($key), $matches, PREG_OFFSET_CAPTURE, 0);
+            if(count($matches) == 3){
+
+                // set parameters
+                parse_str($matches[1][0], $parameters);
+                $this->setParametersTextAreaEditorTrait($key, 
+                    array_merge(static::$textarea_parameters_default, $parameters)
+                );
+
+                // get source
+                return $matches[2][0];
+            }
+            
+            //
+            $this->setParametersTextAreaEditorTrait($key, static::$textarea_parameters_default); 
+        }
+
+        //
+        return null;
+    }
+
 	//
-	public function getParametersTextarea($key)
+	public function getParametersTextAreaEditorTrait($key)
 	{
-		if($this->isKeyTextarea($key)){
+		if($this->isKeyTextAreaEditorTrait($key)){
 			if(array_key_exists($key, $this->textarea_parameters)){
 				return $this->textarea_parameters[$key];
 			}else{
-				$this->__getTextAreaTrait($key);
-				$this->getParametersTextarea($key);
+				$this->__getTextAreaEditorTrait($key);
+				$this->getParametersTextAreaEditorTrait($key);
 			}
 
 			return static::$textarea_parameters_default;
@@ -47,27 +78,22 @@ trait TextAreaEditorTrait
     // register magic method __get
     public function __getTextAreaEditorTrait($key)
     {
-    	if($this->isKeyTextarea($key)){
-    		$regex  = '/^---int-textarea-parameters---\r\n';
-    		$regex .= '(.*)\r\n';
-    		$regex .= '---end-textarea-parameters---\r\n(.*)$/s';
+    	if($this->isKeyTextAreaEditorTrait($key)){
+            $source = $this->getSourceTextAreaEditorTrait($key);
+            $params = $this->getParametersTextAreaEditorTrait($key);
 
-    		//
-    		preg_match($regex, $this->getAttribute($key), $matches, PREG_OFFSET_CAPTURE, 0);
-    		if(count($matches) == 3){
+            // make markdown
+            if($params['type'] == 'markdown'){
+                $parser = new Markdown();
+                $parser->html5 = true;
+                $parser->enableNewlines = true;
+                
+                //
+                return $parser->parse($source);
+            }
 
-    			//
-    			parse_str($matches[1][0], $parameters);
-    			$this->setParametersTextarea($key, 
-    				array_merge(static::$textarea_parameters_default, $parameters)
-    			);
-
-    			//
-    			return $matches[2][0];
-    		}
-    		
-    		//
-    		$this->setParametersTextarea($key, static::$textarea_parameters_default); 
+            //
+            return $source;
     	}
          
         //   
