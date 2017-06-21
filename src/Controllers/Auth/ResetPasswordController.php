@@ -14,7 +14,7 @@ class ResetPasswordController extends BaseController
 
     public function getReset($token = false)
     {
-        if(!$token || !$this->getUsuarioByToken($token)){
+        if(!$token || !$this->getUserByToken($token)){
             $token = false;
         }
 
@@ -25,9 +25,9 @@ class ResetPasswordController extends BaseController
     public function postReset(Request $request)
     {
         //
-        $usuario = $this->getUsuarioByToken($request->input('token'));
+        $user = $this->getUserByToken($request->input('token'));
 
-        if(!$usuario){
+        if(!$user){
             return $this->getReset($request->input('token'));
         }
 
@@ -37,7 +37,7 @@ class ResetPasswordController extends BaseController
         ]);
 
         //
-        $this->resetPassword($usuario, $request->input('password'));
+        $this->resetPassword($user, $request->input('password'));
 
         //
         return redirect()->route('bw.login.index')
@@ -47,15 +47,15 @@ class ResetPasswordController extends BaseController
         ]);
     }
 
-    protected function getUsuarioByToken($token){
+    protected function getUserByToken($token){
         $safevalue = new SafeValue();
         $safevalue->setCustomKey(env('APP_KEY', null));
         $safevalue->setTimeExpire(config('auth.email.remember.expire'));
-        $usuario_id = $safevalue->decode($token);
+        $user_id = $safevalue->decode($token);
 
-        if($usuario_id){
+        if($user_id){
 
-            return Usuario::where('id', $usuario_id)
+            return User::where('id', $user_id)
                 ->where('status', 1)
                 ->first();
         }

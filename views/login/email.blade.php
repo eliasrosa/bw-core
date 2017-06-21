@@ -1,6 +1,6 @@
 <h2>Pedido de nova senha</h2>
 
-<p>Olá {{ $nome }}, <br />
+<p>Olá {{ $name }}, <br />
 <br />
 recebemos o pedido para a criação de uma nova senha para o email: {{ $email }} <br />
 Para isso, clique no link abaixo. Ele vai abrir uma página para a criação da nova senha.<br /><br />

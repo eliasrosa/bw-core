@@ -22,20 +22,20 @@ class RememberController extends BaseController
         $email = $request->input('email');
 
         //
-        $usuario = User::where('email', $email)
+        $user = User::where('email', $email)
             ->where('status', 1)
             ->first();
 
-        if($usuario){
+        if($user){
 
             $token = new SafeValue();
             $token->setCustomKey(env('APP_KEY', null));
             $token->setTimeExpire(config('auth.email.remember.expire'));
 
             $dados = [
-                'nome' => $usuario->nome,
-                'email' => $usuario->email,
-                'url' => route('bw.login.reset', ['token' => $token->encode($usuario->id)])
+                'name' => $user->name,
+                'email' => $user->email,
+                'url' => route('bw.login.reset', ['token' => $token->encode($user->id)])
             ];
 
             //
