@@ -55,7 +55,7 @@ trait TextAreaEditorTrait
         }
 
         //
-        return null;
+        return $this->getAttribute($key);
     }
 
 	//
